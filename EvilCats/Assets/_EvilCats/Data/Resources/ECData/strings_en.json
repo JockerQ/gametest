@@ -280,6 +280,7 @@
  "announce.finale": "Finale! The Order sends its champions.",
  "announce.new": "New enemy: {name}",
  "announce.elite": "Elite incoming: {name}",
+ "ui.elite_name": "Elite {name}",
  "announce.boss": "Boss approaching: {name}",
  "announce.wave": "Wave {n}",
  "announce.wave_of": "Wave {n}/{total}",

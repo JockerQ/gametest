@@ -21,7 +21,7 @@ Tick each item. Anything marked **(you)** needs your accounts, money or legal de
 ## B. Identity (you)
 - [ ] Final **app name** (Google Play title: 30 characters maximum). Check trademarks for "Evil Cats" in your markets.
 - [ ] **Application id** you own, such as `com.yourname.evilcats`. Set it in Project Settings → Player → Android → Package Name. **It can never change after publishing.** The build script refuses to make a release with the placeholder `com.evilcats.arclightcat`.
-- [ ] Company name, version name (`GameApp.Version` and PlayerSettings) and version code (increase by 1 for every upload).
+- [ ] Company name, version name (Project Settings → Player → Version; the game shows this) and version code (increase by 1 for every upload). The setup script fills in 0.9.0 only on a new project and never changes your version afterwards.
 
 ## C. Signing (you)
 - [ ] Create an **upload keystore**: Unity → Project Settings → Player → Android → Publishing Settings → Keystore Manager, or `keytool`. Pick strong passwords.
@@ -30,10 +30,10 @@ Tick each item. Anything marked **(you)** needs your accounts, money or legal de
 - [ ] Build the release bundle with the environment variables `EC_ANDROID_KEYSTORE`, `EC_ANDROID_KEYSTORE_PASS`, `EC_ANDROID_KEY_ALIAS` and `EC_ANDROID_KEY_PASS`, then run `Evil Cats → Build → Android App Bundle`. Never commit the keystore or the passwords; `.gitignore` excludes `*.keystore` and `*.jks`.
 
 ## D. Technical requirements
-- [ ] **Target API level** meets Google Play's current requirement. Unity's "Automatic (highest installed)" setting is used; make sure the installed Android SDK is recent enough.
-- [ ] 64-bit (ARM64, IL2CPP) is already set by the setup script. Minimum Android 7.0 (API 24).
+- [ ] **Target API level** meets Google Play's current requirement. Unity's default, "Automatic (highest installed)", is fine if the installed Android SDK is recent enough. The setup script does not change this setting.
+- [ ] 64-bit (ARM64, IL2CPP) is added by the setup script; any other architecture you tick is kept. Minimum Android 7.0 (API 24).
 - [ ] App size is well under Google Play's limits. Check the `.aab` size in `Builds/Android/last-build-report.txt`.
-- [ ] Permissions: the game needs **no internet permission** (disabled). Vibration is the only extra permission.
+- [ ] Permissions: the game has no network code and needs **no internet permission**. Leave Player → Internet Access on "Auto" (Unity's default); development builds add the permission for the profiler, so check the release bundle's merged manifest. Vibration is the only extra permission.
 - [ ] Android vitals after internal testing: crash rate and ANR rate below Google's bad-behaviour thresholds.
 
 ## E. Google Play Console (you)

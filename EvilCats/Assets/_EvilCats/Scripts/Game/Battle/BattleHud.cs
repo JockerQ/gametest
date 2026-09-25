@@ -53,7 +53,8 @@ namespace EvilCats.Game
         private readonly Queue<(string text, Color color, float time, bool big)> _banners = new Queue<(string, Color, float, bool)>();
         private float _bannerT, _bannerDur;
         private TextMeshProUGUI _hintText, _barkText, _aimText;
-        private readonly Queue<string> _hints = new Queue<string>();
+        private readonly List<string> _hints = new List<string>();   // waiting to be shown, first = next
+        private string _hintKey;                                     // the one on screen
         private float _hintT, _barkT;
 
         // cached values (avoid rebuilding text every frame)
@@ -340,6 +341,7 @@ namespace EvilCats.Game
         private void BuildHint()
         {
             var panel = UI.Panel(_root, "ui/panel", "Hint");
+            panel.raycastTarget = false;   // only the Continue button takes taps; the battlefield stays usable
             _hint = panel.rectTransform;
             UI.Place(_hint, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 178f), new Vector2(340f, 74f));
             var icon = UI.Icon(_hint, "icon/info", 24f, Theme.Cyan);
@@ -358,6 +360,7 @@ namespace EvilCats.Game
         private void BuildAimBar()
         {
             var panel = UI.Panel(_root, "ui/tooltip", "AimBar");
+            panel.raycastTarget = false;   // enemies under the bar can still be targeted; Cancel still works
             _aimBar = panel.rectTransform;
             UI.Place(_aimBar, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 178f), new Vector2(340f, 56f));
             _aimText = UI.Text(_aimBar, L.T("ability.aim"), Theme.FontSmall, Theme.Cyan, TextAlignmentOptions.Left, false, "Text");
@@ -420,29 +423,32 @@ namespace EvilCats.Game
             _flashT = Mathf.Max(_flashT, Mathf.Clamp01(strength));
         }
 
-        /// <summary>Shows a tutorial hint once per profile.</summary>
+        /// <summary>
+        /// Queues a tutorial hint that has not been seen on this profile yet. It counts as seen
+        /// only once it is actually on screen (RefreshHint), so a battle that ends first, or a
+        /// modal that covers it, never uses it up.
+        /// </summary>
         public void ShowHint(string key)
         {
             var app = GameApp.I;
             if (app == null || app.Meta == null) return;
-            var shown = app.Meta.Data.tutorial.hintsShown;
-            if (shown.Contains(key)) return;
-            shown.Add(key);
-            if (!_hints.Contains(key)) _hints.Enqueue(key);
+            if (app.Meta.Data.tutorial.hintsShown.Contains(key) || _hints.Contains(key) || _hintKey == key) return;
+            _hints.Add(key);
         }
 
+        /// <summary>The player tapped something to ask what it is: show this next, even if seen before.</summary>
         private void ShowHintNow(string key)
         {
-            _hints.Clear();
-            _hints.Enqueue(key);
-            _hintT = 0f;
-            _hint.gameObject.SetActive(false);
+            _hints.Remove(key);
+            _hints.Insert(0, key);
+            if (_hint.gameObject.activeSelf) HideHint();
         }
 
         private void HideHint()
         {
             _hint.gameObject.SetActive(false);
             _hintT = 0f;
+            _hintKey = null;
         }
 
         public void Bark(string text)
@@ -457,7 +463,17 @@ namespace EvilCats.Game
         public void SetAiming(bool aiming)
         {
             _aimBar.gameObject.SetActive(aiming);
-            if (aiming) HideTooltip();
+            if (!aiming) return;
+            HideTooltip();
+            // The hint sits where the aim bar goes. Put it back at the front of the queue so it
+            // returns once aiming ends, and keep the aim bar on top.
+            if (_hint.gameObject.activeSelf)
+            {
+                string key = _hintKey;
+                HideHint();
+                if (key != null) _hints.Insert(0, key);
+            }
+            _aimBar.SetAsLastSibling();
         }
 
         public void SetAimInfo(int targets, bool valid)
@@ -771,14 +787,23 @@ namespace EvilCats.Game
 
         private void RefreshHint(float dt)
         {
+            // A modal (perk choice, pause, boss intro) covers the HUD: wait, and do not let an
+            // uncovered hint time out behind it.
+            bool covered = _ctl.Aiming || (_ctl.Modals != null && _ctl.Modals.IsOpen);
             if (_hint.gameObject.activeSelf)
             {
+                if (covered) return;
                 _hintT += dt;
                 if (_hintT > 9f) HideHint();
                 return;
             }
-            if (_hints.Count == 0 || _ctl.Aiming || _tooltip.gameObject.activeSelf) return;
-            _hintText.text = L.T(_hints.Dequeue());
+            if (_hints.Count == 0 || covered || _tooltip.gameObject.activeSelf) return;
+            _hintKey = _hints[0];
+            _hints.RemoveAt(0);
+            var app = GameApp.I;
+            if (app != null && app.Meta != null && !app.Meta.Data.tutorial.hintsShown.Contains(_hintKey))
+                app.Meta.Data.tutorial.hintsShown.Add(_hintKey);
+            _hintText.text = L.T(_hintKey);
             _hintT = 0f;
             _hint.gameObject.SetActive(true);
             _hint.SetAsLastSibling();
@@ -856,7 +881,7 @@ namespace EvilCats.Game
             string name = best.isBoss ? L.T("boss." + id + ".name") : L.T("enemy." + id + ".name");
             string desc = best.isBoss ? L.T("boss." + id + ".hint") : L.T("enemy." + id + ".desc");
             string hp = Mathf.CeilToInt(best.hp) + " / " + Mathf.CeilToInt(best.maxHp);
-            ShowTooltip(name + (best.elite ? "  ★" : ""), L.T("ui.hp") + ": " + hp + "\n" + desc);
+            ShowTooltip(best.elite ? L.F("ui.elite_name", ("name", name)) : name, L.T("ui.hp") + ": " + hp + "\n" + desc);
         }
 
         public bool Back()

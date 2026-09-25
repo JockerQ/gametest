@@ -39,6 +39,7 @@ namespace EvilCats.Game
         private readonly List<Flyer> _flyers = new List<Flyer>(MaxFlyers);
         private readonly List<Telegraph> _telegraphs = new List<Telegraph>(16);
         private readonly Dictionary<int, Fx> _wells = new Dictionary<int, Fx>();
+        private readonly Dictionary<int, Fx> _rings = new Dictionary<int, Fx>();   // by followed enemy uid
         private Fx _reticle;
         private static Material _numberMaterial;
 
@@ -180,6 +181,7 @@ namespace EvilCats.Game
         {
             if (!fx.alive) return;
             fx.alive = false;
+            if (fx.followUid > 0 && _rings.TryGetValue(fx.followUid, out var ring) && ring == fx) _rings.Remove(fx.followUid);
             fx.anim.transform.localRotation = Quaternion.identity;
             fx.anim.UseUnscaledTime = false;
             fx.sr.color = Color.white;
@@ -461,11 +463,15 @@ namespace EvilCats.Game
             return sprite;
         }
 
-        /// <summary>Ring that follows an enemy (volley windup, shield stance, powder fuse, heal cast).</summary>
+        /// <summary>
+        /// Ring that follows an enemy (volley windup, shield stance, powder fuse, heal cast). One
+        /// ring per enemy: a new one replaces the old, and EndRing removes it early (interrupted).
+        /// </summary>
         public void Ring(int followUid, Vector2 pos, float radius, Color color, float seconds, bool accelerate = false)
         {
             var s = _sp.TryGet("fx/telegraph_circle");
             if (s == null) return;
+            if (followUid > 0) EndRing(followUid, 0f);
             var fx = Get(WorldKit.TelegraphOrder + 2);
             fx.anim.enabled = false;
             fx.sr.sprite = s;
@@ -479,6 +485,17 @@ namespace EvilCats.Game
             fx.blink = 2.2f;
             fx.blinkAccelerate = accelerate;
             Apply(fx);
+            if (followUid > 0) _rings[followUid] = fx;
+        }
+
+        /// <summary>Fades out the ring following this enemy (e.g. its powder fuse was interrupted).</summary>
+        public void EndRing(int followUid, float fade = 0.15f)
+        {
+            if (!_rings.TryGetValue(followUid, out var fx)) return;
+            _rings.Remove(followUid);
+            if (!fx.alive) return;
+            if (fade <= 0f) Release(fx);
+            else fx.life = Mathf.Min(fx.life, fx.age + fade);
         }
 
         private Telegraph NewTelegraph(string name, float seconds)
@@ -666,6 +683,7 @@ namespace EvilCats.Game
             foreach (var f in _flyers) _pool.Release(f.anim);
             _flyers.Clear();
             _wells.Clear();
+            _rings.Clear();
             _reticle = null;
             ClearTelegraphs();
         }

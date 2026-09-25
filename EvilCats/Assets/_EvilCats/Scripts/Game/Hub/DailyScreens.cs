@@ -50,10 +50,11 @@ namespace EvilCats.Game
                 var day = UI.Text(tile.transform, L.F("ui.daily.day", ("n", i + 1)), 8f, Theme.TextDim, TextAlignmentOptions.Top, true);
                 UI.Stretch(day.rectTransform, 1, 3, 1, 3);
                 var r = rewards[i];
-                var ic = UI.Icon(tile.transform, r.stormShards > 0 ? "icon/storm_shard" : "icon/moon_gold", 20f);
+                // Claimed days show a check icon (the pixel font has no check-mark glyph).
+                var ic = UI.Icon(tile.transform, claimed ? "icon/check" : r.stormShards > 0 ? "icon/storm_shard" : "icon/moon_gold", 20f, claimed ? Theme.Green : (Color?)null);
                 UI.Place(ic.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 2f), new Vector2(20f, 20f));
                 string amount = r.stormShards > 0 ? r.moonGold + "+" + r.stormShards : r.moonGold.ToString();
-                var a = UI.Text(tile.transform, claimed ? "✓" : amount, 9f, claimed ? Theme.Green : Theme.Text, TextAlignmentOptions.Bottom, true);
+                var a = UI.Text(tile.transform, amount, 9f, claimed ? Theme.TextMuted : Theme.Text, TextAlignmentOptions.Bottom, true);
                 UI.Stretch(a.rectTransform, 1, 3, 1, 4);
             }
             if (clockBack) HubKit.Wrap(card, L.T("ui.daily.clock_warning"), Theme.FontTiny, Theme.Red);

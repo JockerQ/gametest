@@ -145,11 +145,15 @@ namespace EvilCats.Sim
             // Replays: a slot that is already unlocked does not trigger the event again.
             if (UnlockedSlots.Contains(su.slot)) return;
             UnlockedSlots.Add(su.slot);
-            Emit(SimEventType.SlotUnlocked, id: su.slot, id2: su.grantModule);
-            if (Loadout.TryGetValue(su.slot, out var existing) && !string.IsNullOrEmpty(existing)) return;
-            if (!string.IsNullOrEmpty(su.grantModule))
+            bool filled = Loadout.TryGetValue(su.slot, out var existing) && !string.IsNullOrEmpty(existing);
+            // A granted module that is already equipped in another slot is never duplicated: the
+            // player chooses a module for the new slot instead.
+            string grant = !filled && !string.IsNullOrEmpty(su.grantModule) && !Loadout.ContainsValue(su.grantModule) ? su.grantModule : null;
+            Emit(SimEventType.SlotUnlocked, id: su.slot, id2: grant);
+            if (filled) return;
+            if (grant != null)
             {
-                EquipModule(su.slot, su.grantModule);
+                EquipModule(su.slot, grant);
                 return;
             }
             ModuleChoices.Clear();

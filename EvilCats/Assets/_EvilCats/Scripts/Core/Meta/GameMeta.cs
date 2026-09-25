@@ -295,6 +295,7 @@ namespace EvilCats.Meta
                 priority = Data.defaultPriority,
                 heroSkin = Data.heroSkin,
                 dailyBoss = cfg.boss,
+                dailyDate = cfg.dateUtc,
             };
             foreach (var kv in cfg.loadout) { s.loadout[kv.Key] = kv.Value; s.unlockedSlots.Add(kv.Key); }
             s.extraModifiers.AddRange(cfg.modifiers);
@@ -444,17 +445,24 @@ namespace EvilCats.Meta
 
         private void ApplyDaily(RunResult r, RewardSummary sum, DateTime utcNow)
         {
-            string date = utcNow.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            // A run counts for the day whose challenge it played, even when it was resumed and
+            // finished after midnight UTC.
+            string date = !string.IsNullOrEmpty(r.dailyDate) ? r.dailyDate : utcNow.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
             var d = Data.daily;
-            if (d.challengeDate != date)
+            // The record table keeps only the latest challenge day: an older day's run never resets it.
+            bool olderDay = !string.IsNullOrEmpty(d.challengeDate) && string.CompareOrdinal(date, d.challengeDate) < 0;
+            if (!olderDay)
             {
-                d.challengeDate = date;
-                d.challengeBestScore = 0;
-                d.challengeBestWave = 0;
-                d.challengeAttempts = 0;
+                if (d.challengeDate != date)
+                {
+                    d.challengeDate = date;
+                    d.challengeBestScore = 0;
+                    d.challengeBestWave = 0;
+                    d.challengeAttempts = 0;
+                }
+                d.challengeAttempts++;
+                if (r.score > d.challengeBestScore) { d.challengeBestScore = r.score; d.challengeBestWave = r.wavesCleared; sum.newRecord = true; }
             }
-            d.challengeAttempts++;
-            if (r.score > d.challengeBestScore) { d.challengeBestScore = r.score; d.challengeBestWave = r.wavesCleared; sum.newRecord = true; }
             // Moon Gold only for the first finished attempt of the day, scaled by progress.
             if (TryClaim("dailychallenge:" + date))
             {

@@ -49,7 +49,7 @@ namespace EvilCats.EditorTools
         {
             var log = new StringBuilder();
             // 1) the project must be set up and the content must be valid before anything is built
-            if (!ProjectSetup.Run(false))
+            if (!ProjectSetup.Run(false, interactive))   // from the menu: offer to save the open scene first
                 return Fail("Project setup reported problems; see the Console.", interactive);
             if (ProjectSetup.LastRunPending)
                 return Fail("Setup is still importing TextMeshPro resources. Wait for it to finish, then build again.", interactive);
@@ -87,7 +87,7 @@ namespace EvilCats.EditorTools
 
             EditorUserBuildSettings.buildAppBundle = release;
             Directory.CreateDirectory(OutputDir);
-            string file = "EvilCats-" + GameApp.Version + "-" + PlayerSettings.Android.bundleVersionCode + (release ? "-release.aab" : "-dev.apk");
+            string file = "EvilCats-" + PlayerSettings.bundleVersion + "-" + PlayerSettings.Android.bundleVersionCode + (release ? "-release.aab" : "-dev.apk");
             var scenes = new List<string>();
             foreach (var s in EditorBuildSettings.scenes) if (s.enabled) scenes.Add(s.path);
             var options = new BuildPlayerOptions

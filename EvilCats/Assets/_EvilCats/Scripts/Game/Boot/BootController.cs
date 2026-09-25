@@ -263,6 +263,10 @@ namespace EvilCats.Game
             cam.backgroundColor = bg;
             cam.nearClipPlane = 0.1f;
             cam.farClipPlane = 50f;
+            // GameApp carries the only AudioListener; a second one (e.g. on a hand-made camera)
+            // would make Unity warn every frame.
+            if (cam.TryGetComponent(out AudioListener extra) && GameApp.I != null && extra.gameObject != GameApp.I.gameObject)
+                extra.enabled = false;
             return cam;
         }
     }

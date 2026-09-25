@@ -36,7 +36,8 @@ namespace EvilCats.Game
         /// <summary>Hub screen to open after returning from a battle (e.g. "upgrades").</summary>
         public string HubStartScreen;
 
-        public const string Version = "0.9.0";
+        /// <summary>The version name from Player Settings (Version), as built into the app.</summary>
+        public static string Version => Application.version;
 
         /// <summary>Tests only: store saves in this folder instead of Application.persistentDataPath.</summary>
         public static string SaveDirectoryOverride;
@@ -67,6 +68,9 @@ namespace EvilCats.Game
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             Screen.orientation = ScreenOrientation.Portrait;
             if (GetComponent<BackButton>() == null) gameObject.AddComponent<BackButton>();
+            // The one AudioListener lives here, so sound works in every scene. Scene cameras are
+            // created without one (CameraUtil.EnsureCamera), and any stray listener is disabled.
+            if (GetComponent<AudioListener>() == null) gameObject.AddComponent<AudioListener>();
         }
 
         // ------------------------------------------------------------------------------
@@ -216,6 +220,8 @@ namespace EvilCats.Game
             Meta.ReplaceData(fresh);
             Meta.EnsureDaily(LocalNow);
             Meta.Save(UtcNow);
+            // The boot screen must not repeat an old "save recovered" notice for the new profile.
+            SaveLoad = new LoadResult { data = fresh, outcome = LoadOutcome.NewProfile };
             LastOutcome = null;
             HubStartScreen = null;
             GoTo(BootScene);

@@ -77,8 +77,13 @@ namespace UnityEditor
         public bool loadInBackground { get; set; }
     }
 
+    [Flags] public enum ImportAssetOptions { Default = 0, ForceUpdate = 1 << 0, ForceSynchronousImport = 1 << 3, ImportRecursive = 1 << 8, DontDownloadFromCacheServer = 1 << 13, ForceUncompressedImport = 1 << 14 }
+
     public static class AssetDatabase
     {
+        public static void Refresh() { }
+        public static void Refresh(ImportAssetOptions options) { }
+        public static string GetAssetPath(Object assetObject) => null;
         public delegate void ImportPackageCallback(string packageName);
         public static event ImportPackageCallback importPackageCompleted;
         public static string[] FindAssets(string filter) => null;
@@ -153,6 +158,7 @@ namespace UnityEditor
         public static void SetScriptingBackend(Build.NamedBuildTarget buildTarget, ScriptingImplementation backend) { }
         public static void SetIcons(Build.NamedBuildTarget buildTarget, Texture2D[] icons, IconKind kind) { }
         public static int[] GetIconSizes(Build.NamedBuildTarget buildTarget, IconKind kind) => null;
+        public static Texture2D[] GetIcons(Build.NamedBuildTarget buildTarget, IconKind kind) => null;
         public static PlatformIcon[] GetPlatformIcons(Build.NamedBuildTarget buildTarget, PlatformIconKind kind) => null;
         public static void SetPlatformIcons(Build.NamedBuildTarget buildTarget, PlatformIconKind kind, PlatformIcon[] icons) { }
 

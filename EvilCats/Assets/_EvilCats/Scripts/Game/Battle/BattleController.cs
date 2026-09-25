@@ -125,9 +125,7 @@ namespace EvilCats.Game
             }
             View.Units.Alpha = Battle.Dt > 0f ? _acc / Battle.Dt : 1f;
 
-            _events.Clear();
-            Battle.DrainEvents(_events);
-            for (int i = 0; i < _events.Count; i++) Handle(_events[i]);
+            FlushEvents();
 
             if (Battle.CheckpointPending) SaveCheckpoint();
             HandlePhase();
@@ -140,6 +138,26 @@ namespace EvilCats.Game
             }
         }
 
+        /// <summary>
+        /// Presents every simulation event raised so far. Player commands (Arc Storm, Ward,
+        /// upgrades, choices) call this right away: they change the battle outside a tick, and the
+        /// unit views must see e.g. an Arc Storm kill as a death, not as an enemy that vanished.
+        /// </summary>
+        private void FlushEvents()
+        {
+            if (_handlingEvents || Battle == null) return;
+            _handlingEvents = true;
+            try
+            {
+                _events.Clear();
+                Battle.DrainEvents(_events);
+                for (int i = 0; i < _events.Count; i++) Handle(_events[i]);
+            }
+            finally { _handlingEvents = false; }
+        }
+
+        private bool _handlingEvents;
+
         private void HandlePhase()
         {
             if (Aiming && Battle.Phase != BattlePhase.Running) EndAim(false);
@@ -149,16 +167,16 @@ namespace EvilCats.Game
                     if (!Modals.IsShowing("perk"))
                     {
                         Hud.ShowHint("tutorial.perk");
-                        Modals.ShowPerkChoice(Battle, i => Battle.ChoosePerk(i));
+                        Modals.ShowPerkChoice(Battle, i => { Battle.ChoosePerk(i); FlushEvents(); });
                     }
                     break;
                 case BattlePhase.AwaitingModuleChoice:
                     if (!Modals.IsShowing("module"))
-                        Modals.ShowModuleChoice(Battle, id => Battle.ChooseModuleForSlot(id));
+                        Modals.ShowModuleChoice(Battle, id => { Battle.ChooseModuleForSlot(id); FlushEvents(); });
                     break;
                 case BattlePhase.AwaitingRevive:
                     if (!Modals.IsShowing("revive"))
-                        Modals.ShowRevive(Battle, _app.Services.Ads, () => Battle.Revive(), () => Battle.DeclineRevive());
+                        Modals.ShowRevive(Battle, _app.Services.Ads, () => { Battle.Revive(); FlushEvents(); }, () => Battle.DeclineRevive());
                     break;
                 case BattlePhase.Victory:
                 case BattlePhase.Defeat:
@@ -184,17 +202,30 @@ namespace EvilCats.Game
         // =========================================================================================
         // Player commands (from the HUD)
         // =========================================================================================
+        /// <summary>Tests turn this off, so a test battle keeps running when the Editor window loses focus.</summary>
+        public bool AutoPauseOnFocusLoss = true;
+
+        public bool IsPaused => _paused;
+
         public void TogglePause()
         {
-            if (_ended || Battle == null) return;
-            if (Modals.IsShowing("pause"))
-            {
-                Modals.ClosePause();
-                _paused = false;
-                _app.Audio?.Duck(1f);
-                return;
-            }
-            if (Modals.IsOpen) return;
+            if (Modals != null && Modals.IsShowing("pause")) Resume();
+            else Pause();
+        }
+
+        /// <summary>Closes the pause menu and continues (no effect if it is not open).</summary>
+        public void Resume()
+        {
+            if (_ended || Battle == null || !Modals.IsShowing("pause")) return;
+            Modals.ClosePause();
+            _paused = false;
+            _app.Audio?.Duck(1f);
+        }
+
+        /// <summary>Opens the pause menu (no effect if it, or another dialog, is already open).</summary>
+        public void Pause()
+        {
+            if (_ended || Battle == null || Modals.IsOpen) return;
             if (Aiming) EndAim(false);
             _paused = true;
             _app.Audio?.Duck(0.5f);
@@ -233,6 +264,7 @@ namespace EvilCats.Game
             {
                 case PurchaseResult.Bought:
                     _app.Haptics?.Light();
+                    FlushEvents();
                     break;
                 case PurchaseResult.NotEnoughSparks:
                     _app.Audio?.Play("ui_denied");
@@ -253,6 +285,7 @@ namespace EvilCats.Game
         {
             if (Blocked) { Toast.Show(L.T("ability.paused")); return; }
             var r = Battle.CastWard();
+            FlushEvents();
             if (r == AbilityResult.OnCooldown)
             {
                 _app.Audio?.Play("ui_denied");
@@ -310,6 +343,7 @@ namespace EvilCats.Game
         private void TryCast(Vector2 point)
         {
             var r = Battle.CastArcStorm(new Vec2(point.x, point.y));
+            FlushEvents();
             switch (r)
             {
                 case AbilityResult.Cast:
@@ -434,11 +468,13 @@ namespace EvilCats.Game
                     audio?.Play("powder_fuse");
                     break;
                 case SimEventType.PowderInterrupted:
+                    fx.EndRing(ev.uid);
                     View.Units.OnSpecial(ev.uid, "walk");
                     fx.Play("fx/stun", p + new Vector2(0f, 1.3f), 0f, null, WorldKit.FxOrder, 1f, ev.uid);
                     audio?.Play("enemy_hit");
                     break;
                 case SimEventType.PowderExploded:
+                    fx.EndRing(ev.uid, 0f);
                     View.Units.OnVanish(ev.uid);
                     fx.Play("fx/powder_blast", p, 3.2f);
                     audio?.Play("powder_explode");
@@ -734,7 +770,7 @@ namespace EvilCats.Game
             switch (ev.id2)
             {
                 case "shield_stance":
-                    View.Units.OnSpecial(ev.uid, "shield");
+                    View.Units.OnSpecial(ev.uid, "shield", true);   // hold the raised shield (last frame)
                     fx.Ring(ev.uid, p, radius * 1.6f, new Color(0.7f, 0.85f, 1f, 0.9f), ev.value + 0.3f);
                     Hud.Announce(L.F("announce.shield", ("name", bossName)), Theme.Cyan, 2f);
                     break;
@@ -779,7 +815,7 @@ namespace EvilCats.Game
                     audio?.Play("bell_toll");
                     break;
                 case "shield_stance":
-                    View.Units.OnSpecial(ev.uid, "shield");
+                    View.Units.OnSpecial(ev.uid, "shield", true);
                     break;
                 case "charge_impact":
                     fx.Play("fx/explosion", p + new Vector2(0f, 0.5f), 2.6f, new Color(1f, 0.85f, 0.7f));
@@ -899,8 +935,8 @@ namespace EvilCats.Game
 
         private void PauseForBackground()
         {
-            if (!_started || _ended || Battle == null || Battle.IsOver) return;
-            if (!Modals.IsOpen && !_paused) TogglePause();   // come back to a paused game, never a lost one
+            if (!AutoPauseOnFocusLoss || !_started || _ended || Battle == null || Battle.IsOver) return;
+            if (!Modals.IsOpen && !_paused) Pause();   // come back to a paused game, never a lost one
         }
 
         public override bool OnBack()

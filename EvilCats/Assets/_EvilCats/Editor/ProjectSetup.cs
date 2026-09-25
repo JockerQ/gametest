@@ -40,6 +40,8 @@ namespace EvilCats.EditorTools
         public static readonly string[] SceneNames = { GameApp.BootScene, GameApp.HubScene, GameApp.BattleScene };
         /// <summary>Placeholder application id; the owner must choose their own before publishing.</summary>
         public const string PlaceholderAppId = "com.evilcats.arclightcat";
+        /// <summary>Version name given to a new project. After that, Player Settings > Version is yours to change.</summary>
+        public const string FirstVersion = "0.9.0";
 
         private enum Outcome { Done, AlreadyOk, Pending, Failed }
 
@@ -61,7 +63,14 @@ namespace EvilCats.EditorTools
             }
         }
 
-        private static bool _running, _rerunScheduled;
+        private static bool _running, _rerunScheduled, _mayReplaceOpenScene;
+
+        private static bool AnyOpenSceneDirty()
+        {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+                if (SceneManager.GetSceneAt(i).isDirty) return true;
+            return false;
+        }
         /// <summary>After the last run: some step is waiting for an import to finish.</summary>
         public static bool LastRunPending { get; private set; }
         /// <summary>After the last run: the Editor must restart before building (input backend changed).</summary>
@@ -70,23 +79,37 @@ namespace EvilCats.EditorTools
         [MenuItem("Evil Cats/1. Set Up Project", priority = 1)]
         public static void RunFromMenu() => Run(true);
 
+        /// <summary>Command line: exit code 1 unless setup finished completely.</summary>
         public static void RunBatch()
         {
-            if (!Run(false)) EditorApplication.Exit(1);
+            bool ok = Run(false);
+            if (!ok || LastRunPending)
+            {
+                if (ok) Debug.LogError("[EvilCats] Setup did not finish (a step is still waiting). Run it again.");
+                EditorApplication.Exit(1);
+            }
+            // LastRunNeedsRestart is fine here: the next Unity session (e.g. the build) starts with it applied.
         }
 
-        public static bool Run(bool interactive)
+        public static bool Run(bool interactive) => Run(interactive, interactive);
+
+        /// <param name="interactive">Show the result dialog (and the restart offer).</param>
+        /// <param name="askToSaveScenes">Offer to save modified scenes first, because creating a missing
+        /// scene replaces the open one.</param>
+        public static bool Run(bool interactive, bool askToSaveScenes)
         {
             if (_running) return false;
             _running = true;
             var r = new Report();
             try
             {
-                if (interactive && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                if (askToSaveScenes && !Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                 {
                     Debug.Log("[EvilCats] Setup cancelled (unsaved scene changes were kept).");
                     return false;
                 }
+                // Without the question, never replace a scene that has unsaved changes.
+                _mayReplaceOpenScene = Application.isBatchMode || askToSaveScenes || !AnyOpenSceneDirty();
                 Step(r, "Folders", EnsureFolders);
                 Step(r, "Texture and audio import settings", ApplyImportSettings);
                 Step(r, "TextMeshPro essential resources", EnsureTmpEssentials);
@@ -197,6 +220,14 @@ namespace EvilCats.EditorTools
             {
                 string full = Path.GetFullPath(c);
                 if (!File.Exists(full)) continue;
+                if (Application.isBatchMode)
+                {
+                    // ImportPackage would finish only after this command-line session has quit
+                    int files = UnityPackageUnpacker.Unpack(full, Directory.GetCurrentDirectory());
+                    AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+                    if (TmpReady) return (Outcome.Done, files + " files unpacked");
+                    return (Outcome.Failed, "TMP Essential Resources were unpacked but not found after import");
+                }
                 if (!_rerunScheduled)
                 {
                     _rerunScheduled = true;
@@ -330,6 +361,8 @@ namespace EvilCats.EditorTools
             {
                 string path = ScenesDir + "/" + name + ".unity";
                 if (File.Exists(path)) continue;
+                if (!_mayReplaceOpenScene)
+                    return (Outcome.Failed, "the open scene has unsaved changes. Save it (File > Save), then run Evil Cats > 1. Set Up Project");
                 var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
                 // The controller is part of the scene; SceneAttach would also add it at runtime.
                 var go = new GameObject(name + "Controller");
@@ -370,7 +403,9 @@ namespace EvilCats.EditorTools
                 PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android, PlaceholderAppId);
                 notes.Add("placeholder application id " + PlaceholderAppId + " (change it before publishing)");
             }
-            if (PlayerSettings.bundleVersion != GameApp.Version) PlayerSettings.bundleVersion = GameApp.Version;
+            // Version name: set once, only while it is still Unity's default. Yours is kept after that.
+            string v = PlayerSettings.bundleVersion;
+            if (string.IsNullOrEmpty(v) || v == "0.1" || v == "1.0") PlayerSettings.bundleVersion = FirstVersion;
             if (PlayerSettings.Android.bundleVersionCode < 1) PlayerSettings.Android.bundleVersionCode = 1;
 
             // portrait only
@@ -381,12 +416,11 @@ namespace EvilCats.EditorTools
             PlayerSettings.allowedAutorotateToLandscapeRight = false;
             PlayerSettings.runInBackground = false;
 
-            // Android: 64-bit IL2CPP (required by Google Play), Android 7.0+, no internet permission needed
+            // Android: 64-bit IL2CPP (required by Google Play) and Android 7.0+. These only add what
+            // is required; the target API level, other architectures and permissions stay yours.
             if (PlayerSettings.Android.minSdkVersion < AndroidSdkVersions.AndroidApiLevel24) PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel24;
-            PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
             PlayerSettings.SetScriptingBackend(NamedBuildTarget.Android, ScriptingImplementation.IL2CPP);
-            PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
-            PlayerSettings.Android.forceInternetPermission = false;
+            PlayerSettings.Android.targetArchitectures |= AndroidArchitecture.ARM64;
 
             ApplyIcons(notes);
             return (Outcome.Done, string.Join("; ", notes));
@@ -397,6 +431,13 @@ namespace EvilCats.EditorTools
             string dir = Root + "/Art/Icons/";
             var big = AssetDatabase.LoadAssetAtPath<Texture2D>(dir + "launcher_512.png");
             if (big == null) { notes.Add("launcher icons missing (run Tools/art/build_all.py)"); return; }
+            // an icon you chose yourself is never replaced
+            var current = PlayerSettings.GetIcons(NamedBuildTarget.Unknown, IconKind.Application);
+            if (current != null && current.Length > 0 && current[0] != null && !AssetDatabase.GetAssetPath(current[0]).StartsWith(dir, StringComparison.Ordinal))
+            {
+                notes.Add("kept your own app icon");
+                return;
+            }
             PlayerSettings.SetIcons(NamedBuildTarget.Unknown, new[] { big }, IconKind.Application);
             // legacy Android icons: nearest available size for each slot Unity asks for
             int[] sizes = PlayerSettings.GetIconSizes(NamedBuildTarget.Android, IconKind.Application);

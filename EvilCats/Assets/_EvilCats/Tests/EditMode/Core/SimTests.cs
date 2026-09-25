@@ -630,6 +630,38 @@ namespace EvilCats.Tests
         }
 
         [Test]
+        public void SlotUnlockNeverDuplicatesAnEquippedModule()
+        {
+            // The tutorial grants Ember Maw with the Crown slot. A player who already put Ember
+            // Maw in the Middle slot chooses another module for the Crown instead.
+            var content = TestContent.Load();
+            var save = SaveManager.NewProfile(new DateTime(2026, 1, 1));
+            save.loadout = new Dictionary<string, string> { ["middle"] = "ember_maw" };
+            var meta = new GameMeta(content, save);
+            var setup = meta.CreateCampaignSetup("m01", 3, false);
+            setup.emitEvents = true;
+            var b = new Battle(content, setup);
+            var pilot = AutoPilot.Build("default", 3);
+            bool unlocked = false;
+            string announcedGrant = "none";
+            var ev = new List<SimEvent>();
+            while (!b.IsOver && b.TickCount < 30 * 60 * 10 && !(unlocked && b.Phase == BattlePhase.Running))
+            {
+                pilot.Step(b);
+                if (b.Phase == BattlePhase.Running) b.Tick();
+                if (b.CheckpointPending) b.TakeCheckpoint();
+                b.DrainEvents(ev);
+                foreach (var e in ev)
+                    if (e.type == SimEventType.SlotUnlocked && e.id == "crown") { unlocked = true; announcedGrant = e.id2; }
+                ev.Clear();
+            }
+            Assert.That(unlocked, Is.True);
+            Assert.That(announcedGrant, Is.Null, "no grant is announced");
+            Assert.That(b.Loadout["middle"], Is.EqualTo("ember_maw"));
+            Assert.That(b.Loadout.TryGetValue("crown", out var crown) ? crown : null, Is.EqualTo("arc_coil"), "the only other available module");
+        }
+
+        [Test]
         public void WaveAdvancesOnlyWhenEnemiesAreDefeated()
         {
             var b = Mission("m02", 11);

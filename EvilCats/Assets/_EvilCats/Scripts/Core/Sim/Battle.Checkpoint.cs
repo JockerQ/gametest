@@ -70,6 +70,7 @@ namespace EvilCats.Sim
                 elapsed = Time,
                 stats = RunStats.Clone(),
                 routeLayout = Spec.routeLayout,
+                dailyDate = Setup.dailyDate,
             };
             foreach (var kv in _perkStacks) cp.perks[kv.Key] = kv.Value;
             foreach (var kv in _upgradeLevels) cp.upgrades[kv.Key] = kv.Value;
@@ -122,6 +123,7 @@ namespace EvilCats.Sim
                 healthFraction = MaxHp > 0f ? Math.Max(0f, Hp / MaxHp) : 0f,
                 stats = RunStats.Clone(),
                 seed = Setup.seed,
+                dailyDate = Setup.dailyDate,
             };
             r.principalDamageSource = PrincipalDamageSource(out r.principalDamageShare);
             foreach (var kv in _perkStacks)

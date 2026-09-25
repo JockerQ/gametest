@@ -11,7 +11,7 @@ Nine-Lives Ward.
 * Built with **Unity 6.3 LTS** (6000.3), URP 2D Renderer, uGUI + TextMeshPro and the Input System.
 
 > **Honest status.** The whole game was written and checked **without opening Unity**; Unity could not run
-> where it was built. The game rules were tested (87 automated tests) and every Unity script compiles.
+> where it was built. The game rules were tested (89 automated tests) and every Unity script compiles.
 > The project has **not yet been opened in Unity, built, or played on a phone.** Expect some first-run
 > problems to fix. See `TEST_REPORT.md` and `KNOWN_ISSUES.md`.
 
@@ -74,7 +74,7 @@ A development build is signed with Unity's debug key. It is for your own testing
 | `EvilCats/Assets/_EvilCats/Editor` | setup, import, build and validation tools |
 | `EvilCats/Assets/_EvilCats/Data/Resources/ECData` | **all game numbers and text** (JSON) |
 | `EvilCats/Assets/_EvilCats/Art`, `Audio`, `UI` | generated art, music, sounds, font |
-| `Tools/EvilCats.Core.Tests` | runs the 87 rule tests with plain .NET |
+| `Tools/EvilCats.Core.Tests` | runs the 89 rule tests with plain .NET |
 | `Tools/EvilCats.Sim` | balance simulator |
 | `Tools/UnityCompileCheck` | compiles the Unity scripts without Unity |
 | `Tools/art`, `Tools/audio` | regenerate the art and audio (Python) |

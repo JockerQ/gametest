@@ -126,7 +126,11 @@ namespace EvilCats.Game
             _avatar.preserveAspect = true;
             prof.gameObject.AddComponent<PressHandler>().OnTap = () => { App.Audio?.Play("ui_click"); Open(new ProfileScreen()); };
             _name = UI.Text(_top, "", Theme.FontSmall, Theme.TextDim, TextAlignmentOptions.Left, false, "Name");
-            UI.Place(_name.rectTransform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(56f, 0f), new Vector2(84f, 20f));
+            // ends 4 units before the Moon Gold box (which starts 118 units from the left edge)
+            UI.Place(_name.rectTransform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(56f, 0f), new Vector2(58f, 20f));
+            _name.enableAutoSizing = true;
+            _name.fontSizeMin = 8f;
+            _name.fontSizeMax = Theme.FontSmall;
 
             _gold = Currency(_top, "icon/moon_gold", -150f);
             _shards = Currency(_top, "icon/storm_shard", -54f);
@@ -464,10 +468,14 @@ namespace EvilCats.Game
                 case BattleMode.Endless: s = meta.CreateEndlessSetup(cp.seed, true); break;
                 case BattleMode.Daily:
                 {
-                    // rebuild that day's challenge (modifiers, boss) from when the run was saved
+                    // rebuild the challenge the run started with (loadout, modifiers, boss), even
+                    // if it is resumed on a later day
                     var day = GameApp.UtcNow;
-                    if (!string.IsNullOrEmpty(cp.savedAtUtc) && DateTime.TryParse(cp.savedAtUtc, System.Globalization.CultureInfo.InvariantCulture,
-                            System.Globalization.DateTimeStyles.RoundtripKind, out var saved)) day = saved.ToUniversalTime();
+                    var inv = System.Globalization.CultureInfo.InvariantCulture;
+                    if (!string.IsNullOrEmpty(cp.dailyDate) && DateTime.TryParseExact(cp.dailyDate, "yyyy-MM-dd", inv,
+                            System.Globalization.DateTimeStyles.AssumeUniversal | System.Globalization.DateTimeStyles.AdjustToUniversal, out var date)) day = date;
+                    else if (!string.IsNullOrEmpty(cp.savedAtUtc) && DateTime.TryParse(cp.savedAtUtc, inv,
+                            System.Globalization.DateTimeStyles.RoundtripKind, out var saved)) day = saved.ToUniversalTime();   // saves made before dailyDate existed
                     s = meta.CreateDailySetup(GameMeta.DailyChallenge(App.Content, day));
                     s.seed = cp.seed;
                     break;
@@ -488,7 +496,7 @@ namespace EvilCats.Game
             {
                 runId = cp.runId, mode = cp.mode, missionId = cp.missionId, victory = false, abandoned = true,
                 wavesCleared = cp.stats != null ? cp.stats.wavesCleared : 0, levelReached = cp.level,
-                stats = cp.stats ?? new RunStats(), seed = cp.seed,
+                stats = cp.stats ?? new RunStats(), seed = cp.seed, dailyDate = cp.dailyDate,
             };
             var m = App.Content.Mission(cp.missionId);
             result.totalWaves = cp.mode == BattleMode.Campaign && m != null ? m.waves : cp.mode == BattleMode.Daily ? App.Content.Daily.waves : 0;

@@ -113,8 +113,10 @@ namespace EvilCats.Game
             for (int i = 0; i < list.Count; i++)
             {
                 var e = list[i];
-                if (!e.alive) continue;
+                // Still listed but dead: killed outside a tick (a player ability) this frame. Keep
+                // its view; the EnemyDied event (or the next tick's clean-up) decides what happens.
                 _seen.Add(e.uid);
+                if (!e.alive) continue;
                 if (!_enemies.TryGetValue(e.uid, out var v))
                 {
                     v = _enemyPool.Get();
@@ -253,7 +255,7 @@ namespace EvilCats.Game
         private SpriteAnimator _stunAnim, _burnAnim, _bleedAnim;
         private SpriteLibrary _sp;
         private string _prefix;              // "enemy/rat_raider/" or "boss/sir_barkhelm/"
-        private SpriteAnim _move, _idle, _charge, _attack, _death;
+        private SpriteAnim _move, _idle, _charge, _fuse, _attack, _death;
         private bool _isBoss, _flying, _dead;
         private float _deathTime, _lastFlash, _height, _scale, _barWidth;
         private Color _tint = Color.white;
@@ -321,6 +323,7 @@ namespace EvilCats.Game
             _move = Clip("walk") ?? Clip("fly") ?? Clip("idle");
             _idle = Clip("idle");
             _charge = Clip("charge");
+            _fuse = Clip("fuse");
             _attack = Clip("attack") ?? Clip("volley") ?? Clip("barrage") ?? Clip("command");
             _death = Clip("death") ?? Clip("defeat");
             _anim.SpeedMultiplier = 1f;
@@ -375,6 +378,7 @@ namespace EvilCats.Game
             bool stunned = e.stunTime > 0f;
             float speed = e.velocity.Length;
             if (_isBoss) SyncBossClip(e, speed);
+            else if (e.typeId == "powder_rat") SyncPowderClip(e);
             else
             {
                 bool specialPlaying = _anim.Current != null && _anim.Current != _move && !_anim.Finished;
@@ -382,6 +386,8 @@ namespace EvilCats.Game
             }
             bool special = _anim.Current != null && _anim.Current != _move;
             if (frozen || stunned) _anim.SpeedMultiplier = 0f;
+            // a boss without an idle clip stands still on the first walk frame instead of walking in place
+            else if (_isBoss && !_flying && !special && speed < 0.05f) _anim.SpeedMultiplier = 0f;
             else if (_flying || special || _isBoss) _anim.SpeedMultiplier = 1f;
             else _anim.SpeedMultiplier = speed > 0.05f ? Mathf.Clamp(speed / Mathf.Max(0.3f, e.speed), 0.5f, 2.5f) : 0f;
 
@@ -451,6 +457,15 @@ namespace EvilCats.Game
             if (oneShotPlaying) return;
             var want = (speed < 0.05f && _idle != null && !_flying) ? _idle : _move;
             if (cur != want && want != null) _anim.Play(want, true);
+        }
+
+        /// <summary>Powder Rat: the clip follows its fuse state (fuse, then the charge run).</summary>
+        private void SyncPowderClip(Enemy e)
+        {
+            var want = e.powder == PowderState.Fuse ? (_fuse ?? _move) : e.powder == PowderState.Charge ? (_charge ?? _move) : _move;
+            var cur = _anim.Current;
+            bool oneShotPlaying = cur != null && cur != want && !cur.loop && !_anim.Finished;   // e.g. an attack
+            if (!oneShotPlaying && cur != want && want != null) _anim.Play(want, true);
         }
 
         private static void PlaceIcon(SpriteRenderer sr, bool on, ref float x, float y)

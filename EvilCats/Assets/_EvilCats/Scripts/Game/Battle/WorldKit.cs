@@ -9,8 +9,10 @@ namespace EvilCats.Game
     {
         public const int GroundOrder = -30000, PathOrder = -29000, TelegraphOrder = -20000;
         public const int ProjectileOrder = 20000, FxOrder = 21000, NumberOrder = 25000;
-        // The citadel group is drawn as a block that sits at depth y≈1 (see BattleView).
-        public const int CitadelOrder = -20, CrownOrder = -19, StormheartOrder = -18, HeroOrder = -17, MiddleOrder = -16, BaseOrder = -15;
+        // The citadel group is drawn as a block that sits at depth y≈1 (see BattleView). The shadow
+        // uses CitadelOrder - 2 and the damage/reinforce overlays CitadelOrder + 1, so every order
+        // in the group is unique (equal orders would draw in an undefined order).
+        public const int CitadelOrder = -22, CrownOrder = -19, StormheartOrder = -18, HeroOrder = -17, MiddleOrder = -16, BaseOrder = -15;
 
         private static Material _spriteMaterial;
         private static Sprite _white;
@@ -82,7 +84,7 @@ namespace EvilCats.Game
         public static CameraRig Create(Color bg)
         {
             var cam = CameraUtil.EnsureCamera(bg);
-            var rig = cam.gameObject.GetComponent<CameraRig>() ?? cam.gameObject.AddComponent<CameraRig>();
+            if (!cam.TryGetComponent(out CameraRig rig)) rig = cam.gameObject.AddComponent<CameraRig>();
             rig.Cam = cam;
             return rig;
         }

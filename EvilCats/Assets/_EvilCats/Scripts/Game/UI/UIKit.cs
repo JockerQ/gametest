@@ -166,7 +166,11 @@ namespace EvilCats.Game
         {
             if (EventSystem.current != null) return;
             var go = new GameObject("EventSystem");
-            go.AddComponent<EventSystem>();
+            var es = go.AddComponent<EventSystem>();
+            // Default is 10 physical pixels, which is tiny on a phone: a slightly shaky tap on a
+            // scroll list would count as a drag. About 2.5 mm, never less than the default.
+            float dpi = Screen.dpi > 0f ? Screen.dpi : 160f;
+            es.pixelDragThreshold = Mathf.Max(10, Mathf.RoundToInt(dpi * 0.1f));
 #if ENABLE_INPUT_SYSTEM && EC_INPUT_SYSTEM_PACKAGE
             go.AddComponent<InputSystemUIInputModule>();   // default UI actions are assigned automatically
 #else
@@ -236,7 +240,7 @@ namespace EvilCats.Game
 
         public static LayoutElement Size(Component c, float prefW = -1, float prefH = -1, float flexW = -1, float flexH = -1, float minH = -1)
         {
-            var le = c.GetComponent<LayoutElement>() ?? c.gameObject.AddComponent<LayoutElement>();
+            if (!c.TryGetComponent(out LayoutElement le)) le = c.gameObject.AddComponent<LayoutElement>();
             le.preferredWidth = prefW;
             le.preferredHeight = prefH;
             le.flexibleWidth = flexW;
@@ -517,10 +521,12 @@ namespace EvilCats.Game
             Stretch(fillArea, 0, 9, 0, 9);
             var fill = Img(fillArea, "ui/slider_fill", Theme.Cyan, false, "Fill");
             fill.type = Image.Type.Sliced;
+            Stretch(fill.rectTransform);   // the Slider only moves anchors, so the size offset must be zero
             var handleArea = Rect(sroot, "HandleArea");
             Stretch(handleArea, 8, 0, 8, 0);
             var handle = Img(handleArea, "ui/slider_handle", null, true, "Handle");
-            handle.rectTransform.sizeDelta = new Vector2(20f, 28f);
+            handle.rectTransform.anchoredPosition = Vector2.zero;
+            handle.rectTransform.sizeDelta = new Vector2(20f, 0f);   // full track height, 20 wide
             var s = sroot.gameObject.AddComponent<Slider>();
             s.fillRect = fill.rectTransform;
             s.handleRect = handle.rectTransform;
@@ -578,6 +584,9 @@ namespace EvilCats.Game
             Stretch(ph.rectTransform);
             var tx = Text(area, text, Theme.FontBody, Theme.Text, TextAlignmentOptions.MidlineLeft, false, "Text");
             Stretch(tx.rectTransform);
+            // TMP_InputField creates its caret in OnEnable, and only if the text component is
+            // already assigned. Configure it while inactive, then activate.
+            bg.gameObject.SetActive(false);
             var input = bg.gameObject.AddComponent<TMP_InputField>();
             input.textViewport = area;
             input.textComponent = tx;
@@ -587,6 +596,7 @@ namespace EvilCats.Game
             input.text = text;
             if (Font != null) input.fontAsset = Font;
             input.onEndEdit.AddListener(s => onEnd?.Invoke(s));
+            bg.gameObject.SetActive(true);
             return input;
         }
 

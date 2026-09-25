@@ -390,6 +390,38 @@ namespace EvilCats.Tests
         }
 
         [Test]
+        public void DailyRunFinishedAfterMidnightCountsForItsChallengeDay()
+        {
+            var content = TestContent.Load();
+            var meta = NewMeta(out _);
+            var lateEvening = new DateTime(2026, 9, 25, 23, 50, 0, DateTimeKind.Utc);
+            var setup = meta.CreateDailySetup(GameMeta.DailyChallenge(content, lateEvening));
+            Assert.That(setup.dailyDate, Is.EqualTo("2026-09-25"));
+            setup.emitEvents = false;
+            var b = new Battle(content, setup);
+            var cp = Json.Deserialize<RunCheckpoint>(Json.Serialize(b.TakeCheckpoint()));
+            Assert.That(cp.dailyDate, Is.EqualTo("2026-09-25"), "the checkpoint keeps the challenge's own date");
+
+            // finished 30 minutes later, on the next UTC day
+            var nextDay = lateEvening.AddMinutes(30);
+            var r = b.BuildResult();
+            r.victory = true;
+            r.wavesCleared = r.totalWaves;
+            meta.ApplyRunResult(r, nextDay, nextDay);
+            Assert.That(meta.Data.daily.challengeDate, Is.EqualTo("2026-09-25"));
+            Assert.That(meta.Data.ledger, Contains.Item("dailychallenge:2026-09-25"));
+            Assert.That(meta.Data.ledger, Has.No.Member("dailychallenge:2026-09-26"), "the next day's reward is still available");
+
+            // an older day's run never resets a newer day's records
+            meta.Data.daily.challengeDate = "2026-09-26";
+            meta.Data.daily.challengeBestScore = 999;
+            var old = new RunResult { runId = "old", mode = BattleMode.Daily, missionId = "daily", dailyDate = "2026-09-25", score = 5000, totalWaves = 20, stats = new RunStats() };
+            meta.ApplyRunResult(old, nextDay, nextDay);
+            Assert.That(meta.Data.daily.challengeDate, Is.EqualTo("2026-09-26"));
+            Assert.That(meta.Data.daily.challengeBestScore, Is.EqualTo(999));
+        }
+
+        [Test]
         public void CosmeticsNeverAffectStatsAndCannotBeBoughtTwice()
         {
             var meta = NewMeta(out _);

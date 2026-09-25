@@ -156,7 +156,7 @@ namespace EvilCats.Game
             var box = UI.Img(parent, "ui/panel_inset", null, false, "Diorama");
             box.type = Image.Type.Sliced;
             box.preserveAspect = false;
-            UI.Size(box, -1, 270f, -1, -1, 270f);
+            UI.Size(box, -1, 290f, -1, -1, 290f);
             box.gameObject.AddComponent<RectMask2D>();
             string biome = Meta.NextCampaignMission() != null ? Meta.NextCampaignMission().biome : "gravewood";
             var ground = UI.Img(box.transform, null, new Color(1f, 1f, 1f, 0.55f), false, "Ground");
@@ -169,7 +169,9 @@ namespace EvilCats.Game
             stage.anchorMax = new Vector2(0.5f, 0f);
             stage.sizeDelta = Vector2.zero;
             stage.anchoredPosition = Vector2.zero;
-            Vector2 p = new Vector2(0f, 60f);   // citadel pivot inside the box
+            // citadel pivot inside the box: its base reaches 70 units below the pivot, the crown
+            // station about 145 above it, which leaves room for the two title lines
+            Vector2 p = new Vector2(0f, 80f);
             var shadow = sp.TryGet("citadel/shadow");
             if (shadow != null) HubKit.PlaceSprite(stage, sp.GetForUi("citadel/shadow", upp), p, "Shadow");
             HubKit.PlaceSprite(stage, sp.GetForUi("citadel/base", upp), p, "Citadel");

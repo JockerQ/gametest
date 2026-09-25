@@ -60,7 +60,7 @@ Key decisions:
 
 | # | Goal | Status (25 Sep 2026; details in TEST_REPORT.md) |
 |---|---|---|
-| M1 | End-to-end slice: hero, arena, 3 modules, 3 enemies, 10 perks, 2 abilities, short mission, boss, audio, win/lose, saving | Built. Rules tested (87 tests); Unity code compiles. **Not yet run in Unity.** |
+| M1 | End-to-end slice: hero, arena, 3 modules, 3 enemies, 10 perks, 2 abilities, short mission, boss, audio, win/lose, saving | Built. Rules tested (89 tests); Unity code compiles. **Not yet run in Unity.** |
 | M2 | Validate combat: routes 3 vs 5, target priority, all slots, synergies, upgrades, boss counterplay, HUD, pacing, retry | Validated in simulation: 3 vs 5 paths, priorities, slots, synergies, upgrades, boss counterplay, pacing. HUD and retry built, not yet seen running. |
 | M3 | Full content: 2 biomes, 12 missions, 6 modules, 8 enemies, 3 bosses, 30 perks, progression, daily, endless, rewards, achievements | All content present and validated (2 biomes, 12 missions, 6 stations, 8 enemies, 3 bosses, 30 perks, daily, endless, 22 achievements). |
 | M4 | Presentation: final art, animation, audio, accessibility, tutorials, recovery states | Art (979 sprites), audio (7 tracks, 47 effects), accessibility settings, tutorial hints and recovery states built. Not yet viewed or heard in the game. |

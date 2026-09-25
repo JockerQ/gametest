@@ -73,6 +73,7 @@ namespace EvilCats.Tests
             var app = GameApp.I;
             app.PendingBattle = app.Meta.CreateCampaignSetup("m01", 7, false);
             var ctl = new GameObject("BattleController").AddComponent<BattleController>();
+            ctl.AutoPauseOnFocusLoss = false;   // clicking another window must not pause the test battle
             yield return null;
             yield return null;
             Assert.That(ctl.Battle, Is.Not.Null);
@@ -95,16 +96,18 @@ namespace EvilCats.Tests
 
             // pausing stops the simulation completely
             if (ctl.Battle.Phase == BattlePhase.AwaitingPerk) { ctl.Battle.ChoosePerk(0); ctl.Modals.CloseAll(); yield return null; }
-            ctl.TogglePause();
+            ctl.Pause();
             yield return null;
             Assert.That(ctl.Modals.IsShowing("pause"), Is.True);
+            Assert.That(ctl.IsPaused, Is.True);
             long ticks = ctl.Battle.TickCount;
             yield return new WaitForSecondsRealtime(0.3f);
             Assert.That(ctl.Battle.TickCount, Is.EqualTo(ticks));
             Assert.That(Time.timeScale, Is.EqualTo(0f));
-            ctl.TogglePause();
+            ctl.Resume();
             yield return null;
             Assert.That(ctl.Modals.IsShowing("pause"), Is.False);
+            Assert.That(ctl.IsPaused, Is.False);
 
             // quitting ends the run; the result is applied exactly once
             ctl.Battle.Abandon();

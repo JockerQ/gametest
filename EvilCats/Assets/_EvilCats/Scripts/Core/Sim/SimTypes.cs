@@ -196,6 +196,8 @@ namespace EvilCats.Sim
         /// <summary>Player setting "Battlefield paths" (routes_3 / routes_5). Null = the mission's own layout.
         /// Ignored by the daily challenge so every player gets the same battlefield.</summary>
         public string routeLayout;
+        /// <summary>Daily Challenge only: the UTC date ("yyyy-MM-dd") whose challenge this run plays.</summary>
+        public string dailyDate;
         public bool emitEvents = true;                             // headless sims can turn this off
         public int endlessStartWave = 1;
         /// <summary>Tests/tools only: no waves are started and the battle never ends by itself.</summary>
@@ -231,6 +233,7 @@ namespace EvilCats.Sim
         public RunStats stats = new RunStats();
         public List<string> offeredFallbackHistory = new List<string>();
         public string routeLayout;                 // layout the run started with (kept on resume)
+        public string dailyDate;                   // Daily Challenge: the challenge's own date (not the save time)
         public string savedAtUtc;
     }
 
@@ -301,5 +304,6 @@ namespace EvilCats.Sim
         public List<string> unlockedSlots = new List<string>();
         public long score;
         public ulong seed;
+        public string dailyDate;                   // Daily Challenge: which day's challenge was played
     }
 }

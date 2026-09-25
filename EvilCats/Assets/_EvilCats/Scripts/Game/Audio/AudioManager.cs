@@ -121,7 +121,7 @@ namespace EvilCats.Game
             if (!Ready || id == _currentMusic) return;
             if (!_music.TryGetValue(id, out var m)) return;
             _currentMusic = id;
-            _aIsCurrent = !_aIsCurrent;
+            BeginCrossfade();
             var incoming = _aIsCurrent ? _musicA : _musicB;
             incoming.clip = m.clip;
             incoming.loop = m.loop;
@@ -134,7 +134,7 @@ namespace EvilCats.Game
         public void StopMusic(float fade = 1f)
         {
             _currentMusic = null;
-            _aIsCurrent = !_aIsCurrent;
+            BeginCrossfade();
             var incoming = _aIsCurrent ? _musicA : _musicB;
             incoming.Stop();
             incoming.clip = null;
@@ -144,6 +144,17 @@ namespace EvilCats.Game
 
         private float MusicTarget(string id) => id != null && _music.TryGetValue(id, out var m) ? m.volume : 0f;
 
+        /// <summary>The playing source becomes the outgoing one; remember its level (without the
+        /// volume setting and ducking, which still apply while it fades).</summary>
+        private void BeginCrossfade()
+        {
+            var outgoing = _aIsCurrent ? _musicA : _musicB;
+            _outgoingLevel = outgoing != null && outgoing.clip != null ? outgoing.volume / Mathf.Max(0.0001f, _musicVol * _duck) : 0f;
+            _aIsCurrent = !_aIsCurrent;
+        }
+
+        private float _outgoingLevel;
+
         private void ApplyMusicVolumes()
         {
             if (_musicA == null) return;
@@ -152,7 +163,7 @@ namespace EvilCats.Game
             var old = _aIsCurrent ? _musicB : _musicA;
             float target = MusicTarget(_currentMusic) * _musicVol * _duck;
             cur.volume = target * t;
-            old.volume = old.clip != null ? Mathf.Min(old.volume, target) * (1f - t) : 0f;
+            old.volume = old.clip != null ? _outgoingLevel * _musicVol * _duck * (1f - t) : 0f;   // linear fade-out
             if (t >= 1f && old.isPlaying) old.Stop();
         }
 
