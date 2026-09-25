@@ -43,9 +43,14 @@ namespace EvilCats.Game
             if (mode == LoadSceneMode.Single) Attach(scene.name);
         }
 
+        /// <summary>The Unity Test Framework runs Play Mode tests in its own scene with this object;
+        /// tests create the controllers they need themselves.</summary>
+        private static bool InsideTestRunner() => GameObject.Find("Code-based tests runner") != null;
+
         private static void Attach(string sceneName)
         {
-            var app = GameApp.Ensure();
+            if (InsideTestRunner()) return;
+            GameApp.Ensure();
             if (SceneController.Current != null) return;
             switch (sceneName)
             {

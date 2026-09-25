@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Compiles Assets/_EvilCats/Editor (the setup, import, build and validation tools). -->
+  <PropertyGroup>
+    <AssemblyName>EvilCats.Editor</AssemblyName>
+    <DefineConstants>UNITY_EDITOR;UNITY_ANDROID;UNITY_6000_0_OR_NEWER;ENABLE_INPUT_SYSTEM;EC_INPUT_SYSTEM_PACKAGE;EC_URP_PACKAGE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(ProjectRoot)/Editor/**/*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../EvilCats.Core/EvilCats.Core.csproj" />
+    <ProjectReference Include="../EvilCats.Game/EvilCats.Game.csproj" />
+    <ProjectReference Include="../UnityEngine.UI/UnityEngine.UI.csproj" />
+    <ProjectReference Include="../Unity.TextMeshPro/Unity.TextMeshPro.csproj" />
+    <ProjectReference Include="../Stubs/UnityEditor/UnityEditor.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+</Project>

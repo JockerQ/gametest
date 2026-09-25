@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>UnityEngine.TestRunner</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="UnityTestRunnerStub.cs" />
+  </ItemGroup>
+</Project>

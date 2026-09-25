@@ -38,6 +38,9 @@ namespace EvilCats.Game
 
         public const string Version = "0.9.0";
 
+        /// <summary>Tests only: store saves in this folder instead of Application.persistentDataPath.</summary>
+        public static string SaveDirectoryOverride;
+
         public static DateTime UtcNow => DateTime.UtcNow;
         public static DateTime LocalNow => DateTime.Now;
 
@@ -140,7 +143,7 @@ namespace EvilCats.Game
 
         private void LoadSave()
         {
-            Saves = new SaveManager(new FileSaveStore(Application.persistentDataPath));
+            Saves = new SaveManager(new FileSaveStore(SaveDirectoryOverride ?? Application.persistentDataPath));
             SaveLoad = Saves.Load(UtcNow);
             Meta = new GameMeta(Content, SaveLoad.data, Saves);
             Meta.EnsureDaily(LocalNow);

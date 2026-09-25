@@ -4,6 +4,7 @@
     "references": [
         "EvilCats.Core",
         "EvilCats.Game",
+        "EvilCats.Editor",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

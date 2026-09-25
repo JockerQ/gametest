@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Compiles the Unity-only tests (Tests/EditMode/Game and Tests/PlayMode). They can only RUN inside
+       Unity; the Core tests in Tests/EditMode/Core also run with plain dotnet (Tools/EvilCats.Core.Tests). -->
+  <PropertyGroup>
+    <AssemblyName>EvilCats.Tests.UnityOnly</AssemblyName>
+    <DefineConstants>UNITY_EDITOR;UNITY_ANDROID;UNITY_INCLUDE_TESTS;ENABLE_INPUT_SYSTEM;EC_INPUT_SYSTEM_PACKAGE;EC_URP_PACKAGE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(ProjectRoot)/Tests/EditMode/Game/**/*.cs" />
+    <Compile Include="$(ProjectRoot)/Tests/PlayMode/**/*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../EvilCats.Core/EvilCats.Core.csproj" />
+    <ProjectReference Include="../EvilCats.Game/EvilCats.Game.csproj" />
+    <ProjectReference Include="../EvilCats.Editor/EvilCats.Editor.csproj" />
+    <ProjectReference Include="../Stubs/UnityEditor/UnityEditor.csproj" />
+    <ProjectReference Include="../Stubs/UnityTestRunner/UnityEngine.TestRunner.csproj" />
+    <ProjectReference Include="../UnityEngine.UI/UnityEngine.UI.csproj" />
+    <ProjectReference Include="../Unity.TextMeshPro/Unity.TextMeshPro.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NUnit" Version="3.14.0" />
+  </ItemGroup>
+</Project>
