@@ -689,6 +689,34 @@ namespace EvilCats.Tests
         }
 
         [Test]
+        public void RouteLayoutSettingAppliesAndSurvivesResume()
+        {
+            var content = TestContent.Load();
+            var save = new SaveData();
+            save.settings.routeLayout = "routes_3";
+            var meta = new GameMeta(content, save);
+            var setup = meta.CreateCampaignSetup("m03", 5, false);
+            setup.emitEvents = false;
+            var b = new Battle(content, setup);
+            Assert.That(b.Routes.layoutId, Is.EqualTo("routes_3"));
+            Assert.That(b.Routes.routes.Count, Is.EqualTo(3));
+
+            // the checkpoint remembers the layout even if the setting changes before resuming
+            var cp = b.TakeCheckpoint();
+            var restored = Json.Deserialize<RunCheckpoint>(Json.Serialize(cp));
+            var resumeSetup = new BattleSetup { mode = BattleMode.Campaign, missionId = "m03", seed = 5, resume = restored, routeLayout = "routes_5", emitEvents = false };
+            Assert.That(new Battle(content, resumeSetup).Routes.layoutId, Is.EqualTo("routes_3"));
+
+            // unknown layouts fall back to the mission's own layout; the daily challenge ignores the setting
+            var bad = meta.CreateCampaignSetup("m03", 5, false);
+            bad.routeLayout = "routes_99";
+            Assert.That(new Battle(content, bad).Routes.layoutId, Is.EqualTo(content.Mission("m03").routeLayout));
+            var daily = meta.CreateDailySetup(GameMeta.DailyChallenge(content, new DateTime(2026, 9, 25, 12, 0, 0, DateTimeKind.Utc)));
+            daily.routeLayout = "routes_3";
+            Assert.That(new Battle(content, daily).Routes.layoutId, Is.EqualTo("routes_5"));
+        }
+
+        [Test]
         public void ResumedRunReplaysTheSameWaveComposition()
         {
             var content = TestContent.Load();

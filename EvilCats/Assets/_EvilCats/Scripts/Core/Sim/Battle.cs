@@ -125,10 +125,12 @@ namespace EvilCats.Sim
 
         private static EncounterSpec BuildSpec(GameContent c, BattleSetup s)
         {
+            EncounterSpec spec;
             switch (s.mode)
             {
                 case BattleMode.Endless:
-                    return EncounterSpec.ForEndless(c.Endless);
+                    spec = EncounterSpec.ForEndless(c.Endless);
+                    break;
                 case BattleMode.Daily:
                 {
                     string biome = (s.seed % 2UL == 0UL) ? "gravewood" : "moonfall";
@@ -137,11 +139,15 @@ namespace EvilCats.Sim
                 default:
                 {
                     var m = c.Mission(s.missionId) ?? throw new ArgumentException("Unknown mission " + s.missionId);
-                    var spec = EncounterSpec.ForMission(m);
+                    spec = EncounterSpec.ForMission(m);
                     foreach (var extra in s.extraModifiers) if (!spec.modifiers.Contains(extra)) spec.modifiers.Add(extra);
-                    return spec;
+                    break;
                 }
             }
+            // "Battlefield paths" setting; a resumed run keeps the layout it started with.
+            string layout = s.resume != null && !string.IsNullOrEmpty(s.resume.routeLayout) ? s.resume.routeLayout : s.routeLayout;
+            if (!string.IsNullOrEmpty(layout) && c.LayoutById.ContainsKey(layout)) spec.routeLayout = layout;
+            return spec;
         }
 
         // ==================================================================================

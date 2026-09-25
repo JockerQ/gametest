@@ -193,6 +193,9 @@ namespace EvilCats.Sim
         public string dailyBoss;
         public RunCheckpoint resume;                               // resume from a wave checkpoint
         public string heroSkin = "arc_light_cat";
+        /// <summary>Player setting "Battlefield paths" (routes_3 / routes_5). Null = the mission's own layout.
+        /// Ignored by the daily challenge so every player gets the same battlefield.</summary>
+        public string routeLayout;
         public bool emitEvents = true;                             // headless sims can turn this off
         public int endlessStartWave = 1;
         /// <summary>Tests/tools only: no waves are started and the battle never ends by itself.</summary>
@@ -227,6 +230,7 @@ namespace EvilCats.Sim
         public float elapsed;
         public RunStats stats = new RunStats();
         public List<string> offeredFallbackHistory = new List<string>();
+        public string routeLayout;                 // layout the run started with (kept on resume)
         public string savedAtUtc;
     }
 

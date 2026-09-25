@@ -69,6 +69,7 @@ namespace EvilCats.Sim
                 wardCooldown = WardCooldown,
                 elapsed = Time,
                 stats = RunStats.Clone(),
+                routeLayout = Spec.routeLayout,
             };
             foreach (var kv in _perkStacks) cp.perks[kv.Key] = kv.Value;
             foreach (var kv in _upgradeLevels) cp.upgrades[kv.Key] = kv.Value;

@@ -428,18 +428,21 @@ namespace EvilCats.Game
             public Image fill;
             public Image extra;   // optional second segment (e.g. barrier on top of health)
             public TextMeshProUGUI label;
+            /// <summary>0 = the extra segment is full height; 0.5 = a strip along the top half
+            /// (e.g. barrier drawn over health, so the two stay visually distinct).</summary>
+            public float extraMinY;
 
             public void Set(float fraction, float extraFraction = 0f)
             {
                 fraction = Mathf.Clamp01(fraction);
-                SetSpan(fill, 0f, fraction);
-                if (extra != null) SetSpan(extra, 0f, Mathf.Clamp01(extraFraction));
+                SetSpan(fill, 0f, fraction, 0f);
+                if (extra != null) SetSpan(extra, 0f, Mathf.Clamp01(extraFraction), extraMinY);
             }
 
-            private static void SetSpan(Image img, float from, float to)
+            private static void SetSpan(Image img, float from, float to, float minY)
             {
                 var rt = img.rectTransform;
-                rt.anchorMin = new Vector2(from, 0f);
+                rt.anchorMin = new Vector2(from, minY);
                 rt.anchorMax = new Vector2(Mathf.Max(from, to), 1f);
                 rt.offsetMin = rt.offsetMax = Vector2.zero;
                 img.enabled = to > from + 0.0001f;

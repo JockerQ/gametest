@@ -253,9 +253,9 @@ namespace EvilCats.SimTool
         static (RunResult, Battle, long, double) PlayWithMetrics(string mid, ulong seed, string layout, out double coverage, out double crowd)
         {
             var content = TestContent.Fresh();
-            content.Mission(mid).routeLayout = layout;
             var m = content.Mission(mid);
             var save = ProfileFor("mid", "default", m.index);
+            save.settings.routeLayout = layout;          // the player's "Battlefield paths" setting
             var meta = new GameMeta(content, save);
             var setup = meta.CreateCampaignSetup(mid, seed, false);
             setup.emitEvents = false;

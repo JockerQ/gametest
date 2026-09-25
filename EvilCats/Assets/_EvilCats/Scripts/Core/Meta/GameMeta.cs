@@ -309,6 +309,7 @@ namespace EvilCats.Meta
                 priority = Data.defaultPriority,
                 reviveAllowed = reviveAllowed,
                 heroSkin = Data.heroSkin,
+                routeLayout = Data.settings.routeLayout,
             };
             foreach (var kv in Data.loadout) s.loadout[kv.Key] = kv.Value;
             s.unlockedSlots.AddRange(Data.slotsUnlocked);
