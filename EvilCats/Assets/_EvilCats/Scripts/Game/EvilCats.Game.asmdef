@@ -1,0 +1,32 @@
+{
+    "name": "EvilCats.Game",
+    "rootNamespace": "EvilCats",
+    "references": [
+        "EvilCats.Core",
+        "UnityEngine.UI",
+        "Unity.TextMeshPro",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Newtonsoft.Json.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.inputsystem",
+            "expression": "1.0.0",
+            "define": "EC_INPUT_SYSTEM_PACKAGE"
+        },
+        {
+            "name": "com.unity.render-pipelines.universal",
+            "expression": "17.0.0",
+            "define": "EC_URP_PACKAGE"
+        }
+    ],
+    "noEngineReferences": false
+}

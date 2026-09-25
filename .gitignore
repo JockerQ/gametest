@@ -1,0 +1,47 @@
+# Unity generated
+EvilCats/[Ll]ibrary/
+EvilCats/[Tt]emp/
+EvilCats/[Oo]bj/
+EvilCats/[Bb]uild/
+EvilCats/[Bb]uilds/
+EvilCats/[Ll]ogs/
+EvilCats/[Uu]ser[Ss]ettings/
+EvilCats/[Mm]emoryCaptures/
+EvilCats/[Rr]ecordings/
+EvilCats/*.csproj
+EvilCats/*.sln
+EvilCats/*.slnx
+EvilCats/*.user
+EvilCats/*.pidb
+EvilCats/*.booproj
+EvilCats/*.svd
+EvilCats/*.pdb
+EvilCats/*.mdb
+EvilCats/*.opendb
+EvilCats/*.VC.db
+EvilCats/.vs/
+EvilCats/.vscode/
+EvilCats/.idea/
+EvilCats/crashlytics-build.properties
+# Build outputs
+*.apk
+*.aab
+*.apks
+!Builds/.keep
+# Local secrets / signing (never commit)
+*.keystore
+*.jks
+EvilCats/Assets/_EvilCats/Settings/Local/
+local.config.json
+.env
+# .NET tools
+Tools/**/bin/
+Tools/**/obj/
+Tools/**/TestResults/
+# Python
+__pycache__/
+*.pyc
+.venv/
+# OS
+.DS_Store
+Thumbs.db

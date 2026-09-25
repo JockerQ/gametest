@@ -1,0 +1,6 @@
+<!-- Prevents IL2CPP code stripping from removing types that are created by reflection
+     (JSON content/save deserialization). -->
+<linker>
+  <assembly fullname="EvilCats.Core" preserve="all"/>
+  <assembly fullname="Newtonsoft.Json" preserve="all"/>
+</linker>
