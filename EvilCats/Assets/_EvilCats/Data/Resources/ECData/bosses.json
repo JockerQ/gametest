@@ -1,0 +1,305 @@
+{
+ "bosses": [
+  {
+   "id": "sir_barkhelm",
+   "health": 900,
+   "speed": 0.85,
+   "radius": 0.8,
+   "damage": 20,
+   "attackInterval": 1.6,
+   "armor": 30,
+   "resist": 20,
+   "flying": false,
+   "stopDistance": 2.9,
+   "controlResist": 0.7,
+   "xp": 120,
+   "sparks": 150,
+   "phases": [
+    {
+     "phase": 1,
+     "healthBelow": 1.0,
+     "cooldownMult": 1.0,
+     "attackSpeedMult": 1.0
+    },
+    {
+     "phase": 2,
+     "healthBelow": 0.5,
+     "cooldownMult": 0.8,
+     "attackSpeedMult": 1.25
+    }
+   ],
+   "abilities": [
+    {
+     "id": "barkhelm_shield",
+     "type": "shield_stance",
+     "firstDelay": 6,
+     "cooldown": 16,
+     "windup": 1.0,
+     "duration": 5,
+     "p": {
+      "reduction": 0.7,
+      "phase2Extra": 1
+     },
+     "summons": [
+      {
+       "enemy": "shield_guard",
+       "count": 2,
+       "at": "boss"
+      }
+     ]
+    },
+    {
+     "id": "barkhelm_charge",
+     "type": "charge",
+     "firstDelay": 12,
+     "cooldown": 20,
+     "windup": 2.5,
+     "p": {
+      "retreat": 5.5,
+      "speed": 12,
+      "damage": 150
+     }
+    },
+    {
+     "id": "barkhelm_howl",
+     "type": "summon",
+     "firstDelay": 20,
+     "cooldown": 24,
+     "minPhase": 2,
+     "summons": [
+      {
+       "enemy": "rat_raider",
+       "count": 4,
+       "at": "edge"
+      },
+      {
+       "enemy": "hound_runner",
+       "count": 2,
+       "at": "edge"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "mother_carrion",
+   "health": 1000,
+   "speed": 0.9,
+   "radius": 0.9,
+   "damage": 10,
+   "attackInterval": 1.8,
+   "armor": 0,
+   "resist": 20,
+   "flying": true,
+   "stopDistance": 5.6,
+   "controlResist": 0.7,
+   "xp": 160,
+   "sparks": 180,
+   "phases": [
+    {
+     "phase": 1,
+     "healthBelow": 1.0,
+     "cooldownMult": 1.0,
+     "attackSpeedMult": 1.0
+    },
+    {
+     "phase": 2,
+     "healthBelow": 0.5,
+     "cooldownMult": 0.8,
+     "attackSpeedMult": 1.15
+    }
+   ],
+   "abilities": [
+    {
+     "id": "carrion_bats",
+     "type": "summon",
+     "firstDelay": 4,
+     "cooldown": 12,
+     "p": {
+      "phase2Extra": 1
+     },
+     "summons": [
+      {
+       "enemy": "bat_swarm",
+       "count": 1,
+       "at": "boss"
+      }
+     ]
+    },
+    {
+     "id": "carrion_crows",
+     "type": "summon",
+     "firstDelay": 9,
+     "cooldown": 18,
+     "summons": [
+      {
+       "enemy": "crow_archer",
+       "count": 2,
+       "at": "edge"
+      }
+     ]
+    },
+    {
+     "id": "carrion_priest",
+     "type": "summon",
+     "firstDelay": 16,
+     "cooldown": 30,
+     "summons": [
+      {
+       "enemy": "bell_priest",
+       "count": 1,
+       "at": "edge"
+      }
+     ]
+    },
+    {
+     "id": "carrion_barrage",
+     "type": "sector_barrage",
+     "firstDelay": 14,
+     "cooldown": 22,
+     "windup": 3.0,
+     "duration": 1.6,
+     "p": {
+      "halfAngle": 32,
+      "baseCount": 8,
+      "perMinion": 3,
+      "damage": 14
+     }
+    }
+   ]
+  },
+  {
+   "id": "king_goldenfang",
+   "health": 1150,
+   "speed": 0.7,
+   "radius": 0.9,
+   "damage": 26,
+   "attackInterval": 2.4,
+   "armor": 25,
+   "resist": 15,
+   "flying": false,
+   "stopDistance": 4.8,
+   "controlResist": 0.7,
+   "xp": 250,
+   "sparks": 300,
+   "phases": [
+    {
+     "phase": 1,
+     "healthBelow": 1.0,
+     "cooldownMult": 1.0,
+     "attackSpeedMult": 1.0
+    },
+    {
+     "phase": 2,
+     "healthBelow": 0.65,
+     "cooldownMult": 0.95,
+     "attackSpeedMult": 1.0
+    },
+    {
+     "phase": 3,
+     "healthBelow": 0.3,
+     "cooldownMult": 0.9,
+     "attackSpeedMult": 1.2
+    }
+   ],
+   "abilities": [
+    {
+     "id": "goldenfang_command",
+     "type": "summon",
+     "firstDelay": 3,
+     "cooldown": 11,
+     "summons": [
+      {
+       "enemy": "rat_raider",
+       "count": 3,
+       "at": "edge"
+      },
+      {
+       "enemy": "shield_guard",
+       "count": 1,
+       "at": "edge"
+      }
+     ]
+    },
+    {
+     "id": "goldenfang_decree",
+     "type": "decree",
+     "firstDelay": 9,
+     "cooldown": 16,
+     "p": {
+      "buff": 0.2,
+      "duration": 6
+     }
+    },
+    {
+     "id": "goldenfang_priest",
+     "type": "summon",
+     "firstDelay": 14,
+     "cooldown": 22,
+     "summons": [
+      {
+       "enemy": "bell_priest",
+       "count": 1,
+       "at": "edge"
+      }
+     ]
+    },
+    {
+     "id": "goldenfang_golem",
+     "type": "summon",
+     "firstDelay": 6,
+     "cooldown": 22,
+     "minPhase": 2,
+     "summons": [
+      {
+       "enemy": "iron_golem",
+       "count": 1,
+       "at": "edge"
+      }
+     ]
+    },
+    {
+     "id": "goldenfang_volley",
+     "type": "volley",
+     "firstDelay": 10,
+     "cooldown": 24,
+     "windup": 4.0,
+     "minPhase": 2,
+     "p": {
+      "damage": 240,
+      "staggerFraction": 0.06,
+      "staggerMult": 0.5
+     }
+    },
+    {
+     "id": "goldenfang_charge",
+     "type": "charge",
+     "firstDelay": 8,
+     "cooldown": 19,
+     "windup": 2.2,
+     "minPhase": 3,
+     "p": {
+      "retreat": 5.8,
+      "speed": 12,
+      "damage": 140
+     }
+    },
+    {
+     "id": "goldenfang_barrage",
+     "type": "sector_barrage",
+     "firstDelay": 13,
+     "cooldown": 21,
+     "windup": 3.0,
+     "duration": 1.6,
+     "minPhase": 3,
+     "p": {
+      "halfAngle": 30,
+      "baseCount": 8,
+      "perMinion": 3,
+      "damage": 12
+     }
+    }
+   ]
+  }
+ ]
+}

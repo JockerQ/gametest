@@ -1,0 +1,196 @@
+{
+ "tickRate": 30,
+ "arena": {
+  "width": 16,
+  "height": 20,
+  "citadelRadius": 2.2,
+  "meleeRing": 2.65,
+  "ringSlots": 24,
+  "outerRingStep": 0.55,
+  "approachRadius": 4.2,
+  "minSummonDistance": 3.4,
+  "spawnInset": 0.4,
+  "maxAlive": 140,
+  "stuckSeconds": 6
+ },
+ "hero": {
+  "maxHealth": 1000,
+  "regen": 0,
+  "damage": 12,
+  "interval": 1.0,
+  "range": 7.0,
+  "critChance": 0.05,
+  "critMultiplier": 1.5,
+  "critChanceCap": 0.6,
+  "chainTargets": 0,
+  "chainRange": 2.4,
+  "chainFalloff": 0.75
+ },
+ "arcStorm": {
+  "cooldown": 25,
+  "damageMultiplier": 3,
+  "maxTargets": 5,
+  "radius": 2.5,
+  "stun": 1.5,
+  "strikeDelay": 0.35
+ },
+ "ward": {
+  "cooldown": 35,
+  "barrierFraction": 0.2,
+  "duration": 5
+ },
+ "xp": {
+  "a": 30,
+  "b": 20,
+  "c": 5
+ },
+ "control": {
+  "slowCap": 0.6,
+  "bossSlowCap": 0.15,
+  "eliteSlowCap": 0.4,
+  "fatiguePerControl": 0.35,
+  "fatigueMax": 0.7,
+  "fatigueDecayPerSec": 0.1,
+  "bossControlMultiplier": 0.3,
+  "eliteControlMultiplier": 0.6,
+  "freezeImmunity": 3,
+  "barrierCapFraction": 0.6,
+  "bellHealBossFraction": 0.01
+ },
+ "waves": {
+  "firstWaveDelay": 2.0,
+  "releaseMin": 18,
+  "releaseMax": 25,
+  "intermission": 3.0,
+  "groupSpacing": 0.55,
+  "stallSeconds": 75,
+  "hardStallSeconds": 180,
+  "hpGrowthPerWave": 0.06,
+  "dmgGrowthPerWave": 0.02
+ },
+ "elite": {
+  "healthMult": 2.2,
+  "damageMult": 1.4,
+  "rewardMult": 3.0,
+  "controlResistAdd": 0.35,
+  "scale": 1.25
+ },
+ "economy": {
+  "upgradeCostGrowth": 1.16,
+  "waveClearSparksBase": 8,
+  "waveClearSparksPerWave": 1.5,
+  "defeatMoonGoldFraction": 0.4,
+  "replayMoonGoldFraction": 0.6,
+  "reviveHealthPercent": 40
+ },
+ "perkOffer": {
+  "choices": 3,
+  "commonWeight": 60,
+  "rareWeight": 30,
+  "epicWeight": 10
+ },
+ "slots": [
+  {
+   "id": "crown",
+   "modifier": "range",
+   "value": 0.15,
+   "x": 0.0,
+   "y": 1.9,
+   "adjacent": [
+    "middle"
+   ],
+   "order": 1
+  },
+  {
+   "id": "middle",
+   "modifier": "power",
+   "value": 0.1,
+   "x": 1.85,
+   "y": 0.35,
+   "adjacent": [
+    "crown",
+    "base"
+   ],
+   "order": 2
+  },
+  {
+   "id": "base",
+   "modifier": "rate",
+   "value": 0.1,
+   "x": 0.0,
+   "y": -1.5,
+   "adjacent": [
+    "middle"
+   ],
+   "order": 3
+  }
+ ],
+ "offline": {
+  "baseRatePerHour": 4,
+  "ratePerMissionCleared": 2,
+  "capHours": 8,
+  "minCollectMinutes": 5
+ },
+ "defeatTips": [
+  {
+   "source": "rat_raider",
+   "tipKey": "tip.rat_raider"
+  },
+  {
+   "source": "hound_runner",
+   "tipKey": "tip.hound_runner"
+  },
+  {
+   "source": "shield_guard",
+   "tipKey": "tip.shield_guard"
+  },
+  {
+   "source": "crow_archer",
+   "tipKey": "tip.crow_archer"
+  },
+  {
+   "source": "bat",
+   "tipKey": "tip.bat"
+  },
+  {
+   "source": "bell_priest",
+   "tipKey": "tip.bell_priest"
+  },
+  {
+   "source": "powder_rat",
+   "tipKey": "tip.powder_rat"
+  },
+  {
+   "source": "iron_golem",
+   "tipKey": "tip.iron_golem"
+  },
+  {
+   "source": "sir_barkhelm",
+   "tipKey": "tip.sir_barkhelm"
+  },
+  {
+   "source": "barkhelm_charge",
+   "tipKey": "tip.barkhelm_charge"
+  },
+  {
+   "source": "mother_carrion",
+   "tipKey": "tip.mother_carrion"
+  },
+  {
+   "source": "carrion_barrage",
+   "tipKey": "tip.carrion_barrage"
+  },
+  {
+   "source": "king_goldenfang",
+   "tipKey": "tip.king_goldenfang"
+  },
+  {
+   "source": "goldenfang_volley",
+   "tipKey": "tip.goldenfang_volley"
+  },
+  {
+   "source": "goldenfang_charge",
+   "tipKey": "tip.barkhelm_charge"
+  }
+ ]
+}

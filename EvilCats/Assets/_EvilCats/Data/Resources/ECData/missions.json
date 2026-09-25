@@ -1,0 +1,1299 @@
+{
+ "missions": [
+  {
+   "id": "m01",
+   "index": 1,
+   "biome": "gravewood",
+   "routeLayout": "routes_5",
+   "tutorial": true,
+   "waves": 10,
+   "budget": 4.0,
+   "budgetGrowth": 1.15,
+   "healthScale": 3.2,
+   "damageScale": 1.3,
+   "startSlots": 1,
+   "pool": [
+    {
+     "enemy": "rat_raider",
+     "weight": 6
+    },
+    {
+     "enemy": "hound_runner",
+     "weight": 3,
+     "fromWave": 4
+    }
+   ],
+   "scripted": [
+    {
+     "wave": 10,
+     "announceKey": "announce.finale",
+     "entries": [
+      {
+       "enemy": "rat_raider",
+       "count": 1,
+       "elite": true
+      }
+     ]
+    }
+   ],
+   "slotUnlocks": [
+    {
+     "wave": 3,
+     "slot": "crown",
+     "grantModule": "ember_maw"
+    }
+   ],
+   "moonGold": 60,
+   "firstClearShards": 1,
+   "unlocksModule": "frost_whisker"
+  },
+  {
+   "id": "m02",
+   "index": 2,
+   "biome": "gravewood",
+   "routeLayout": "routes_5",
+   "requiresMission": "m01",
+   "waves": 20,
+   "budget": 6.5,
+   "budgetGrowth": 1.11,
+   "healthScale": 2.01,
+   "damageScale": 1.95,
+   "startSlots": 2,
+   "pool": [
+    {
+     "enemy": "rat_raider",
+     "weight": 5
+    },
+    {
+     "enemy": "hound_runner",
+     "weight": 3,
+     "fromWave": 3
+    },
+    {
+     "enemy": "crow_archer",
+     "weight": 3,
+     "fromWave": 5
+    },
+    {
+     "enemy": "bat_swarm",
+     "weight": 2,
+     "fromWave": 9
+    }
+   ],
+   "scripted": [
+    {
+     "wave": 5,
+     "entries": [
+      {
+       "enemy": "crow_archer",
+       "count": 1,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 10,
+     "entries": [
+      {
+       "enemy": "hound_runner",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 15,
+     "entries": [
+      {
+       "enemy": "crow_archer",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 20,
+     "announceKey": "announce.finale",
+     "entries": [
+      {
+       "enemy": "rat_raider",
+       "count": 2,
+       "elite": true
+      },
+      {
+       "enemy": "crow_archer",
+       "count": 1,
+       "elite": true
+      }
+     ]
+    }
+   ],
+   "slotUnlocks": [
+    {
+     "wave": 2,
+     "slot": "base"
+    }
+   ],
+   "moonGold": 80
+  },
+  {
+   "id": "m03",
+   "index": 3,
+   "biome": "gravewood",
+   "routeLayout": "routes_5",
+   "requiresMission": "m02",
+   "waves": 20,
+   "budget": 7.15,
+   "budgetGrowth": 1.11,
+   "healthScale": 2.13,
+   "damageScale": 2.55,
+   "pool": [
+    {
+     "enemy": "rat_raider",
+     "weight": 5
+    },
+    {
+     "enemy": "hound_runner",
+     "weight": 3
+    },
+    {
+     "enemy": "crow_archer",
+     "weight": 3,
+     "fromWave": 3
+    },
+    {
+     "enemy": "bat_swarm",
+     "weight": 2,
+     "fromWave": 4
+    },
+    {
+     "enemy": "bell_priest",
+     "weight": 1.5,
+     "fromWave": 6
+    }
+   ],
+   "scripted": [
+    {
+     "wave": 5,
+     "entries": [
+      {
+       "enemy": "rat_raider",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 10,
+     "entries": [
+      {
+       "enemy": "bell_priest",
+       "count": 1,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 15,
+     "entries": [
+      {
+       "enemy": "crow_archer",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 20,
+     "announceKey": "announce.finale",
+     "entries": [
+      {
+       "enemy": "bell_priest",
+       "count": 1,
+       "elite": true
+      },
+      {
+       "enemy": "hound_runner",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    }
+   ],
+   "moonGold": 100,
+   "firstClearShards": 2,
+   "unlocksModule": "bone_ballista"
+  },
+  {
+   "id": "m04",
+   "index": 4,
+   "biome": "gravewood",
+   "routeLayout": "routes_5",
+   "requiresMission": "m03",
+   "waves": 20,
+   "budget": 7.15,
+   "budgetGrowth": 1.115,
+   "healthScale": 2.2,
+   "damageScale": 2.4,
+   "modifiers": [
+    "powder_night"
+   ],
+   "pool": [
+    {
+     "enemy": "rat_raider",
+     "weight": 4
+    },
+    {
+     "enemy": "hound_runner",
+     "weight": 2.5
+    },
+    {
+     "enemy": "shield_guard",
+     "weight": 2,
+     "fromWave": 2
+    },
+    {
+     "enemy": "crow_archer",
+     "weight": 2.5
+    },
+    {
+     "enemy": "bat_swarm",
+     "weight": 1.5,
+     "fromWave": 4
+    },
+    {
+     "enemy": "bell_priest",
+     "weight": 1,
+     "fromWave": 8
+    },
+    {
+     "enemy": "powder_rat",
+     "weight": 2,
+     "fromWave": 6
+    }
+   ],
+   "scripted": [
+    {
+     "wave": 5,
+     "entries": [
+      {
+       "enemy": "shield_guard",
+       "count": 1,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 10,
+     "entries": [
+      {
+       "enemy": "powder_rat",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 15,
+     "entries": [
+      {
+       "enemy": "shield_guard",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 20,
+     "announceKey": "announce.finale",
+     "entries": [
+      {
+       "enemy": "shield_guard",
+       "count": 2,
+       "elite": true
+      },
+      {
+       "enemy": "powder_rat",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    }
+   ],
+   "moonGold": 120
+  },
+  {
+   "id": "m05",
+   "index": 5,
+   "biome": "gravewood",
+   "routeLayout": "routes_5",
+   "requiresMission": "m04",
+   "waves": 20,
+   "budget": 7.8,
+   "budgetGrowth": 1.115,
+   "healthScale": 2.03,
+   "damageScale": 2.8,
+   "pool": [
+    {
+     "enemy": "rat_raider",
+     "weight": 4
+    },
+    {
+     "enemy": "hound_runner",
+     "weight": 2.5
+    },
+    {
+     "enemy": "shield_guard",
+     "weight": 2
+    },
+    {
+     "enemy": "crow_archer",
+     "weight": 2.5
+    },
+    {
+     "enemy": "bat_swarm",
+     "weight": 1.5
+    },
+    {
+     "enemy": "bell_priest",
+     "weight": 1.2,
+     "fromWave": 4
+    },
+    {
+     "enemy": "powder_rat",
+     "weight": 1.5,
+     "fromWave": 3
+    },
+    {
+     "enemy": "iron_golem",
+     "weight": 0.6,
+     "fromWave": 11
+    }
+   ],
+   "scripted": [
+    {
+     "wave": 5,
+     "entries": [
+      {
+       "enemy": "bell_priest",
+       "count": 1,
+       "elite": true
+      },
+      {
+       "enemy": "rat_raider",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 10,
+     "entries": [
+      {
+       "enemy": "shield_guard",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 15,
+     "entries": [
+      {
+       "enemy": "iron_golem",
+       "count": 1,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 20,
+     "announceKey": "announce.finale",
+     "entries": [
+      {
+       "enemy": "iron_golem",
+       "count": 1,
+       "elite": true
+      },
+      {
+       "enemy": "powder_rat",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    }
+   ],
+   "moonGold": 140,
+   "firstClearShards": 2,
+   "unlocksModule": "ward_lantern"
+  },
+  {
+   "id": "m06",
+   "index": 6,
+   "biome": "gravewood",
+   "routeLayout": "routes_5",
+   "requiresMission": "m05",
+   "waves": 20,
+   "budget": 7.8,
+   "budgetGrowth": 1.115,
+   "healthScale": 1.45,
+   "damageScale": 1.75,
+   "boss": "sir_barkhelm",
+   "pool": [
+    {
+     "enemy": "rat_raider",
+     "weight": 4
+    },
+    {
+     "enemy": "hound_runner",
+     "weight": 2.5
+    },
+    {
+     "enemy": "shield_guard",
+     "weight": 2.5
+    },
+    {
+     "enemy": "crow_archer",
+     "weight": 2
+    },
+    {
+     "enemy": "bat_swarm",
+     "weight": 1.5
+    },
+    {
+     "enemy": "bell_priest",
+     "weight": 1.2
+    },
+    {
+     "enemy": "powder_rat",
+     "weight": 1.5
+    },
+    {
+     "enemy": "iron_golem",
+     "weight": 0.7,
+     "fromWave": 8
+    }
+   ],
+   "scripted": [
+    {
+     "wave": 5,
+     "entries": [
+      {
+       "enemy": "hound_runner",
+       "count": 3,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 10,
+     "entries": [
+      {
+       "enemy": "shield_guard",
+       "count": 2,
+       "elite": true
+      },
+      {
+       "enemy": "bell_priest",
+       "count": 1,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 15,
+     "entries": [
+      {
+       "enemy": "iron_golem",
+       "count": 1,
+       "elite": true
+      },
+      {
+       "enemy": "crow_archer",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    }
+   ],
+   "moonGold": 200,
+   "firstClearShards": 3
+  },
+  {
+   "id": "m07",
+   "index": 7,
+   "biome": "moonfall",
+   "routeLayout": "routes_5",
+   "requiresMission": "m06",
+   "waves": 20,
+   "budget": 8.45,
+   "budgetGrowth": 1.115,
+   "healthScale": 2.03,
+   "damageScale": 2.8,
+   "modifiers": [
+    "moon_haste"
+   ],
+   "pool": [
+    {
+     "enemy": "rat_raider",
+     "weight": 3.5
+    },
+    {
+     "enemy": "hound_runner",
+     "weight": 3
+    },
+    {
+     "enemy": "shield_guard",
+     "weight": 2
+    },
+    {
+     "enemy": "crow_archer",
+     "weight": 2.5
+    },
+    {
+     "enemy": "bat_swarm",
+     "weight": 2
+    },
+    {
+     "enemy": "bell_priest",
+     "weight": 1.2
+    },
+    {
+     "enemy": "powder_rat",
+     "weight": 1.5
+    },
+    {
+     "enemy": "iron_golem",
+     "weight": 0.6,
+     "fromWave": 6
+    }
+   ],
+   "scripted": [
+    {
+     "wave": 5,
+     "entries": [
+      {
+       "enemy": "bat_swarm",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 10,
+     "entries": [
+      {
+       "enemy": "hound_runner",
+       "count": 3,
+       "elite": true
+      },
+      {
+       "enemy": "powder_rat",
+       "count": 1,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 15,
+     "entries": [
+      {
+       "enemy": "iron_golem",
+       "count": 1,
+       "elite": true
+      },
+      {
+       "enemy": "bell_priest",
+       "count": 1,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 20,
+     "announceKey": "announce.finale",
+     "entries": [
+      {
+       "enemy": "iron_golem",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    }
+   ],
+   "moonGold": 220,
+   "firstClearShards": 3,
+   "unlocksModule": "gravity_paw"
+  },
+  {
+   "id": "m08",
+   "index": 8,
+   "biome": "moonfall",
+   "routeLayout": "routes_5",
+   "requiresMission": "m07",
+   "waves": 20,
+   "budget": 8.45,
+   "budgetGrowth": 1.12,
+   "healthScale": 1.76,
+   "damageScale": 2.8,
+   "modifiers": [
+    "sanctified"
+   ],
+   "pool": [
+    {
+     "enemy": "rat_raider",
+     "weight": 3
+    },
+    {
+     "enemy": "hound_runner",
+     "weight": 2
+    },
+    {
+     "enemy": "shield_guard",
+     "weight": 3
+    },
+    {
+     "enemy": "crow_archer",
+     "weight": 2
+    },
+    {
+     "enemy": "bat_swarm",
+     "weight": 1.5
+    },
+    {
+     "enemy": "bell_priest",
+     "weight": 1.6
+    },
+    {
+     "enemy": "powder_rat",
+     "weight": 1.2
+    },
+    {
+     "enemy": "iron_golem",
+     "weight": 0.8,
+     "fromWave": 5
+    }
+   ],
+   "scripted": [
+    {
+     "wave": 5,
+     "entries": [
+      {
+       "enemy": "shield_guard",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 10,
+     "entries": [
+      {
+       "enemy": "bell_priest",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 15,
+     "entries": [
+      {
+       "enemy": "shield_guard",
+       "count": 2,
+       "elite": true
+      },
+      {
+       "enemy": "iron_golem",
+       "count": 1,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 20,
+     "announceKey": "announce.finale",
+     "entries": [
+      {
+       "enemy": "bell_priest",
+       "count": 2,
+       "elite": true
+      },
+      {
+       "enemy": "shield_guard",
+       "count": 3,
+       "elite": true
+      }
+     ]
+    }
+   ],
+   "moonGold": 240
+  },
+  {
+   "id": "m09",
+   "index": 9,
+   "biome": "moonfall",
+   "routeLayout": "routes_5",
+   "requiresMission": "m08",
+   "waves": 20,
+   "budget": 9.1,
+   "budgetGrowth": 1.12,
+   "healthScale": 2.04,
+   "damageScale": 2.2,
+   "boss": "mother_carrion",
+   "pool": [
+    {
+     "enemy": "rat_raider",
+     "weight": 3
+    },
+    {
+     "enemy": "hound_runner",
+     "weight": 2.5
+    },
+    {
+     "enemy": "shield_guard",
+     "weight": 2
+    },
+    {
+     "enemy": "crow_archer",
+     "weight": 3
+    },
+    {
+     "enemy": "bat_swarm",
+     "weight": 2.5
+    },
+    {
+     "enemy": "bell_priest",
+     "weight": 1.2
+    },
+    {
+     "enemy": "powder_rat",
+     "weight": 1.3
+    },
+    {
+     "enemy": "iron_golem",
+     "weight": 0.7,
+     "fromWave": 5
+    }
+   ],
+   "scripted": [
+    {
+     "wave": 5,
+     "entries": [
+      {
+       "enemy": "crow_archer",
+       "count": 3,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 10,
+     "entries": [
+      {
+       "enemy": "bat_swarm",
+       "count": 2,
+       "elite": true
+      },
+      {
+       "enemy": "bell_priest",
+       "count": 1,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 15,
+     "entries": [
+      {
+       "enemy": "crow_archer",
+       "count": 3,
+       "elite": true
+      },
+      {
+       "enemy": "iron_golem",
+       "count": 1,
+       "elite": true
+      }
+     ]
+    }
+   ],
+   "moonGold": 300,
+   "firstClearShards": 3
+  },
+  {
+   "id": "m10",
+   "index": 10,
+   "biome": "moonfall",
+   "routeLayout": "routes_5",
+   "requiresMission": "m09",
+   "waves": 20,
+   "budget": 9.1,
+   "budgetGrowth": 1.12,
+   "healthScale": 1.8,
+   "damageScale": 2.6,
+   "modifiers": [
+    "iron_tide"
+   ],
+   "pool": [
+    {
+     "enemy": "rat_raider",
+     "weight": 3
+    },
+    {
+     "enemy": "hound_runner",
+     "weight": 2
+    },
+    {
+     "enemy": "shield_guard",
+     "weight": 3
+    },
+    {
+     "enemy": "crow_archer",
+     "weight": 2
+    },
+    {
+     "enemy": "bat_swarm",
+     "weight": 1.5
+    },
+    {
+     "enemy": "bell_priest",
+     "weight": 1.2
+    },
+    {
+     "enemy": "powder_rat",
+     "weight": 2
+    },
+    {
+     "enemy": "iron_golem",
+     "weight": 1.0,
+     "fromWave": 4
+    }
+   ],
+   "scripted": [
+    {
+     "wave": 5,
+     "entries": [
+      {
+       "enemy": "powder_rat",
+       "count": 3,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 10,
+     "entries": [
+      {
+       "enemy": "iron_golem",
+       "count": 1,
+       "elite": true
+      },
+      {
+       "enemy": "shield_guard",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 15,
+     "entries": [
+      {
+       "enemy": "iron_golem",
+       "count": 1,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 20,
+     "announceKey": "announce.finale",
+     "entries": [
+      {
+       "enemy": "iron_golem",
+       "count": 1,
+       "elite": true
+      },
+      {
+       "enemy": "powder_rat",
+       "count": 3,
+       "elite": true
+      }
+     ]
+    }
+   ],
+   "moonGold": 280
+  },
+  {
+   "id": "m11",
+   "index": 11,
+   "biome": "moonfall",
+   "routeLayout": "routes_5",
+   "requiresMission": "m10",
+   "waves": 20,
+   "budget": 9.75,
+   "budgetGrowth": 1.12,
+   "healthScale": 2.73,
+   "damageScale": 2.5,
+   "modifiers": [
+    "night_swarm"
+   ],
+   "pool": [
+    {
+     "enemy": "rat_raider",
+     "weight": 3
+    },
+    {
+     "enemy": "hound_runner",
+     "weight": 2.5
+    },
+    {
+     "enemy": "shield_guard",
+     "weight": 2
+    },
+    {
+     "enemy": "crow_archer",
+     "weight": 2.5
+    },
+    {
+     "enemy": "bat_swarm",
+     "weight": 2.5
+    },
+    {
+     "enemy": "bell_priest",
+     "weight": 1.3
+    },
+    {
+     "enemy": "powder_rat",
+     "weight": 1.5
+    },
+    {
+     "enemy": "iron_golem",
+     "weight": 0.8,
+     "fromWave": 4
+    }
+   ],
+   "scripted": [
+    {
+     "wave": 5,
+     "entries": [
+      {
+       "enemy": "bat_swarm",
+       "count": 3,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 10,
+     "entries": [
+      {
+       "enemy": "crow_archer",
+       "count": 4,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 15,
+     "entries": [
+      {
+       "enemy": "bat_swarm",
+       "count": 3,
+       "elite": true
+      },
+      {
+       "enemy": "bell_priest",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 20,
+     "announceKey": "announce.finale",
+     "entries": [
+      {
+       "enemy": "crow_archer",
+       "count": 4,
+       "elite": true
+      },
+      {
+       "enemy": "iron_golem",
+       "count": 1,
+       "elite": true
+      }
+     ]
+    }
+   ],
+   "moonGold": 300
+  },
+  {
+   "id": "m12",
+   "index": 12,
+   "biome": "moonfall",
+   "routeLayout": "routes_5",
+   "requiresMission": "m11",
+   "waves": 20,
+   "budget": 9.75,
+   "budgetGrowth": 1.12,
+   "healthScale": 1.5,
+   "damageScale": 2.35,
+   "boss": "king_goldenfang",
+   "pool": [
+    {
+     "enemy": "rat_raider",
+     "weight": 3
+    },
+    {
+     "enemy": "hound_runner",
+     "weight": 2.5
+    },
+    {
+     "enemy": "shield_guard",
+     "weight": 2.5
+    },
+    {
+     "enemy": "crow_archer",
+     "weight": 2.5
+    },
+    {
+     "enemy": "bat_swarm",
+     "weight": 2
+    },
+    {
+     "enemy": "bell_priest",
+     "weight": 1.3
+    },
+    {
+     "enemy": "powder_rat",
+     "weight": 1.5
+    },
+    {
+     "enemy": "iron_golem",
+     "weight": 0.9,
+     "fromWave": 4
+    }
+   ],
+   "scripted": [
+    {
+     "wave": 5,
+     "entries": [
+      {
+       "enemy": "shield_guard",
+       "count": 3,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 10,
+     "entries": [
+      {
+       "enemy": "iron_golem",
+       "count": 1,
+       "elite": true
+      },
+      {
+       "enemy": "bell_priest",
+       "count": 2,
+       "elite": true
+      }
+     ]
+    },
+    {
+     "wave": 15,
+     "entries": [
+      {
+       "enemy": "iron_golem",
+       "count": 1,
+       "elite": true
+      },
+      {
+       "enemy": "crow_archer",
+       "count": 3,
+       "elite": true
+      }
+     ]
+    }
+   ],
+   "moonGold": 400,
+   "firstClearShards": 5
+  }
+ ],
+ "modifiers": [
+  {
+   "id": "powder_night",
+   "weightMult": {
+    "powder_rat": 1.8
+   }
+  },
+  {
+   "id": "moon_haste",
+   "speedMult": 1.1
+  },
+  {
+   "id": "sanctified",
+   "weightMult": {
+    "bell_priest": 1.8
+   }
+  },
+  {
+   "id": "iron_tide",
+   "armorAdd": 10,
+   "weightMult": {
+    "shield_guard": 1.4,
+    "iron_golem": 1.3
+   }
+  },
+  {
+   "id": "night_swarm",
+   "weightMult": {
+    "bat_swarm": 1.5,
+    "crow_archer": 1.3
+   }
+  },
+  {
+   "id": "gilded_wrath",
+   "damageMult": 1.2
+  },
+  {
+   "id": "endless_frenzy",
+   "speedMult": 1.12,
+   "damageMult": 1.1
+  },
+  {
+   "id": "endless_bulwark",
+   "healthMult": 1.15,
+   "armorAdd": 10
+  },
+  {
+   "id": "endless_horde",
+   "budgetMult": 1.2
+  }
+ ],
+ "endless": {
+  "requiresMission": "m12",
+  "budget": 12,
+  "budgetGrowth": 1.06,
+  "budgetCap": 200,
+  "healthScale": 2.6,
+  "healthGrowthLinear": 0.08,
+  "healthGrowthQuadratic": 0.0015,
+  "healthCap": 40,
+  "modifierEvery": 5,
+  "maxModifiers": 4,
+  "modifierCycle": [
+   "endless_frenzy",
+   "endless_bulwark",
+   "night_swarm",
+   "endless_horde",
+   "iron_tide",
+   "sanctified",
+   "powder_night",
+   "moon_haste"
+  ],
+  "bossEvery": 10,
+  "bossCycle": [
+   "sir_barkhelm",
+   "mother_carrion",
+   "king_goldenfang"
+  ],
+  "pool": [
+   {
+    "enemy": "rat_raider",
+    "weight": 3
+   },
+   {
+    "enemy": "hound_runner",
+    "weight": 2.5
+   },
+   {
+    "enemy": "shield_guard",
+    "weight": 2.5
+   },
+   {
+    "enemy": "crow_archer",
+    "weight": 2.5
+   },
+   {
+    "enemy": "bat_swarm",
+    "weight": 2
+   },
+   {
+    "enemy": "bell_priest",
+    "weight": 1.3
+   },
+   {
+    "enemy": "powder_rat",
+    "weight": 1.5
+   },
+   {
+    "enemy": "iron_golem",
+    "weight": 1.0
+   }
+  ],
+  "routeLayout": "routes_5",
+  "moonGoldPerWave": 6
+ },
+ "daily": {
+  "requiresMission": "m03",
+  "waves": 15,
+  "budget": 6.0,
+  "budgetGrowth": 1.13,
+  "healthScale": 1.35,
+  "pool": [
+   {
+    "enemy": "rat_raider",
+    "weight": 3
+   },
+   {
+    "enemy": "hound_runner",
+    "weight": 2.5
+   },
+   {
+    "enemy": "shield_guard",
+    "weight": 2
+   },
+   {
+    "enemy": "crow_archer",
+    "weight": 2.5
+   },
+   {
+    "enemy": "bat_swarm",
+    "weight": 2,
+    "fromWave": 3
+   },
+   {
+    "enemy": "bell_priest",
+    "weight": 1.2,
+    "fromWave": 4
+   },
+   {
+    "enemy": "powder_rat",
+    "weight": 1.5,
+    "fromWave": 4
+   },
+   {
+    "enemy": "iron_golem",
+    "weight": 0.7,
+    "fromWave": 8
+   }
+  ],
+  "modifierChoices": [
+   "moon_haste",
+   "sanctified",
+   "iron_tide",
+   "night_swarm",
+   "powder_night",
+   "gilded_wrath"
+  ],
+  "bossChoices": [
+   "sir_barkhelm",
+   "mother_carrion",
+   "king_goldenfang"
+  ],
+  "moonGold": 80
+ }
+}

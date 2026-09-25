@@ -1,0 +1,88 @@
+{
+ "upgrades": [
+  {
+   "id": "damage",
+   "icon": "sword",
+   "baseCost": 25,
+   "maxLevel": 15,
+   "order": 1,
+   "mods": [
+    {
+     "stat": "dmg.all",
+     "op": "pct",
+     "value": 0.08
+    }
+   ]
+  },
+  {
+   "id": "attack_speed",
+   "icon": "haste",
+   "baseCost": 30,
+   "maxLevel": 12,
+   "order": 2,
+   "mods": [
+    {
+     "stat": "rate.all",
+     "op": "rate",
+     "value": 0.06
+    }
+   ]
+  },
+  {
+   "id": "max_health",
+   "icon": "heart_plus",
+   "baseCost": 22,
+   "maxLevel": 15,
+   "order": 3,
+   "mods": [
+    {
+     "stat": "citadel.maxHealth",
+     "op": "add",
+     "value": 100
+    }
+   ]
+  },
+  {
+   "id": "regen",
+   "icon": "regen",
+   "baseCost": 26,
+   "maxLevel": 12,
+   "order": 4,
+   "mods": [
+    {
+     "stat": "citadel.regen",
+     "op": "add",
+     "value": 1.2
+    }
+   ]
+  },
+  {
+   "id": "crit",
+   "icon": "crit",
+   "baseCost": 32,
+   "maxLevel": 10,
+   "order": 5,
+   "mods": [
+    {
+     "stat": "hero.critChance",
+     "op": "add",
+     "value": 0.03
+    }
+   ]
+  },
+  {
+   "id": "collection",
+   "icon": "magnet",
+   "baseCost": 18,
+   "maxLevel": 10,
+   "order": 6,
+   "mods": [
+    {
+     "stat": "econ.sparkGain",
+     "op": "pct",
+     "value": 0.12
+    }
+   ]
+  }
+ ]
+}

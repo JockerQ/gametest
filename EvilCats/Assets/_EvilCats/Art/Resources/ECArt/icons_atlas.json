@@ -1,0 +1,92 @@
+{
+ "atlas": "icons",
+ "texture": "icons.png",
+ "flashTexture": null,
+ "width": 128,
+ "height": 128,
+ "ppu": 16,
+ "coordinateOrigin": "top-left",
+ "sprites": {
+  "icon/enemy/bat_swarm": {
+   "x": 2,
+   "y": 2,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/enemy/bell_priest": {
+   "x": 20,
+   "y": 2,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/enemy/crow_archer": {
+   "x": 38,
+   "y": 2,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/enemy/hound_runner": {
+   "x": 56,
+   "y": 2,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/enemy/iron_golem": {
+   "x": 74,
+   "y": 2,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/enemy/powder_rat": {
+   "x": 92,
+   "y": 2,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/enemy/rat_raider": {
+   "x": 110,
+   "y": 2,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/enemy/shield_guard": {
+   "x": 2,
+   "y": 20,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  }
+ },
+ "anims": {}
+}

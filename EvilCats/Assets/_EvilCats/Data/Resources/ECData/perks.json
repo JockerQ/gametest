@@ -1,0 +1,466 @@
+{
+ "perks": [
+  {
+   "id": "arc_forked_bolt",
+   "family": "arc",
+   "rarity": "common",
+   "maxStacks": 3,
+   "order": 1,
+   "mods": [
+    {
+     "stat": "hero.chainTargets",
+     "op": "add",
+     "value": 1
+    }
+   ]
+  },
+  {
+   "id": "arc_static_mark",
+   "family": "arc",
+   "rarity": "common",
+   "maxStacks": 2,
+   "order": 2,
+   "p": {
+    "bonus": 0.15,
+    "duration": 4
+   }
+  },
+  {
+   "id": "arc_thunderclap",
+   "family": "arc",
+   "rarity": "rare",
+   "maxStacks": 2,
+   "order": 3,
+   "requiresCondition": "chain",
+   "p": {
+    "burstPct": 0.35,
+    "radius": 1.3
+   }
+  },
+  {
+   "id": "arc_conductive_chill",
+   "family": "arc",
+   "rarity": "rare",
+   "maxStacks": 1,
+   "order": 4,
+   "requiresCondition": "slow",
+   "p": {
+    "rangeMult": 1.5,
+    "damageBonus": 0.25
+   }
+  },
+  {
+   "id": "arc_overcharged_crown",
+   "family": "arc",
+   "rarity": "epic",
+   "maxStacks": 1,
+   "order": 5,
+   "tradeoff": true,
+   "mods": [
+    {
+     "stat": "citadel.maxHealth",
+     "op": "mul",
+     "value": 0.85
+    },
+    {
+     "stat": "dmg.arc",
+     "op": "mul",
+     "value": 1.3
+    }
+   ]
+  },
+  {
+   "id": "ember_lingering_embers",
+   "family": "ember",
+   "rarity": "common",
+   "maxStacks": 2,
+   "order": 6,
+   "mods": [
+    {
+     "stat": "module.ember_maw.burnDuration",
+     "op": "pct",
+     "value": 0.5
+    }
+   ]
+  },
+  {
+   "id": "ember_cinder_spread",
+   "family": "ember",
+   "rarity": "rare",
+   "maxStacks": 1,
+   "order": 7,
+   "p": {
+    "potency": 0.5,
+    "radius": 2.0,
+    "targets": 2
+   }
+  },
+  {
+   "id": "ember_molten_shell",
+   "family": "ember",
+   "rarity": "common",
+   "maxStacks": 2,
+   "order": 8,
+   "mods": [
+    {
+     "stat": "module.ember_maw.radius",
+     "op": "pct",
+     "value": 0.15
+    },
+    {
+     "stat": "module.ember_maw.splash",
+     "op": "add",
+     "value": 0.1
+    }
+   ]
+  },
+  {
+   "id": "ember_furnace_heart",
+   "family": "ember",
+   "rarity": "rare",
+   "maxStacks": 1,
+   "order": 9,
+   "p": {
+    "heat": 8,
+    "haste": 0.4,
+    "duration": 5
+   }
+  },
+  {
+   "id": "ember_wildfire_pact",
+   "family": "ember",
+   "rarity": "epic",
+   "maxStacks": 1,
+   "order": 10,
+   "tradeoff": true,
+   "mods": [
+    {
+     "stat": "module.ember_maw.range",
+     "op": "mul",
+     "value": 0.75
+    },
+    {
+     "stat": "dmg.fire",
+     "op": "mul",
+     "value": 1.45
+    }
+   ]
+  },
+  {
+   "id": "frost_deep_chill",
+   "family": "frost",
+   "rarity": "common",
+   "maxStacks": 2,
+   "order": 11,
+   "mods": [
+    {
+     "stat": "module.frost_whisker.slow",
+     "op": "add",
+     "value": 0.1
+    }
+   ]
+  },
+  {
+   "id": "frost_brittle_armour",
+   "family": "frost",
+   "rarity": "rare",
+   "maxStacks": 1,
+   "order": 12,
+   "requiresModules": [
+    "bone_ballista"
+   ],
+   "p": {
+    "bonus": 0.2
+   }
+  },
+  {
+   "id": "frost_shatter",
+   "family": "frost",
+   "rarity": "rare",
+   "maxStacks": 1,
+   "order": 13,
+   "p": {
+    "damage": 30,
+    "radius": 1.5
+   }
+  },
+  {
+   "id": "frost_winter_ring",
+   "family": "frost",
+   "rarity": "common",
+   "maxStacks": 2,
+   "order": 14,
+   "p": {
+    "interval": 6,
+    "intervalPerStack": 1.5,
+    "radius": 3.2,
+    "radiusPerStack": 0.4,
+    "damage": 8
+   }
+  },
+  {
+   "id": "frost_frozen_oath",
+   "family": "frost",
+   "rarity": "epic",
+   "maxStacks": 1,
+   "order": 15,
+   "tradeoff": true,
+   "mods": [
+    {
+     "stat": "module.frost_whisker.damage",
+     "op": "mul",
+     "value": 0.5
+    },
+    {
+     "stat": "module.frost_whisker.freezeDuration",
+     "op": "mul",
+     "value": 1.6
+    },
+    {
+     "stat": "module.frost_whisker.freezeStacks",
+     "op": "add",
+     "value": -1
+    }
+   ]
+  },
+  {
+   "id": "bone_barbed_bolts",
+   "family": "bone",
+   "rarity": "common",
+   "maxStacks": 2,
+   "order": 16,
+   "p": {
+    "dps": 4,
+    "duration": 3,
+    "maxStacks": 3
+   }
+  },
+  {
+   "id": "bone_double_nock",
+   "family": "bone",
+   "rarity": "rare",
+   "maxStacks": 1,
+   "order": 17,
+   "p": {
+    "every": 3
+   }
+  },
+  {
+   "id": "bone_armour_break",
+   "family": "bone",
+   "rarity": "common",
+   "maxStacks": 1,
+   "order": 18,
+   "p": {
+    "armor": 20,
+    "duration": 4
+   }
+  },
+  {
+   "id": "bone_executioner",
+   "family": "bone",
+   "rarity": "rare",
+   "maxStacks": 2,
+   "order": 19,
+   "p": {
+    "threshold": 0.35,
+    "bonus": 0.4
+   }
+  },
+  {
+   "id": "bone_heavy_quarrels",
+   "family": "bone",
+   "rarity": "epic",
+   "maxStacks": 1,
+   "order": 20,
+   "tradeoff": true,
+   "mods": [
+    {
+     "stat": "module.bone_ballista.interval",
+     "op": "ratemul",
+     "value": 0.7
+    },
+    {
+     "stat": "module.bone_ballista.damage",
+     "op": "mul",
+     "value": 1.7
+    },
+    {
+     "stat": "module.bone_ballista.targets",
+     "op": "add",
+     "value": 2
+    }
+   ]
+  },
+  {
+   "id": "ward_reinforced_barrier",
+   "family": "ward",
+   "rarity": "common",
+   "maxStacks": 2,
+   "order": 21,
+   "mods": [
+    {
+     "stat": "barrier.all",
+     "op": "pct",
+     "value": 0.2
+    }
+   ]
+  },
+  {
+   "id": "ward_mending_purr",
+   "family": "ward",
+   "rarity": "common",
+   "maxStacks": 2,
+   "order": 22,
+   "mods": [
+    {
+     "stat": "module.ward_lantern.repair",
+     "op": "add",
+     "value": 1.0
+    },
+    {
+     "stat": "citadel.regen",
+     "op": "pct",
+     "value": 0.1
+    }
+   ]
+  },
+  {
+   "id": "ward_last_thread",
+   "family": "ward",
+   "rarity": "rare",
+   "maxStacks": 1,
+   "order": 23,
+   "p": {
+    "threshold": 0.2,
+    "barrier": 0.3,
+    "duration": 6
+   }
+  },
+  {
+   "id": "ward_reflective_fur",
+   "family": "ward",
+   "rarity": "rare",
+   "maxStacks": 1,
+   "order": 24,
+   "p": {
+    "pct": 0.4,
+    "cap": 30
+   }
+  },
+  {
+   "id": "ward_guardian_pact",
+   "family": "ward",
+   "rarity": "epic",
+   "maxStacks": 1,
+   "order": 25,
+   "tradeoff": true,
+   "mods": [
+    {
+     "stat": "dmg.all",
+     "op": "mul",
+     "value": 0.85
+    },
+    {
+     "stat": "barrier.all",
+     "op": "mul",
+     "value": 1.5
+    },
+    {
+     "stat": "module.ward_lantern.interval",
+     "op": "ratemul",
+     "value": 1.3333
+    }
+   ]
+  },
+  {
+   "id": "gravity_wider_orbit",
+   "family": "gravity",
+   "rarity": "common",
+   "maxStacks": 2,
+   "order": 26,
+   "mods": [
+    {
+     "stat": "module.gravity_paw.radius",
+     "op": "pct",
+     "value": 0.2
+    }
+   ]
+  },
+  {
+   "id": "gravity_crushing_centre",
+   "family": "gravity",
+   "rarity": "rare",
+   "maxStacks": 2,
+   "order": 27,
+   "p": {
+    "damage": 25,
+    "radius": 0.9
+   }
+  },
+  {
+   "id": "gravity_event_horizon",
+   "family": "gravity",
+   "rarity": "common",
+   "maxStacks": 1,
+   "order": 28,
+   "p": {
+    "slow": 0.35,
+    "duration": 2
+   }
+  },
+  {
+   "id": "gravity_falling_star",
+   "family": "gravity",
+   "rarity": "rare",
+   "maxStacks": 2,
+   "order": 29,
+   "p": {
+    "bonus": 0.15,
+    "window": 3
+   }
+  },
+  {
+   "id": "gravity_unstable_singularity",
+   "family": "gravity",
+   "rarity": "epic",
+   "maxStacks": 1,
+   "order": 30,
+   "tradeoff": true,
+   "mods": [
+    {
+     "stat": "module.gravity_paw.interval",
+     "op": "ratemul",
+     "value": 0.7407
+    },
+    {
+     "stat": "module.gravity_paw.duration",
+     "op": "mul",
+     "value": 1.7
+    },
+    {
+     "stat": "module.gravity_paw.radius",
+     "op": "mul",
+     "value": 1.15
+    }
+   ]
+  }
+ ],
+ "fallbacks": [
+  {
+   "id": "spark_cache",
+   "kind": "sparks",
+   "value": 40
+  },
+  {
+   "id": "stormheart_mend",
+   "kind": "heal",
+   "value": 0.25
+  },
+  {
+   "id": "stormheart_shield",
+   "kind": "barrier",
+   "value": 0.25
+  }
+ ]
+}

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Compiles the SAME source files Unity compiles (Assets/_EvilCats/Scripts/Core), against
+       .NET Standard 2.1 with C# 9 - the API surface and language version of Unity 6 - so the
+       game rules can be built and unit-tested without the Unity Editor. -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <AssemblyName>EvilCats.Core</AssemblyName>
+    <RootNamespace>EvilCats</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <NoWarn>CS1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../EvilCats/Assets/_EvilCats/Scripts/Core/**/*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Unity ships com.unity.nuget.newtonsoft-json 3.2.x = Json.NET 13.0.x -->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+</Project>

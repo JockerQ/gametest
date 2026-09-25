@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Headless balance simulator: plays missions with the real game rules (EvilCats.Core). -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../EvilCats.Core/EvilCats.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../../EvilCats/Assets/_EvilCats/Tests/EditMode/Core/TestContent.cs" Link="TestContent.cs" />
+  </ItemGroup>
+</Project>

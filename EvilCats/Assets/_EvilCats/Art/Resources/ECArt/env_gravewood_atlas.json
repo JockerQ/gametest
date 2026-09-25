@@ -1,0 +1,282 @@
+{
+ "atlas": "env_gravewood",
+ "texture": "env_gravewood.png",
+ "flashTexture": null,
+ "width": 256,
+ "height": 256,
+ "ppu": 16,
+ "coordinateOrigin": "top-left",
+ "sprites": {
+  "env/gravewood/ground": {
+   "x": 2,
+   "y": 2,
+   "w": 128,
+   "h": 128,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "env/gravewood/path/0": {
+   "x": 2,
+   "y": 182,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "env/gravewood/path/1": {
+   "x": 20,
+   "y": 182,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "env/gravewood/path/2": {
+   "x": 38,
+   "y": 182,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "env/gravewood/path/3": {
+   "x": 56,
+   "y": 182,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "env/gravewood/prop/bush_a": {
+   "x": 92,
+   "y": 182,
+   "w": 18,
+   "h": 14,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/bush_b": {
+   "x": 130,
+   "y": 182,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/grass_a": {
+   "x": 198,
+   "y": 182,
+   "w": 9,
+   "h": 8,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/grass_b": {
+   "x": 174,
+   "y": 182,
+   "w": 10,
+   "h": 9,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/grass_c": {
+   "x": 209,
+   "y": 182,
+   "w": 7,
+   "h": 7,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/grave_a": {
+   "x": 190,
+   "y": 132,
+   "w": 14,
+   "h": 18,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/grave_b": {
+   "x": 206,
+   "y": 132,
+   "w": 14,
+   "h": 18,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/grave_c": {
+   "x": 222,
+   "y": 132,
+   "w": 14,
+   "h": 18,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/grave_d": {
+   "x": 238,
+   "y": 132,
+   "w": 14,
+   "h": 18,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/lantern_post": {
+   "x": 70,
+   "y": 132,
+   "w": 16,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/mushroom_a": {
+   "x": 146,
+   "y": 182,
+   "w": 12,
+   "h": 10,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/mushroom_b": {
+   "x": 186,
+   "y": 182,
+   "w": 10,
+   "h": 9,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/rock_a": {
+   "x": 112,
+   "y": 182,
+   "w": 16,
+   "h": 14,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/rock_b": {
+   "x": 160,
+   "y": 182,
+   "w": 12,
+   "h": 10,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/stump": {
+   "x": 74,
+   "y": 182,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/tree_dead_a": {
+   "x": 198,
+   "y": 2,
+   "w": 32,
+   "h": 48,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/tree_dead_b": {
+   "x": 2,
+   "y": 132,
+   "w": 32,
+   "h": 48,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/tree_dead_c": {
+   "x": 36,
+   "y": 132,
+   "w": 32,
+   "h": 48,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/wall_broken_a": {
+   "x": 88,
+   "y": 132,
+   "w": 32,
+   "h": 22,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/wall_broken_b": {
+   "x": 122,
+   "y": 132,
+   "w": 32,
+   "h": 22,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/prop/wall_broken_c": {
+   "x": 156,
+   "y": 132,
+   "w": 32,
+   "h": 22,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "env/gravewood/vignette": {
+   "x": 132,
+   "y": 2,
+   "w": 64,
+   "h": 64,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  }
+ },
+ "anims": {}
+}

@@ -1,0 +1,32 @@
+{
+ "atlas": "portraits",
+ "texture": "portraits.png",
+ "flashTexture": null,
+ "width": 128,
+ "height": 128,
+ "ppu": 16,
+ "coordinateOrigin": "top-left",
+ "sprites": {
+  "avatar/arc_light_cat": {
+   "x": 68,
+   "y": 2,
+   "w": 32,
+   "h": 32,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "portrait/arc_light_cat": {
+   "x": 2,
+   "y": 2,
+   "w": 64,
+   "h": 64,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  }
+ },
+ "anims": {}
+}

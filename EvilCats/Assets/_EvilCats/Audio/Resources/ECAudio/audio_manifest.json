@@ -1,0 +1,542 @@
+{
+  "music": {
+    "menu": {
+      "file": "music/menu",
+      "loop": true,
+      "bpm": 98,
+      "volume": 0.8,
+      "lengthSec": 68.571
+    },
+    "gravewood": {
+      "file": "music/gravewood",
+      "loop": true,
+      "bpm": 120,
+      "volume": 0.7,
+      "lengthSec": 88.0
+    },
+    "moonfall": {
+      "file": "music/moonfall",
+      "loop": true,
+      "bpm": 126,
+      "volume": 0.7,
+      "lengthSec": 83.81
+    },
+    "boss": {
+      "file": "music/boss",
+      "loop": true,
+      "bpm": 144,
+      "volume": 0.7,
+      "lengthSec": 80.0
+    },
+    "victory": {
+      "file": "music/victory",
+      "loop": false,
+      "bpm": 120,
+      "volume": 0.8,
+      "lengthSec": 7.6
+    },
+    "defeat": {
+      "file": "music/defeat",
+      "loop": false,
+      "bpm": 100,
+      "volume": 0.8,
+      "lengthSec": 6.4
+    },
+    "story": {
+      "file": "music/story",
+      "loop": false,
+      "bpm": 100,
+      "volume": 0.8,
+      "lengthSec": 20.7
+    }
+  },
+  "sfx": {
+    "ui_click": {
+      "files": [
+        "sfx/ui_click"
+      ],
+      "volume": 0.73,
+      "pitchVar": 0.0,
+      "maxVoices": 2,
+      "cooldownMs": 40,
+      "category": "ui"
+    },
+    "ui_back": {
+      "files": [
+        "sfx/ui_back"
+      ],
+      "volume": 0.57,
+      "pitchVar": 0.0,
+      "maxVoices": 2,
+      "cooldownMs": 40,
+      "category": "ui"
+    },
+    "ui_denied": {
+      "files": [
+        "sfx/ui_denied"
+      ],
+      "volume": 0.36,
+      "pitchVar": 0.0,
+      "maxVoices": 1,
+      "cooldownMs": 150,
+      "category": "ui"
+    },
+    "ui_toggle": {
+      "files": [
+        "sfx/ui_toggle"
+      ],
+      "volume": 0.62,
+      "pitchVar": 0.0,
+      "maxVoices": 2,
+      "cooldownMs": 40,
+      "category": "ui"
+    },
+    "purchase": {
+      "files": [
+        "sfx/purchase"
+      ],
+      "volume": 0.36,
+      "pitchVar": 0.0,
+      "maxVoices": 1,
+      "cooldownMs": 100,
+      "category": "ui"
+    },
+    "reward": {
+      "files": [
+        "sfx/reward"
+      ],
+      "volume": 0.39,
+      "pitchVar": 0.0,
+      "maxVoices": 1,
+      "cooldownMs": 200,
+      "category": "ui"
+    },
+    "level_up": {
+      "files": [
+        "sfx/level_up"
+      ],
+      "volume": 0.55,
+      "pitchVar": 0.0,
+      "maxVoices": 1,
+      "cooldownMs": 300,
+      "category": "ui"
+    },
+    "perk_pick": {
+      "files": [
+        "sfx/perk_pick"
+      ],
+      "volume": 0.37,
+      "pitchVar": 0.0,
+      "maxVoices": 1,
+      "cooldownMs": 100,
+      "category": "ui"
+    },
+    "arc_bolt": {
+      "files": [
+        "sfx/arc_bolt_0",
+        "sfx/arc_bolt_1",
+        "sfx/arc_bolt_2"
+      ],
+      "volume": 0.59,
+      "pitchVar": 0.05,
+      "maxVoices": 3,
+      "cooldownMs": 40,
+      "category": "combat"
+    },
+    "chain_jump": {
+      "files": [
+        "sfx/chain_jump_0",
+        "sfx/chain_jump_1",
+        "sfx/chain_jump_2"
+      ],
+      "volume": 1.0,
+      "pitchVar": 0.06,
+      "maxVoices": 4,
+      "cooldownMs": 30,
+      "category": "combat"
+    },
+    "arc_storm": {
+      "files": [
+        "sfx/arc_storm"
+      ],
+      "volume": 1.0,
+      "pitchVar": 0.03,
+      "maxVoices": 2,
+      "cooldownMs": 300,
+      "category": "combat"
+    },
+    "ward_cast": {
+      "files": [
+        "sfx/ward_cast"
+      ],
+      "volume": 0.51,
+      "pitchVar": 0.03,
+      "maxVoices": 2,
+      "cooldownMs": 150,
+      "category": "combat"
+    },
+    "barrier_hit": {
+      "files": [
+        "sfx/barrier_hit"
+      ],
+      "volume": 0.41,
+      "pitchVar": 0.05,
+      "maxVoices": 3,
+      "cooldownMs": 50,
+      "category": "combat"
+    },
+    "barrier_break": {
+      "files": [
+        "sfx/barrier_break"
+      ],
+      "volume": 0.68,
+      "pitchVar": 0.04,
+      "maxVoices": 2,
+      "cooldownMs": 150,
+      "category": "combat"
+    },
+    "station_arc_coil": {
+      "files": [
+        "sfx/station_arc_coil"
+      ],
+      "volume": 0.75,
+      "pitchVar": 0.05,
+      "maxVoices": 2,
+      "cooldownMs": 80,
+      "category": "combat"
+    },
+    "station_ember_fire": {
+      "files": [
+        "sfx/station_ember_fire"
+      ],
+      "volume": 0.62,
+      "pitchVar": 0.05,
+      "maxVoices": 2,
+      "cooldownMs": 80,
+      "category": "combat"
+    },
+    "explosion": {
+      "files": [
+        "sfx/explosion"
+      ],
+      "volume": 1.0,
+      "pitchVar": 0.06,
+      "maxVoices": 2,
+      "cooldownMs": 80,
+      "category": "combat"
+    },
+    "frost_bell": {
+      "files": [
+        "sfx/frost_bell"
+      ],
+      "volume": 0.28,
+      "pitchVar": 0.03,
+      "maxVoices": 2,
+      "cooldownMs": 120,
+      "category": "combat"
+    },
+    "freeze": {
+      "files": [
+        "sfx/freeze"
+      ],
+      "volume": 0.63,
+      "pitchVar": 0.05,
+      "maxVoices": 3,
+      "cooldownMs": 60,
+      "category": "combat"
+    },
+    "shatter": {
+      "files": [
+        "sfx/shatter"
+      ],
+      "volume": 0.7,
+      "pitchVar": 0.06,
+      "maxVoices": 3,
+      "cooldownMs": 60,
+      "category": "combat"
+    },
+    "ballista_fire": {
+      "files": [
+        "sfx/ballista_fire"
+      ],
+      "volume": 0.82,
+      "pitchVar": 0.05,
+      "maxVoices": 3,
+      "cooldownMs": 60,
+      "category": "combat"
+    },
+    "ballista_hit": {
+      "files": [
+        "sfx/ballista_hit_0",
+        "sfx/ballista_hit_1",
+        "sfx/ballista_hit_2"
+      ],
+      "volume": 1.0,
+      "pitchVar": 0.06,
+      "maxVoices": 4,
+      "cooldownMs": 40,
+      "category": "combat"
+    },
+    "ward_pulse": {
+      "files": [
+        "sfx/ward_pulse"
+      ],
+      "volume": 0.28,
+      "pitchVar": 0.03,
+      "maxVoices": 2,
+      "cooldownMs": 120,
+      "category": "combat"
+    },
+    "gravity_pull": {
+      "files": [
+        "sfx/gravity_pull"
+      ],
+      "volume": 0.65,
+      "pitchVar": 0.04,
+      "maxVoices": 2,
+      "cooldownMs": 200,
+      "category": "combat"
+    },
+    "enemy_hit": {
+      "files": [
+        "sfx/enemy_hit_0",
+        "sfx/enemy_hit_1",
+        "sfx/enemy_hit_2"
+      ],
+      "volume": 1.0,
+      "pitchVar": 0.07,
+      "maxVoices": 4,
+      "cooldownMs": 30,
+      "category": "combat"
+    },
+    "enemy_death": {
+      "files": [
+        "sfx/enemy_death_0",
+        "sfx/enemy_death_1",
+        "sfx/enemy_death_2"
+      ],
+      "volume": 0.97,
+      "pitchVar": 0.07,
+      "maxVoices": 4,
+      "cooldownMs": 40,
+      "category": "combat"
+    },
+    "citadel_hit": {
+      "files": [
+        "sfx/citadel_hit_0",
+        "sfx/citadel_hit_1",
+        "sfx/citadel_hit_2"
+      ],
+      "volume": 1.0,
+      "pitchVar": 0.05,
+      "maxVoices": 3,
+      "cooldownMs": 80,
+      "category": "combat"
+    },
+    "citadel_heavy_hit": {
+      "files": [
+        "sfx/citadel_heavy_hit"
+      ],
+      "volume": 1.0,
+      "pitchVar": 0.04,
+      "maxVoices": 2,
+      "cooldownMs": 250,
+      "category": "combat"
+    },
+    "arrow_fire": {
+      "files": [
+        "sfx/arrow_fire"
+      ],
+      "volume": 0.65,
+      "pitchVar": 0.07,
+      "maxVoices": 4,
+      "cooldownMs": 40,
+      "category": "combat"
+    },
+    "priest_heal": {
+      "files": [
+        "sfx/priest_heal"
+      ],
+      "volume": 0.3,
+      "pitchVar": 0.03,
+      "maxVoices": 2,
+      "cooldownMs": 150,
+      "category": "combat"
+    },
+    "powder_fuse": {
+      "files": [
+        "sfx/powder_fuse"
+      ],
+      "volume": 0.34,
+      "pitchVar": 0.04,
+      "maxVoices": 2,
+      "cooldownMs": 100,
+      "category": "combat",
+      "loop": true
+    },
+    "powder_explode": {
+      "files": [
+        "sfx/powder_explode"
+      ],
+      "volume": 1.0,
+      "pitchVar": 0.05,
+      "maxVoices": 2,
+      "cooldownMs": 150,
+      "category": "combat"
+    },
+    "golem_step": {
+      "files": [
+        "sfx/golem_step_0",
+        "sfx/golem_step_1",
+        "sfx/golem_step_2"
+      ],
+      "volume": 1.0,
+      "pitchVar": 0.05,
+      "maxVoices": 3,
+      "cooldownMs": 120,
+      "category": "combat"
+    },
+    "bat_swarm": {
+      "files": [
+        "sfx/bat_swarm"
+      ],
+      "volume": 0.54,
+      "pitchVar": 0.05,
+      "maxVoices": 2,
+      "cooldownMs": 250,
+      "category": "combat"
+    },
+    "boss_warning": {
+      "files": [
+        "sfx/boss_warning"
+      ],
+      "volume": 0.9,
+      "pitchVar": 0.0,
+      "maxVoices": 1,
+      "cooldownMs": 2000,
+      "category": "stinger"
+    },
+    "boss_roar": {
+      "files": [
+        "sfx/boss_roar"
+      ],
+      "volume": 0.66,
+      "pitchVar": 0.03,
+      "maxVoices": 1,
+      "cooldownMs": 1000,
+      "category": "combat"
+    },
+    "bell_toll": {
+      "files": [
+        "sfx/bell_toll"
+      ],
+      "volume": 0.6,
+      "pitchVar": 0.0,
+      "maxVoices": 1,
+      "cooldownMs": 1000,
+      "category": "ambient"
+    },
+    "wave_start": {
+      "files": [
+        "sfx/wave_start"
+      ],
+      "volume": 0.8,
+      "pitchVar": 0.0,
+      "maxVoices": 1,
+      "cooldownMs": 1000,
+      "category": "stinger"
+    },
+    "wave_clear": {
+      "files": [
+        "sfx/wave_clear"
+      ],
+      "volume": 0.41,
+      "pitchVar": 0.0,
+      "maxVoices": 1,
+      "cooldownMs": 1000,
+      "category": "stinger"
+    },
+    "victory_sting": {
+      "files": [
+        "sfx/victory_sting"
+      ],
+      "volume": 0.67,
+      "pitchVar": 0.0,
+      "maxVoices": 1,
+      "cooldownMs": 2000,
+      "category": "stinger"
+    },
+    "defeat_sting": {
+      "files": [
+        "sfx/defeat_sting"
+      ],
+      "volume": 0.47,
+      "pitchVar": 0.0,
+      "maxVoices": 1,
+      "cooldownMs": 2000,
+      "category": "stinger"
+    },
+    "coin": {
+      "files": [
+        "sfx/coin_0",
+        "sfx/coin_1",
+        "sfx/coin_2"
+      ],
+      "volume": 0.38,
+      "pitchVar": 0.0,
+      "maxVoices": 3,
+      "cooldownMs": 35,
+      "category": "ui"
+    },
+    "xp": {
+      "files": [
+        "sfx/xp"
+      ],
+      "volume": 0.23,
+      "pitchVar": 0.0,
+      "maxVoices": 3,
+      "cooldownMs": 35,
+      "category": "ui"
+    },
+    "unlock": {
+      "files": [
+        "sfx/unlock"
+      ],
+      "volume": 0.36,
+      "pitchVar": 0.0,
+      "maxVoices": 1,
+      "cooldownMs": 300,
+      "category": "ui"
+    },
+    "claim": {
+      "files": [
+        "sfx/claim"
+      ],
+      "volume": 0.33,
+      "pitchVar": 0.0,
+      "maxVoices": 1,
+      "cooldownMs": 150,
+      "category": "ui"
+    },
+    "swoosh": {
+      "files": [
+        "sfx/swoosh"
+      ],
+      "volume": 0.36,
+      "pitchVar": 0.0,
+      "maxVoices": 2,
+      "cooldownMs": 60,
+      "category": "ui"
+    },
+    "countdown": {
+      "files": [
+        "sfx/countdown"
+      ],
+      "volume": 1.0,
+      "pitchVar": 0.0,
+      "maxVoices": 1,
+      "cooldownMs": 250,
+      "category": "stinger"
+    }
+  }
+}

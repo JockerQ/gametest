@@ -1,0 +1,2989 @@
+{
+ "atlas": "enemies",
+ "texture": "enemies.png",
+ "flashTexture": "enemies_flash.png",
+ "width": 512,
+ "height": 512,
+ "ppu": 16,
+ "coordinateOrigin": "top-left",
+ "sprites": {
+  "enemy/bat/attack/0": {
+   "x": 486,
+   "y": 294,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat/attack/1": {
+   "x": 2,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat/attack/2": {
+   "x": 18,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat/attack/3": {
+   "x": 34,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat/death/0": {
+   "x": 50,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat/death/1": {
+   "x": 66,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat/death/2": {
+   "x": 82,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat/death/3": {
+   "x": 98,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat/death/4": {
+   "x": 114,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat/fly/0": {
+   "x": 130,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat/fly/1": {
+   "x": 146,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat/fly/2": {
+   "x": 162,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat/fly/3": {
+   "x": 178,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat_elite/attack/0": {
+   "x": 194,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat_elite/attack/1": {
+   "x": 210,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat_elite/attack/2": {
+   "x": 226,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat_elite/attack/3": {
+   "x": 242,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat_elite/death/0": {
+   "x": 258,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat_elite/death/1": {
+   "x": 274,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat_elite/death/2": {
+   "x": 290,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat_elite/death/3": {
+   "x": 306,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat_elite/death/4": {
+   "x": 322,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat_elite/fly/0": {
+   "x": 338,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat_elite/fly/1": {
+   "x": 354,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat_elite/fly/2": {
+   "x": 370,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bat_elite/fly/3": {
+   "x": 386,
+   "y": 316,
+   "w": 14,
+   "h": 12,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/attack/0": {
+   "x": 184,
+   "y": 116,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/attack/1": {
+   "x": 208,
+   "y": 116,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/attack/2": {
+   "x": 232,
+   "y": 116,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/attack/3": {
+   "x": 256,
+   "y": 116,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/cast/0": {
+   "x": 280,
+   "y": 116,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/cast/1": {
+   "x": 304,
+   "y": 116,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/cast/2": {
+   "x": 328,
+   "y": 116,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/cast/3": {
+   "x": 352,
+   "y": 116,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/death/0": {
+   "x": 376,
+   "y": 116,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/death/1": {
+   "x": 400,
+   "y": 116,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/death/2": {
+   "x": 424,
+   "y": 116,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/death/3": {
+   "x": 448,
+   "y": 116,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/death/4": {
+   "x": 472,
+   "y": 116,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/walk/0": {
+   "x": 2,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/walk/1": {
+   "x": 26,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/walk/2": {
+   "x": 50,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest/walk/3": {
+   "x": 74,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/attack/0": {
+   "x": 98,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/attack/1": {
+   "x": 122,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/attack/2": {
+   "x": 146,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/attack/3": {
+   "x": 170,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/cast/0": {
+   "x": 194,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/cast/1": {
+   "x": 218,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/cast/2": {
+   "x": 242,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/cast/3": {
+   "x": 266,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/death/0": {
+   "x": 290,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/death/1": {
+   "x": 314,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/death/2": {
+   "x": 338,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/death/3": {
+   "x": 362,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/death/4": {
+   "x": 386,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/walk/0": {
+   "x": 410,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/walk/1": {
+   "x": 434,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/walk/2": {
+   "x": 458,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/bell_priest_elite/walk/3": {
+   "x": 482,
+   "y": 146,
+   "w": 22,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/attack/0": {
+   "x": 2,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/attack/1": {
+   "x": 26,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/attack/2": {
+   "x": 50,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/attack/3": {
+   "x": 74,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/death/0": {
+   "x": 98,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/death/1": {
+   "x": 122,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/death/2": {
+   "x": 146,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/death/3": {
+   "x": 170,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/death/4": {
+   "x": 194,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/shoot/0": {
+   "x": 218,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/shoot/1": {
+   "x": 242,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/shoot/2": {
+   "x": 266,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/shoot/3": {
+   "x": 290,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/walk/0": {
+   "x": 314,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/walk/1": {
+   "x": 338,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/walk/2": {
+   "x": 362,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer/walk/3": {
+   "x": 386,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/attack/0": {
+   "x": 410,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/attack/1": {
+   "x": 434,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/attack/2": {
+   "x": 458,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/attack/3": {
+   "x": 482,
+   "y": 176,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/death/0": {
+   "x": 2,
+   "y": 202,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/death/1": {
+   "x": 26,
+   "y": 202,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/death/2": {
+   "x": 50,
+   "y": 202,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/death/3": {
+   "x": 74,
+   "y": 202,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/death/4": {
+   "x": 98,
+   "y": 202,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/shoot/0": {
+   "x": 122,
+   "y": 202,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/shoot/1": {
+   "x": 146,
+   "y": 202,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/shoot/2": {
+   "x": 170,
+   "y": 202,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/shoot/3": {
+   "x": 194,
+   "y": 202,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/walk/0": {
+   "x": 218,
+   "y": 202,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/walk/1": {
+   "x": 242,
+   "y": 202,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/walk/2": {
+   "x": 266,
+   "y": 202,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/crow_archer_elite/walk/3": {
+   "x": 290,
+   "y": 202,
+   "w": 22,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner/attack/0": {
+   "x": 314,
+   "y": 202,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner/attack/1": {
+   "x": 340,
+   "y": 202,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner/attack/2": {
+   "x": 366,
+   "y": 202,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner/attack/3": {
+   "x": 392,
+   "y": 202,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner/death/0": {
+   "x": 418,
+   "y": 202,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner/death/1": {
+   "x": 444,
+   "y": 202,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner/death/2": {
+   "x": 470,
+   "y": 202,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner/death/3": {
+   "x": 2,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner/death/4": {
+   "x": 28,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner/walk/0": {
+   "x": 54,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner/walk/1": {
+   "x": 80,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner/walk/2": {
+   "x": 106,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner/walk/3": {
+   "x": 132,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner_elite/attack/0": {
+   "x": 158,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner_elite/attack/1": {
+   "x": 184,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner_elite/attack/2": {
+   "x": 210,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner_elite/attack/3": {
+   "x": 236,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner_elite/death/0": {
+   "x": 262,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner_elite/death/1": {
+   "x": 288,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner_elite/death/2": {
+   "x": 314,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner_elite/death/3": {
+   "x": 340,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner_elite/death/4": {
+   "x": 366,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner_elite/walk/0": {
+   "x": 392,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner_elite/walk/1": {
+   "x": 418,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner_elite/walk/2": {
+   "x": 444,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/hound_runner_elite/walk/3": {
+   "x": 470,
+   "y": 228,
+   "w": 24,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem/attack/0": {
+   "x": 2,
+   "y": 2,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem/attack/1": {
+   "x": 40,
+   "y": 2,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem/attack/2": {
+   "x": 78,
+   "y": 2,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem/attack/3": {
+   "x": 116,
+   "y": 2,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem/death/0": {
+   "x": 154,
+   "y": 2,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem/death/1": {
+   "x": 192,
+   "y": 2,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem/death/2": {
+   "x": 230,
+   "y": 2,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem/death/3": {
+   "x": 268,
+   "y": 2,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem/death/4": {
+   "x": 306,
+   "y": 2,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem/walk/0": {
+   "x": 344,
+   "y": 2,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem/walk/1": {
+   "x": 382,
+   "y": 2,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem/walk/2": {
+   "x": 420,
+   "y": 2,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem/walk/3": {
+   "x": 458,
+   "y": 2,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem_elite/attack/0": {
+   "x": 2,
+   "y": 44,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem_elite/attack/1": {
+   "x": 40,
+   "y": 44,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem_elite/attack/2": {
+   "x": 78,
+   "y": 44,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem_elite/attack/3": {
+   "x": 116,
+   "y": 44,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem_elite/death/0": {
+   "x": 154,
+   "y": 44,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem_elite/death/1": {
+   "x": 192,
+   "y": 44,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem_elite/death/2": {
+   "x": 230,
+   "y": 44,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem_elite/death/3": {
+   "x": 268,
+   "y": 44,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem_elite/death/4": {
+   "x": 306,
+   "y": 44,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem_elite/walk/0": {
+   "x": 344,
+   "y": 44,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem_elite/walk/1": {
+   "x": 382,
+   "y": 44,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem_elite/walk/2": {
+   "x": 420,
+   "y": 44,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/iron_golem_elite/walk/3": {
+   "x": 458,
+   "y": 44,
+   "w": 36,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/attack/0": {
+   "x": 2,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/attack/1": {
+   "x": 24,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/attack/2": {
+   "x": 46,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/attack/3": {
+   "x": 68,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/charge/0": {
+   "x": 90,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/charge/1": {
+   "x": 112,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/charge/2": {
+   "x": 134,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/charge/3": {
+   "x": 156,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/death/0": {
+   "x": 178,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/death/1": {
+   "x": 200,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/death/2": {
+   "x": 222,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/death/3": {
+   "x": 244,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/death/4": {
+   "x": 266,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/fuse/0": {
+   "x": 288,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/fuse/1": {
+   "x": 310,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/fuse/2": {
+   "x": 332,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/fuse/3": {
+   "x": 354,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/walk/0": {
+   "x": 376,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/walk/1": {
+   "x": 398,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/walk/2": {
+   "x": 420,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat/walk/3": {
+   "x": 442,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/attack/0": {
+   "x": 464,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/attack/1": {
+   "x": 486,
+   "y": 250,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/attack/2": {
+   "x": 2,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/attack/3": {
+   "x": 24,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/charge/0": {
+   "x": 46,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/charge/1": {
+   "x": 68,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/charge/2": {
+   "x": 90,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/charge/3": {
+   "x": 112,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/death/0": {
+   "x": 134,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/death/1": {
+   "x": 156,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/death/2": {
+   "x": 178,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/death/3": {
+   "x": 200,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/death/4": {
+   "x": 222,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/fuse/0": {
+   "x": 244,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/fuse/1": {
+   "x": 266,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/fuse/2": {
+   "x": 288,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/fuse/3": {
+   "x": 310,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/walk/0": {
+   "x": 332,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/walk/1": {
+   "x": 354,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/walk/2": {
+   "x": 376,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/powder_rat_elite/walk/3": {
+   "x": 398,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider/attack/0": {
+   "x": 420,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider/attack/1": {
+   "x": 442,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider/attack/2": {
+   "x": 464,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider/attack/3": {
+   "x": 486,
+   "y": 272,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider/death/0": {
+   "x": 2,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider/death/1": {
+   "x": 24,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider/death/2": {
+   "x": 46,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider/death/3": {
+   "x": 68,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider/death/4": {
+   "x": 90,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider/walk/0": {
+   "x": 112,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider/walk/1": {
+   "x": 134,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider/walk/2": {
+   "x": 156,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider/walk/3": {
+   "x": 178,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider_elite/attack/0": {
+   "x": 200,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider_elite/attack/1": {
+   "x": 222,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider_elite/attack/2": {
+   "x": 244,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider_elite/attack/3": {
+   "x": 266,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider_elite/death/0": {
+   "x": 288,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider_elite/death/1": {
+   "x": 310,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider_elite/death/2": {
+   "x": 332,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider_elite/death/3": {
+   "x": 354,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider_elite/death/4": {
+   "x": 376,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider_elite/walk/0": {
+   "x": 398,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider_elite/walk/1": {
+   "x": 420,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider_elite/walk/2": {
+   "x": 442,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/rat_raider_elite/walk/3": {
+   "x": 464,
+   "y": 294,
+   "w": 20,
+   "h": 20,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard/attack/0": {
+   "x": 2,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard/attack/1": {
+   "x": 28,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard/attack/2": {
+   "x": 54,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard/attack/3": {
+   "x": 80,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard/death/0": {
+   "x": 106,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard/death/1": {
+   "x": 132,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard/death/2": {
+   "x": 158,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard/death/3": {
+   "x": 184,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard/death/4": {
+   "x": 210,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard/walk/0": {
+   "x": 236,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard/walk/1": {
+   "x": 262,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard/walk/2": {
+   "x": 288,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard/walk/3": {
+   "x": 314,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard_elite/attack/0": {
+   "x": 340,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard_elite/attack/1": {
+   "x": 366,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard_elite/attack/2": {
+   "x": 392,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard_elite/attack/3": {
+   "x": 418,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard_elite/death/0": {
+   "x": 444,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard_elite/death/1": {
+   "x": 470,
+   "y": 86,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard_elite/death/2": {
+   "x": 2,
+   "y": 116,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard_elite/death/3": {
+   "x": 28,
+   "y": 116,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard_elite/death/4": {
+   "x": 54,
+   "y": 116,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard_elite/walk/0": {
+   "x": 80,
+   "y": 116,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard_elite/walk/1": {
+   "x": 106,
+   "y": 116,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard_elite/walk/2": {
+   "x": 132,
+   "y": 116,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "enemy/shield_guard_elite/walk/3": {
+   "x": 158,
+   "y": 116,
+   "w": 24,
+   "h": 28,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  }
+ },
+ "anims": {
+  "enemy/bat/attack": {
+   "frames": [
+    "enemy/bat/attack/0",
+    "enemy/bat/attack/1",
+    "enemy/bat/attack/2",
+    "enemy/bat/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/bat/death": {
+   "frames": [
+    "enemy/bat/death/0",
+    "enemy/bat/death/1",
+    "enemy/bat/death/2",
+    "enemy/bat/death/3",
+    "enemy/bat/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/bat/fly": {
+   "frames": [
+    "enemy/bat/fly/0",
+    "enemy/bat/fly/1",
+    "enemy/bat/fly/2",
+    "enemy/bat/fly/3"
+   ],
+   "fps": 12.0,
+   "loop": true
+  },
+  "enemy/bat_elite/attack": {
+   "frames": [
+    "enemy/bat_elite/attack/0",
+    "enemy/bat_elite/attack/1",
+    "enemy/bat_elite/attack/2",
+    "enemy/bat_elite/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/bat_elite/death": {
+   "frames": [
+    "enemy/bat_elite/death/0",
+    "enemy/bat_elite/death/1",
+    "enemy/bat_elite/death/2",
+    "enemy/bat_elite/death/3",
+    "enemy/bat_elite/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/bat_elite/fly": {
+   "frames": [
+    "enemy/bat_elite/fly/0",
+    "enemy/bat_elite/fly/1",
+    "enemy/bat_elite/fly/2",
+    "enemy/bat_elite/fly/3"
+   ],
+   "fps": 12.0,
+   "loop": true
+  },
+  "enemy/bell_priest/attack": {
+   "frames": [
+    "enemy/bell_priest/attack/0",
+    "enemy/bell_priest/attack/1",
+    "enemy/bell_priest/attack/2",
+    "enemy/bell_priest/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/bell_priest/cast": {
+   "frames": [
+    "enemy/bell_priest/cast/0",
+    "enemy/bell_priest/cast/1",
+    "enemy/bell_priest/cast/2",
+    "enemy/bell_priest/cast/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/bell_priest/death": {
+   "frames": [
+    "enemy/bell_priest/death/0",
+    "enemy/bell_priest/death/1",
+    "enemy/bell_priest/death/2",
+    "enemy/bell_priest/death/3",
+    "enemy/bell_priest/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/bell_priest/walk": {
+   "frames": [
+    "enemy/bell_priest/walk/0",
+    "enemy/bell_priest/walk/1",
+    "enemy/bell_priest/walk/2",
+    "enemy/bell_priest/walk/3"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "enemy/bell_priest_elite/attack": {
+   "frames": [
+    "enemy/bell_priest_elite/attack/0",
+    "enemy/bell_priest_elite/attack/1",
+    "enemy/bell_priest_elite/attack/2",
+    "enemy/bell_priest_elite/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/bell_priest_elite/cast": {
+   "frames": [
+    "enemy/bell_priest_elite/cast/0",
+    "enemy/bell_priest_elite/cast/1",
+    "enemy/bell_priest_elite/cast/2",
+    "enemy/bell_priest_elite/cast/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/bell_priest_elite/death": {
+   "frames": [
+    "enemy/bell_priest_elite/death/0",
+    "enemy/bell_priest_elite/death/1",
+    "enemy/bell_priest_elite/death/2",
+    "enemy/bell_priest_elite/death/3",
+    "enemy/bell_priest_elite/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/bell_priest_elite/walk": {
+   "frames": [
+    "enemy/bell_priest_elite/walk/0",
+    "enemy/bell_priest_elite/walk/1",
+    "enemy/bell_priest_elite/walk/2",
+    "enemy/bell_priest_elite/walk/3"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "enemy/crow_archer/attack": {
+   "frames": [
+    "enemy/crow_archer/attack/0",
+    "enemy/crow_archer/attack/1",
+    "enemy/crow_archer/attack/2",
+    "enemy/crow_archer/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/crow_archer/death": {
+   "frames": [
+    "enemy/crow_archer/death/0",
+    "enemy/crow_archer/death/1",
+    "enemy/crow_archer/death/2",
+    "enemy/crow_archer/death/3",
+    "enemy/crow_archer/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/crow_archer/shoot": {
+   "frames": [
+    "enemy/crow_archer/shoot/0",
+    "enemy/crow_archer/shoot/1",
+    "enemy/crow_archer/shoot/2",
+    "enemy/crow_archer/shoot/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/crow_archer/walk": {
+   "frames": [
+    "enemy/crow_archer/walk/0",
+    "enemy/crow_archer/walk/1",
+    "enemy/crow_archer/walk/2",
+    "enemy/crow_archer/walk/3"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "enemy/crow_archer_elite/attack": {
+   "frames": [
+    "enemy/crow_archer_elite/attack/0",
+    "enemy/crow_archer_elite/attack/1",
+    "enemy/crow_archer_elite/attack/2",
+    "enemy/crow_archer_elite/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/crow_archer_elite/death": {
+   "frames": [
+    "enemy/crow_archer_elite/death/0",
+    "enemy/crow_archer_elite/death/1",
+    "enemy/crow_archer_elite/death/2",
+    "enemy/crow_archer_elite/death/3",
+    "enemy/crow_archer_elite/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/crow_archer_elite/shoot": {
+   "frames": [
+    "enemy/crow_archer_elite/shoot/0",
+    "enemy/crow_archer_elite/shoot/1",
+    "enemy/crow_archer_elite/shoot/2",
+    "enemy/crow_archer_elite/shoot/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/crow_archer_elite/walk": {
+   "frames": [
+    "enemy/crow_archer_elite/walk/0",
+    "enemy/crow_archer_elite/walk/1",
+    "enemy/crow_archer_elite/walk/2",
+    "enemy/crow_archer_elite/walk/3"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "enemy/hound_runner/attack": {
+   "frames": [
+    "enemy/hound_runner/attack/0",
+    "enemy/hound_runner/attack/1",
+    "enemy/hound_runner/attack/2",
+    "enemy/hound_runner/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/hound_runner/death": {
+   "frames": [
+    "enemy/hound_runner/death/0",
+    "enemy/hound_runner/death/1",
+    "enemy/hound_runner/death/2",
+    "enemy/hound_runner/death/3",
+    "enemy/hound_runner/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/hound_runner/walk": {
+   "frames": [
+    "enemy/hound_runner/walk/0",
+    "enemy/hound_runner/walk/1",
+    "enemy/hound_runner/walk/2",
+    "enemy/hound_runner/walk/3"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "enemy/hound_runner_elite/attack": {
+   "frames": [
+    "enemy/hound_runner_elite/attack/0",
+    "enemy/hound_runner_elite/attack/1",
+    "enemy/hound_runner_elite/attack/2",
+    "enemy/hound_runner_elite/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/hound_runner_elite/death": {
+   "frames": [
+    "enemy/hound_runner_elite/death/0",
+    "enemy/hound_runner_elite/death/1",
+    "enemy/hound_runner_elite/death/2",
+    "enemy/hound_runner_elite/death/3",
+    "enemy/hound_runner_elite/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/hound_runner_elite/walk": {
+   "frames": [
+    "enemy/hound_runner_elite/walk/0",
+    "enemy/hound_runner_elite/walk/1",
+    "enemy/hound_runner_elite/walk/2",
+    "enemy/hound_runner_elite/walk/3"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "enemy/iron_golem/attack": {
+   "frames": [
+    "enemy/iron_golem/attack/0",
+    "enemy/iron_golem/attack/1",
+    "enemy/iron_golem/attack/2",
+    "enemy/iron_golem/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/iron_golem/death": {
+   "frames": [
+    "enemy/iron_golem/death/0",
+    "enemy/iron_golem/death/1",
+    "enemy/iron_golem/death/2",
+    "enemy/iron_golem/death/3",
+    "enemy/iron_golem/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/iron_golem/walk": {
+   "frames": [
+    "enemy/iron_golem/walk/0",
+    "enemy/iron_golem/walk/1",
+    "enemy/iron_golem/walk/2",
+    "enemy/iron_golem/walk/3"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "enemy/iron_golem_elite/attack": {
+   "frames": [
+    "enemy/iron_golem_elite/attack/0",
+    "enemy/iron_golem_elite/attack/1",
+    "enemy/iron_golem_elite/attack/2",
+    "enemy/iron_golem_elite/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/iron_golem_elite/death": {
+   "frames": [
+    "enemy/iron_golem_elite/death/0",
+    "enemy/iron_golem_elite/death/1",
+    "enemy/iron_golem_elite/death/2",
+    "enemy/iron_golem_elite/death/3",
+    "enemy/iron_golem_elite/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/iron_golem_elite/walk": {
+   "frames": [
+    "enemy/iron_golem_elite/walk/0",
+    "enemy/iron_golem_elite/walk/1",
+    "enemy/iron_golem_elite/walk/2",
+    "enemy/iron_golem_elite/walk/3"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "enemy/powder_rat/attack": {
+   "frames": [
+    "enemy/powder_rat/attack/0",
+    "enemy/powder_rat/attack/1",
+    "enemy/powder_rat/attack/2",
+    "enemy/powder_rat/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/powder_rat/charge": {
+   "frames": [
+    "enemy/powder_rat/charge/0",
+    "enemy/powder_rat/charge/1",
+    "enemy/powder_rat/charge/2",
+    "enemy/powder_rat/charge/3"
+   ],
+   "fps": 14.0,
+   "loop": true
+  },
+  "enemy/powder_rat/death": {
+   "frames": [
+    "enemy/powder_rat/death/0",
+    "enemy/powder_rat/death/1",
+    "enemy/powder_rat/death/2",
+    "enemy/powder_rat/death/3",
+    "enemy/powder_rat/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/powder_rat/fuse": {
+   "frames": [
+    "enemy/powder_rat/fuse/0",
+    "enemy/powder_rat/fuse/1",
+    "enemy/powder_rat/fuse/2",
+    "enemy/powder_rat/fuse/3"
+   ],
+   "fps": 12.0,
+   "loop": true
+  },
+  "enemy/powder_rat/walk": {
+   "frames": [
+    "enemy/powder_rat/walk/0",
+    "enemy/powder_rat/walk/1",
+    "enemy/powder_rat/walk/2",
+    "enemy/powder_rat/walk/3"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "enemy/powder_rat_elite/attack": {
+   "frames": [
+    "enemy/powder_rat_elite/attack/0",
+    "enemy/powder_rat_elite/attack/1",
+    "enemy/powder_rat_elite/attack/2",
+    "enemy/powder_rat_elite/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/powder_rat_elite/charge": {
+   "frames": [
+    "enemy/powder_rat_elite/charge/0",
+    "enemy/powder_rat_elite/charge/1",
+    "enemy/powder_rat_elite/charge/2",
+    "enemy/powder_rat_elite/charge/3"
+   ],
+   "fps": 14.0,
+   "loop": true
+  },
+  "enemy/powder_rat_elite/death": {
+   "frames": [
+    "enemy/powder_rat_elite/death/0",
+    "enemy/powder_rat_elite/death/1",
+    "enemy/powder_rat_elite/death/2",
+    "enemy/powder_rat_elite/death/3",
+    "enemy/powder_rat_elite/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/powder_rat_elite/fuse": {
+   "frames": [
+    "enemy/powder_rat_elite/fuse/0",
+    "enemy/powder_rat_elite/fuse/1",
+    "enemy/powder_rat_elite/fuse/2",
+    "enemy/powder_rat_elite/fuse/3"
+   ],
+   "fps": 12.0,
+   "loop": true
+  },
+  "enemy/powder_rat_elite/walk": {
+   "frames": [
+    "enemy/powder_rat_elite/walk/0",
+    "enemy/powder_rat_elite/walk/1",
+    "enemy/powder_rat_elite/walk/2",
+    "enemy/powder_rat_elite/walk/3"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "enemy/rat_raider/attack": {
+   "frames": [
+    "enemy/rat_raider/attack/0",
+    "enemy/rat_raider/attack/1",
+    "enemy/rat_raider/attack/2",
+    "enemy/rat_raider/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/rat_raider/death": {
+   "frames": [
+    "enemy/rat_raider/death/0",
+    "enemy/rat_raider/death/1",
+    "enemy/rat_raider/death/2",
+    "enemy/rat_raider/death/3",
+    "enemy/rat_raider/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/rat_raider/walk": {
+   "frames": [
+    "enemy/rat_raider/walk/0",
+    "enemy/rat_raider/walk/1",
+    "enemy/rat_raider/walk/2",
+    "enemy/rat_raider/walk/3"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "enemy/rat_raider_elite/attack": {
+   "frames": [
+    "enemy/rat_raider_elite/attack/0",
+    "enemy/rat_raider_elite/attack/1",
+    "enemy/rat_raider_elite/attack/2",
+    "enemy/rat_raider_elite/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/rat_raider_elite/death": {
+   "frames": [
+    "enemy/rat_raider_elite/death/0",
+    "enemy/rat_raider_elite/death/1",
+    "enemy/rat_raider_elite/death/2",
+    "enemy/rat_raider_elite/death/3",
+    "enemy/rat_raider_elite/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/rat_raider_elite/walk": {
+   "frames": [
+    "enemy/rat_raider_elite/walk/0",
+    "enemy/rat_raider_elite/walk/1",
+    "enemy/rat_raider_elite/walk/2",
+    "enemy/rat_raider_elite/walk/3"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "enemy/shield_guard/attack": {
+   "frames": [
+    "enemy/shield_guard/attack/0",
+    "enemy/shield_guard/attack/1",
+    "enemy/shield_guard/attack/2",
+    "enemy/shield_guard/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/shield_guard/death": {
+   "frames": [
+    "enemy/shield_guard/death/0",
+    "enemy/shield_guard/death/1",
+    "enemy/shield_guard/death/2",
+    "enemy/shield_guard/death/3",
+    "enemy/shield_guard/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/shield_guard/walk": {
+   "frames": [
+    "enemy/shield_guard/walk/0",
+    "enemy/shield_guard/walk/1",
+    "enemy/shield_guard/walk/2",
+    "enemy/shield_guard/walk/3"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "enemy/shield_guard_elite/attack": {
+   "frames": [
+    "enemy/shield_guard_elite/attack/0",
+    "enemy/shield_guard_elite/attack/1",
+    "enemy/shield_guard_elite/attack/2",
+    "enemy/shield_guard_elite/attack/3"
+   ],
+   "fps": 10.0,
+   "loop": false
+  },
+  "enemy/shield_guard_elite/death": {
+   "frames": [
+    "enemy/shield_guard_elite/death/0",
+    "enemy/shield_guard_elite/death/1",
+    "enemy/shield_guard_elite/death/2",
+    "enemy/shield_guard_elite/death/3",
+    "enemy/shield_guard_elite/death/4"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "enemy/shield_guard_elite/walk": {
+   "frames": [
+    "enemy/shield_guard_elite/walk/0",
+    "enemy/shield_guard_elite/walk/1",
+    "enemy/shield_guard_elite/walk/2",
+    "enemy/shield_guard_elite/walk/3"
+   ],
+   "fps": 8.0,
+   "loop": true
+  }
+ }
+}

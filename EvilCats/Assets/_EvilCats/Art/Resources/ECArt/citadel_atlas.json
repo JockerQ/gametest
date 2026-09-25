@@ -1,0 +1,183 @@
+{
+ "atlas": "citadel",
+ "texture": "citadel.png",
+ "flashTexture": null,
+ "width": 512,
+ "height": 256,
+ "ppu": 16,
+ "coordinateOrigin": "top-left",
+ "sprites": {
+  "citadel/base": {
+   "x": 2,
+   "y": 2,
+   "w": 96,
+   "h": 120,
+   "pivot": [
+    0.5,
+    0.3667
+   ],
+   "anchors": {
+    "hero": [
+     0.0,
+     12.0
+    ],
+    "stormheart": [
+     -19.0,
+     36.0
+    ],
+    "crown": [
+     0.0,
+     62.0
+    ],
+    "middle": [
+     33.0,
+     13.0
+    ],
+    "base": [
+     0.0,
+     -17.0
+    ],
+    "gate": [
+     0.0,
+     -33.0
+    ],
+    "barrier_center": [
+     0.0,
+     10.0
+    ]
+   }
+  },
+  "citadel/cracks1": {
+   "x": 100,
+   "y": 2,
+   "w": 96,
+   "h": 120,
+   "pivot": [
+    0.5,
+    0.3667
+   ]
+  },
+  "citadel/cracks2": {
+   "x": 198,
+   "y": 2,
+   "w": 96,
+   "h": 120,
+   "pivot": [
+    0.5,
+    0.3667
+   ]
+  },
+  "citadel/reinforce1": {
+   "x": 296,
+   "y": 2,
+   "w": 96,
+   "h": 120,
+   "pivot": [
+    0.5,
+    0.3667
+   ]
+  },
+  "citadel/reinforce2": {
+   "x": 394,
+   "y": 2,
+   "w": 96,
+   "h": 120,
+   "pivot": [
+    0.5,
+    0.3667
+   ]
+  },
+  "citadel/reinforce3": {
+   "x": 2,
+   "y": 124,
+   "w": 96,
+   "h": 120,
+   "pivot": [
+    0.5,
+    0.3667
+   ]
+  },
+  "citadel/ruin": {
+   "x": 100,
+   "y": 124,
+   "w": 96,
+   "h": 120,
+   "pivot": [
+    0.5,
+    0.3667
+   ]
+  },
+  "citadel/shadow": {
+   "x": 198,
+   "y": 124,
+   "w": 80,
+   "h": 24,
+   "pivot": [
+    0.4625,
+    1.7083
+   ]
+  },
+  "citadel/slot_glow": {
+   "x": 352,
+   "y": 124,
+   "w": 20,
+   "h": 10,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "citadel/stormheart/0": {
+   "x": 280,
+   "y": 124,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "citadel/stormheart/1": {
+   "x": 298,
+   "y": 124,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "citadel/stormheart/2": {
+   "x": 316,
+   "y": 124,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "citadel/stormheart/3": {
+   "x": 334,
+   "y": 124,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  }
+ },
+ "anims": {
+  "citadel/stormheart": {
+   "frames": [
+    "citadel/stormheart/0",
+    "citadel/stormheart/1",
+    "citadel/stormheart/2",
+    "citadel/stormheart/3"
+   ],
+   "fps": 6.0,
+   "loop": true
+  }
+ }
+}

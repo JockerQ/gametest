@@ -1,0 +1,1741 @@
+{
+ "atlas": "hero",
+ "texture": "hero.png",
+ "flashTexture": null,
+ "width": 512,
+ "height": 512,
+ "ppu": 16,
+ "coordinateOrigin": "top-left",
+ "sprites": {
+  "hero/arc_light_cat/attack/0": {
+   "x": 2,
+   "y": 2,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/attack/1": {
+   "x": 44,
+   "y": 2,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/attack/2": {
+   "x": 86,
+   "y": 2,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/attack/3": {
+   "x": 128,
+   "y": 2,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/attack/4": {
+   "x": 170,
+   "y": 2,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/cast/0": {
+   "x": 212,
+   "y": 2,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/cast/1": {
+   "x": 254,
+   "y": 2,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/cast/2": {
+   "x": 296,
+   "y": 2,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/cast/3": {
+   "x": 338,
+   "y": 2,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/cast/4": {
+   "x": 380,
+   "y": 2,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/cast/5": {
+   "x": 422,
+   "y": 2,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/cast/6": {
+   "x": 464,
+   "y": 2,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/cast/7": {
+   "x": 2,
+   "y": 44,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/defeat/0": {
+   "x": 44,
+   "y": 44,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/defeat/1": {
+   "x": 86,
+   "y": 44,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/defeat/2": {
+   "x": 128,
+   "y": 44,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/defeat/3": {
+   "x": 170,
+   "y": 44,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/defeat/4": {
+   "x": 212,
+   "y": 44,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/defeat/5": {
+   "x": 254,
+   "y": 44,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/hit/0": {
+   "x": 296,
+   "y": 44,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/hit/1": {
+   "x": 338,
+   "y": 44,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/hit/2": {
+   "x": 380,
+   "y": 44,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/idle/0": {
+   "x": 422,
+   "y": 44,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/idle/1": {
+   "x": 464,
+   "y": 44,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/idle/2": {
+   "x": 2,
+   "y": 86,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/idle/3": {
+   "x": 44,
+   "y": 86,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/idle/4": {
+   "x": 86,
+   "y": 86,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/idle/5": {
+   "x": 128,
+   "y": 86,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/idle/6": {
+   "x": 170,
+   "y": 86,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/idle/7": {
+   "x": 212,
+   "y": 86,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/victory/0": {
+   "x": 254,
+   "y": 86,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/victory/1": {
+   "x": 296,
+   "y": 86,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/victory/2": {
+   "x": 338,
+   "y": 86,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/victory/3": {
+   "x": 380,
+   "y": 86,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/victory/4": {
+   "x": 422,
+   "y": 86,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat/victory/5": {
+   "x": 464,
+   "y": 86,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/attack/0": {
+   "x": 2,
+   "y": 128,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/attack/1": {
+   "x": 44,
+   "y": 128,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/attack/2": {
+   "x": 86,
+   "y": 128,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/attack/3": {
+   "x": 128,
+   "y": 128,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/attack/4": {
+   "x": 170,
+   "y": 128,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/cast/0": {
+   "x": 212,
+   "y": 128,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/cast/1": {
+   "x": 254,
+   "y": 128,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/cast/2": {
+   "x": 296,
+   "y": 128,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/cast/3": {
+   "x": 338,
+   "y": 128,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/cast/4": {
+   "x": 380,
+   "y": 128,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/cast/5": {
+   "x": 422,
+   "y": 128,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/cast/6": {
+   "x": 464,
+   "y": 128,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/cast/7": {
+   "x": 2,
+   "y": 170,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/defeat/0": {
+   "x": 44,
+   "y": 170,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/defeat/1": {
+   "x": 86,
+   "y": 170,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/defeat/2": {
+   "x": 128,
+   "y": 170,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/defeat/3": {
+   "x": 170,
+   "y": 170,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/defeat/4": {
+   "x": 212,
+   "y": 170,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/defeat/5": {
+   "x": 254,
+   "y": 170,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/hit/0": {
+   "x": 296,
+   "y": 170,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/hit/1": {
+   "x": 338,
+   "y": 170,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/hit/2": {
+   "x": 380,
+   "y": 170,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/idle/0": {
+   "x": 422,
+   "y": 170,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/idle/1": {
+   "x": 464,
+   "y": 170,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/idle/2": {
+   "x": 2,
+   "y": 212,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/idle/3": {
+   "x": 44,
+   "y": 212,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/idle/4": {
+   "x": 86,
+   "y": 212,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/idle/5": {
+   "x": 128,
+   "y": 212,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/idle/6": {
+   "x": 170,
+   "y": 212,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/idle/7": {
+   "x": 212,
+   "y": 212,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/victory/0": {
+   "x": 254,
+   "y": 212,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/victory/1": {
+   "x": 296,
+   "y": 212,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/victory/2": {
+   "x": 338,
+   "y": 212,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/victory/3": {
+   "x": 380,
+   "y": 212,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/victory/4": {
+   "x": 422,
+   "y": 212,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_ember/victory/5": {
+   "x": 464,
+   "y": 212,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/attack/0": {
+   "x": 2,
+   "y": 254,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/attack/1": {
+   "x": 44,
+   "y": 254,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/attack/2": {
+   "x": 86,
+   "y": 254,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/attack/3": {
+   "x": 128,
+   "y": 254,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/attack/4": {
+   "x": 170,
+   "y": 254,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/cast/0": {
+   "x": 212,
+   "y": 254,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/cast/1": {
+   "x": 254,
+   "y": 254,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/cast/2": {
+   "x": 296,
+   "y": 254,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/cast/3": {
+   "x": 338,
+   "y": 254,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/cast/4": {
+   "x": 380,
+   "y": 254,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/cast/5": {
+   "x": 422,
+   "y": 254,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/cast/6": {
+   "x": 464,
+   "y": 254,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/cast/7": {
+   "x": 2,
+   "y": 296,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/defeat/0": {
+   "x": 44,
+   "y": 296,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/defeat/1": {
+   "x": 86,
+   "y": 296,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/defeat/2": {
+   "x": 128,
+   "y": 296,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/defeat/3": {
+   "x": 170,
+   "y": 296,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/defeat/4": {
+   "x": 212,
+   "y": 296,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/defeat/5": {
+   "x": 254,
+   "y": 296,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/hit/0": {
+   "x": 296,
+   "y": 296,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/hit/1": {
+   "x": 338,
+   "y": 296,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/hit/2": {
+   "x": 380,
+   "y": 296,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/idle/0": {
+   "x": 422,
+   "y": 296,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/idle/1": {
+   "x": 464,
+   "y": 296,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/idle/2": {
+   "x": 2,
+   "y": 338,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/idle/3": {
+   "x": 44,
+   "y": 338,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/idle/4": {
+   "x": 86,
+   "y": 338,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/idle/5": {
+   "x": 128,
+   "y": 338,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/idle/6": {
+   "x": 170,
+   "y": 338,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/idle/7": {
+   "x": 212,
+   "y": 338,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/victory/0": {
+   "x": 254,
+   "y": 338,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/victory/1": {
+   "x": 296,
+   "y": 338,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/victory/2": {
+   "x": 338,
+   "y": 338,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/victory/3": {
+   "x": 380,
+   "y": 338,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/victory/4": {
+   "x": 422,
+   "y": 338,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_frost/victory/5": {
+   "x": 464,
+   "y": 338,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/attack/0": {
+   "x": 2,
+   "y": 380,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/attack/1": {
+   "x": 44,
+   "y": 380,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/attack/2": {
+   "x": 86,
+   "y": 380,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/attack/3": {
+   "x": 128,
+   "y": 380,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/attack/4": {
+   "x": 170,
+   "y": 380,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/cast/0": {
+   "x": 212,
+   "y": 380,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/cast/1": {
+   "x": 254,
+   "y": 380,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/cast/2": {
+   "x": 296,
+   "y": 380,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/cast/3": {
+   "x": 338,
+   "y": 380,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/cast/4": {
+   "x": 380,
+   "y": 380,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/cast/5": {
+   "x": 422,
+   "y": 380,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/cast/6": {
+   "x": 464,
+   "y": 380,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/cast/7": {
+   "x": 2,
+   "y": 422,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/defeat/0": {
+   "x": 44,
+   "y": 422,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/defeat/1": {
+   "x": 86,
+   "y": 422,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/defeat/2": {
+   "x": 128,
+   "y": 422,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/defeat/3": {
+   "x": 170,
+   "y": 422,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/defeat/4": {
+   "x": 212,
+   "y": 422,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/defeat/5": {
+   "x": 254,
+   "y": 422,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/hit/0": {
+   "x": 296,
+   "y": 422,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/hit/1": {
+   "x": 338,
+   "y": 422,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/hit/2": {
+   "x": 380,
+   "y": 422,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/idle/0": {
+   "x": 422,
+   "y": 422,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/idle/1": {
+   "x": 464,
+   "y": 422,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/idle/2": {
+   "x": 2,
+   "y": 464,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/idle/3": {
+   "x": 44,
+   "y": 464,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/idle/4": {
+   "x": 86,
+   "y": 464,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/idle/5": {
+   "x": 128,
+   "y": 464,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/idle/6": {
+   "x": 170,
+   "y": 464,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/idle/7": {
+   "x": 212,
+   "y": 464,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/victory/0": {
+   "x": 254,
+   "y": 464,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/victory/1": {
+   "x": 296,
+   "y": 464,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/victory/2": {
+   "x": 338,
+   "y": 464,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/victory/3": {
+   "x": 380,
+   "y": 464,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/victory/4": {
+   "x": 422,
+   "y": 464,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  },
+  "hero/arc_light_cat_gilded/victory/5": {
+   "x": 464,
+   "y": 464,
+   "w": 40,
+   "h": 40,
+   "pivot": [
+    0.5,
+    0.1
+   ]
+  }
+ },
+ "anims": {
+  "hero/arc_light_cat/attack": {
+   "frames": [
+    "hero/arc_light_cat/attack/0",
+    "hero/arc_light_cat/attack/1",
+    "hero/arc_light_cat/attack/2",
+    "hero/arc_light_cat/attack/3",
+    "hero/arc_light_cat/attack/4"
+   ],
+   "fps": 14.0,
+   "loop": false
+  },
+  "hero/arc_light_cat/cast": {
+   "frames": [
+    "hero/arc_light_cat/cast/0",
+    "hero/arc_light_cat/cast/1",
+    "hero/arc_light_cat/cast/2",
+    "hero/arc_light_cat/cast/3",
+    "hero/arc_light_cat/cast/4",
+    "hero/arc_light_cat/cast/5",
+    "hero/arc_light_cat/cast/6",
+    "hero/arc_light_cat/cast/7"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "hero/arc_light_cat/defeat": {
+   "frames": [
+    "hero/arc_light_cat/defeat/0",
+    "hero/arc_light_cat/defeat/1",
+    "hero/arc_light_cat/defeat/2",
+    "hero/arc_light_cat/defeat/3",
+    "hero/arc_light_cat/defeat/4",
+    "hero/arc_light_cat/defeat/5"
+   ],
+   "fps": 8.0,
+   "loop": false
+  },
+  "hero/arc_light_cat/hit": {
+   "frames": [
+    "hero/arc_light_cat/hit/0",
+    "hero/arc_light_cat/hit/1",
+    "hero/arc_light_cat/hit/2"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "hero/arc_light_cat/idle": {
+   "frames": [
+    "hero/arc_light_cat/idle/0",
+    "hero/arc_light_cat/idle/1",
+    "hero/arc_light_cat/idle/2",
+    "hero/arc_light_cat/idle/3",
+    "hero/arc_light_cat/idle/4",
+    "hero/arc_light_cat/idle/5",
+    "hero/arc_light_cat/idle/6",
+    "hero/arc_light_cat/idle/7"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "hero/arc_light_cat/victory": {
+   "frames": [
+    "hero/arc_light_cat/victory/0",
+    "hero/arc_light_cat/victory/1",
+    "hero/arc_light_cat/victory/2",
+    "hero/arc_light_cat/victory/3",
+    "hero/arc_light_cat/victory/4",
+    "hero/arc_light_cat/victory/5"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "hero/arc_light_cat_ember/attack": {
+   "frames": [
+    "hero/arc_light_cat_ember/attack/0",
+    "hero/arc_light_cat_ember/attack/1",
+    "hero/arc_light_cat_ember/attack/2",
+    "hero/arc_light_cat_ember/attack/3",
+    "hero/arc_light_cat_ember/attack/4"
+   ],
+   "fps": 14.0,
+   "loop": false
+  },
+  "hero/arc_light_cat_ember/cast": {
+   "frames": [
+    "hero/arc_light_cat_ember/cast/0",
+    "hero/arc_light_cat_ember/cast/1",
+    "hero/arc_light_cat_ember/cast/2",
+    "hero/arc_light_cat_ember/cast/3",
+    "hero/arc_light_cat_ember/cast/4",
+    "hero/arc_light_cat_ember/cast/5",
+    "hero/arc_light_cat_ember/cast/6",
+    "hero/arc_light_cat_ember/cast/7"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "hero/arc_light_cat_ember/defeat": {
+   "frames": [
+    "hero/arc_light_cat_ember/defeat/0",
+    "hero/arc_light_cat_ember/defeat/1",
+    "hero/arc_light_cat_ember/defeat/2",
+    "hero/arc_light_cat_ember/defeat/3",
+    "hero/arc_light_cat_ember/defeat/4",
+    "hero/arc_light_cat_ember/defeat/5"
+   ],
+   "fps": 8.0,
+   "loop": false
+  },
+  "hero/arc_light_cat_ember/hit": {
+   "frames": [
+    "hero/arc_light_cat_ember/hit/0",
+    "hero/arc_light_cat_ember/hit/1",
+    "hero/arc_light_cat_ember/hit/2"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "hero/arc_light_cat_ember/idle": {
+   "frames": [
+    "hero/arc_light_cat_ember/idle/0",
+    "hero/arc_light_cat_ember/idle/1",
+    "hero/arc_light_cat_ember/idle/2",
+    "hero/arc_light_cat_ember/idle/3",
+    "hero/arc_light_cat_ember/idle/4",
+    "hero/arc_light_cat_ember/idle/5",
+    "hero/arc_light_cat_ember/idle/6",
+    "hero/arc_light_cat_ember/idle/7"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "hero/arc_light_cat_ember/victory": {
+   "frames": [
+    "hero/arc_light_cat_ember/victory/0",
+    "hero/arc_light_cat_ember/victory/1",
+    "hero/arc_light_cat_ember/victory/2",
+    "hero/arc_light_cat_ember/victory/3",
+    "hero/arc_light_cat_ember/victory/4",
+    "hero/arc_light_cat_ember/victory/5"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "hero/arc_light_cat_frost/attack": {
+   "frames": [
+    "hero/arc_light_cat_frost/attack/0",
+    "hero/arc_light_cat_frost/attack/1",
+    "hero/arc_light_cat_frost/attack/2",
+    "hero/arc_light_cat_frost/attack/3",
+    "hero/arc_light_cat_frost/attack/4"
+   ],
+   "fps": 14.0,
+   "loop": false
+  },
+  "hero/arc_light_cat_frost/cast": {
+   "frames": [
+    "hero/arc_light_cat_frost/cast/0",
+    "hero/arc_light_cat_frost/cast/1",
+    "hero/arc_light_cat_frost/cast/2",
+    "hero/arc_light_cat_frost/cast/3",
+    "hero/arc_light_cat_frost/cast/4",
+    "hero/arc_light_cat_frost/cast/5",
+    "hero/arc_light_cat_frost/cast/6",
+    "hero/arc_light_cat_frost/cast/7"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "hero/arc_light_cat_frost/defeat": {
+   "frames": [
+    "hero/arc_light_cat_frost/defeat/0",
+    "hero/arc_light_cat_frost/defeat/1",
+    "hero/arc_light_cat_frost/defeat/2",
+    "hero/arc_light_cat_frost/defeat/3",
+    "hero/arc_light_cat_frost/defeat/4",
+    "hero/arc_light_cat_frost/defeat/5"
+   ],
+   "fps": 8.0,
+   "loop": false
+  },
+  "hero/arc_light_cat_frost/hit": {
+   "frames": [
+    "hero/arc_light_cat_frost/hit/0",
+    "hero/arc_light_cat_frost/hit/1",
+    "hero/arc_light_cat_frost/hit/2"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "hero/arc_light_cat_frost/idle": {
+   "frames": [
+    "hero/arc_light_cat_frost/idle/0",
+    "hero/arc_light_cat_frost/idle/1",
+    "hero/arc_light_cat_frost/idle/2",
+    "hero/arc_light_cat_frost/idle/3",
+    "hero/arc_light_cat_frost/idle/4",
+    "hero/arc_light_cat_frost/idle/5",
+    "hero/arc_light_cat_frost/idle/6",
+    "hero/arc_light_cat_frost/idle/7"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "hero/arc_light_cat_frost/victory": {
+   "frames": [
+    "hero/arc_light_cat_frost/victory/0",
+    "hero/arc_light_cat_frost/victory/1",
+    "hero/arc_light_cat_frost/victory/2",
+    "hero/arc_light_cat_frost/victory/3",
+    "hero/arc_light_cat_frost/victory/4",
+    "hero/arc_light_cat_frost/victory/5"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "hero/arc_light_cat_gilded/attack": {
+   "frames": [
+    "hero/arc_light_cat_gilded/attack/0",
+    "hero/arc_light_cat_gilded/attack/1",
+    "hero/arc_light_cat_gilded/attack/2",
+    "hero/arc_light_cat_gilded/attack/3",
+    "hero/arc_light_cat_gilded/attack/4"
+   ],
+   "fps": 14.0,
+   "loop": false
+  },
+  "hero/arc_light_cat_gilded/cast": {
+   "frames": [
+    "hero/arc_light_cat_gilded/cast/0",
+    "hero/arc_light_cat_gilded/cast/1",
+    "hero/arc_light_cat_gilded/cast/2",
+    "hero/arc_light_cat_gilded/cast/3",
+    "hero/arc_light_cat_gilded/cast/4",
+    "hero/arc_light_cat_gilded/cast/5",
+    "hero/arc_light_cat_gilded/cast/6",
+    "hero/arc_light_cat_gilded/cast/7"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "hero/arc_light_cat_gilded/defeat": {
+   "frames": [
+    "hero/arc_light_cat_gilded/defeat/0",
+    "hero/arc_light_cat_gilded/defeat/1",
+    "hero/arc_light_cat_gilded/defeat/2",
+    "hero/arc_light_cat_gilded/defeat/3",
+    "hero/arc_light_cat_gilded/defeat/4",
+    "hero/arc_light_cat_gilded/defeat/5"
+   ],
+   "fps": 8.0,
+   "loop": false
+  },
+  "hero/arc_light_cat_gilded/hit": {
+   "frames": [
+    "hero/arc_light_cat_gilded/hit/0",
+    "hero/arc_light_cat_gilded/hit/1",
+    "hero/arc_light_cat_gilded/hit/2"
+   ],
+   "fps": 12.0,
+   "loop": false
+  },
+  "hero/arc_light_cat_gilded/idle": {
+   "frames": [
+    "hero/arc_light_cat_gilded/idle/0",
+    "hero/arc_light_cat_gilded/idle/1",
+    "hero/arc_light_cat_gilded/idle/2",
+    "hero/arc_light_cat_gilded/idle/3",
+    "hero/arc_light_cat_gilded/idle/4",
+    "hero/arc_light_cat_gilded/idle/5",
+    "hero/arc_light_cat_gilded/idle/6",
+    "hero/arc_light_cat_gilded/idle/7"
+   ],
+   "fps": 8.0,
+   "loop": true
+  },
+  "hero/arc_light_cat_gilded/victory": {
+   "frames": [
+    "hero/arc_light_cat_gilded/victory/0",
+    "hero/arc_light_cat_gilded/victory/1",
+    "hero/arc_light_cat_gilded/victory/2",
+    "hero/arc_light_cat_gilded/victory/3",
+    "hero/arc_light_cat_gilded/victory/4",
+    "hero/arc_light_cat_gilded/victory/5"
+   ],
+   "fps": 8.0,
+   "loop": true
+  }
+ }
+}
