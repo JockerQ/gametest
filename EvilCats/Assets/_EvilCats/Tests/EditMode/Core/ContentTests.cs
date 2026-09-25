@@ -72,7 +72,8 @@ namespace EvilCats.Tests
         public void PerkDescriptionsShowExactValues()
         {
             var c = TestContent.Load();
-            Assert.That(TextFormat.Perk(c, c.Perk("arc_static_mark")), Does.Contain("+12% Arc damage"));
+            string pct = TextFormat.Percent(c.Perk("arc_static_mark").p["bonus"]);
+            Assert.That(TextFormat.Perk(c, c.Perk("arc_static_mark")), Does.Contain("+" + pct + " Arc damage"), "description follows the data value");
             Assert.That(TextFormat.Perk(c, c.Perk("arc_overcharged_crown")), Does.Contain("-15%").And.Contain("+30%"));
             Assert.That(TextFormat.Perk(c, c.Perk("gravity_unstable_singularity")), Does.Contain("+35%"));
             Assert.That(TextFormat.Perk(c, c.Perk("frost_frozen_oath")), Does.Contain("need 1 fewer"));

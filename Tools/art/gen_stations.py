@@ -127,47 +127,6 @@ def mask_img(img: np.ndarray) -> np.ndarray:
     return img[:, :, 3] > 0
 
 
-def only(img: np.ndarray, mask: np.ndarray) -> np.ndarray:
-    out = img.copy()
-    out[~mask] = 0
-    return out
-
-
-
-
-def tube(pts: Sequence[Tuple[float, float]], r0: float, r1: float, ramp: Sequence[Color],
-         W: int = FW, H: int = FH) -> np.ndarray:
-    """Shaded tube along a polyline (3-tone: light top-left edge, dark bottom-right edge)."""
-    path = []
-    for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
-        n = max(2, int(math.hypot(x1 - x0, y1 - y0) * 3))
-        for i in range(n):
-            t = i / n
-            path.append((x0 + (x1 - x0) * t, y0 + (y1 - y0) * t))
-    path.append(tuple(pts[-1]))
-    mask = np.zeros((H, W), bool)
-    n = len(path)
-    for i, (x, y) in enumerate(path):
-        r = r0 + (r1 - r0) * (i / max(1, n - 1))
-        for yy in range(max(0, int(y - r - 2)), min(H, int(y + r + 3))):
-            for xx in range(max(0, int(x - r - 2)), min(W, int(x + r + 3))):
-                if (xx - x) ** 2 + (yy - y) ** 2 <= (r + 0.15) ** 2:
-                    mask[yy, xx] = True
-    img = E.new(W, H)
-    img[mask] = ramp[1]
-    ys, xs = np.nonzero(mask)
-    for x, y in zip(xs, ys):
-        up = y - 1 < 0 or not mask[y - 1, x]
-        lf = x - 1 < 0 or not mask[y, x - 1]
-        dn = y + 1 >= H or not mask[y + 1, x]
-        rt = x + 1 >= W or not mask[y, x + 1]
-        if up or lf:
-            img[y, x] = ramp[2]
-        elif dn or rt:
-            img[y, x] = ramp[0]
-    return img
-
-
 def sphere(img, cx, cy, rx, ry, ramp4: Sequence[Color], cuts=(0.62, 0.2, -0.35)):
     """Banded sphere lit from the top-left (ramp dark -> light, 4 colours)."""
     for y in range(int(cy - ry - 1), int(cy + ry + 2)):
@@ -183,17 +142,22 @@ def sphere(img, cx, cy, rx, ry, ramp4: Sequence[Color], cuts=(0.62, 0.2, -0.35))
             img[y, x] = ramp4[k]
 
 
-def shear_rows(img: np.ndarray, k: float, pivot_y: float) -> np.ndarray:
-    """Shift each row by round(k * (y - pivot_y)) (small swings of hanging parts)."""
-    out = E.new(img.shape[1], img.shape[0])
-    for y in range(img.shape[0]):
-        dx = int(round(k * (y - pivot_y)))
-        if dx == 0:
-            out[y] = img[y]
-        elif dx > 0:
-            out[y, dx:] = img[y, :-dx]
-        else:
-            out[y, :dx] = img[y, -dx:]
+def rotate_about(img: np.ndarray, px: float, py: float, deg: float) -> np.ndarray:
+    """Nearest-neighbour rotation about (px, py) (inverse mapping; keeps hard pixels)."""
+    if abs(deg) < 1e-3:
+        return img.copy()
+    H, W = img.shape[:2]
+    out = E.new(W, H)
+    a = math.radians(deg)
+    ca, sa = math.cos(a), math.sin(a)
+    for y in range(H):
+        for x in range(W):
+            dx, dy = x + 0.5 - px, y + 0.5 - py
+            sx = ca * dx + sa * dy + px
+            sy = -sa * dx + ca * dy + py
+            ix, iy = int(math.floor(sx)), int(math.floor(sy))
+            if 0 <= ix < W and 0 <= iy < H and img[iy, ix, 3]:
+                out[y, x] = img[iy, ix]
     return out
 
 
@@ -234,8 +198,13 @@ def smoke(img, cx, cy, r, shade=0):
 PCX, PCY, PRX, PRY, PDEPTH = 15.5, 22.0, 13.5, 4.5, 3
 
 
+_RENDER = {"platform": True, "operator": True}   # icons render weapons alone
+
+
 def platform(tier: int, family: str) -> np.ndarray:
     img = E.new(FW, FH)
+    if not _RENDER["platform"]:
+        return img
     ramp = RAMPS[family]
     top = np.zeros((FH, FW), bool)
     face = np.zeros((FH, FW), bool)
@@ -306,15 +275,6 @@ def platform(tier: int, family: str) -> np.ndarray:
                 if col and (x % 2 == 0):
                     img[col[-1], x] = PAL['gold1']
     return img
-
-
-def platform_glow(tier: int, family: str) -> Optional[Tuple[np.ndarray, Color]]:
-    if tier < 3:
-        return None
-    g = E.new(FW, FH)
-    cx, fy = int(PCX), int(PCY + PRY) + 2
-    put(g, cx, fy, RAMPS[family][3])
-    return g, RAMPS[family][2]
 
 
 # --------------------------------------------------------------------------------------
@@ -601,6 +561,8 @@ def _overlay(rows: List[str], over: Optional[List[str]]) -> List[str]:
 def tiny_operator(cat: str, pose: str = "idle") -> np.ndarray:
     """~10x13 standing operator. pose: idle | blink | reach (arm out) | cheer (arm up) | look."""
     spec = CATS[cat]
+    if not _RENDER["operator"]:
+        return E.new(13, 15)
     L = {**BASE_LEGEND, **cat_legend(cat), 'k': (52, 44, 46, 255)}
     if spec.get("skull"):
         head_rows, body_rows = list(SKULL_HEAD), list(SKULL_BODY)
@@ -844,21 +806,19 @@ def station_frost_whisker(tier: int, clip: str, f: int) -> np.ndarray:
         for x in (lx, rxp):
             put(frame, x, top - 2, PAL['frost4'])
             put(frame, x, top - 3, PAL['frost3'])
-    # bell (swings in fire)
+    # bell (swings in fire): rotated about the hanger
     bell = A(BELL[tier])
     bw, bh = bell.shape[1], bell.shape[0]
-    swing = 0.0
     if clip == "idle":
-        swing = [0.0, 0.12, 0.0, -0.12][f]
+        ang = [0.0, 6.0, 0.0, -6.0][f]
     else:
-        swing = [-0.35, 0.45, 0.25, -0.15, 0.0][f]
+        ang = [-16.0, 22.0, 12.0, -7.0, 0.0][f]
     bimg = E.new(FW, FH)
     bx = 20 - bw // 2 + 1
     by = top + 3
     E.paste(bimg, bell, bx, by)
-    # hanger
     put(bimg, 20, top + 2, PAL['iron2'])
-    bimg = shear_rows(bimg, -swing, top + 2)
+    bimg = rotate_about(bimg, 20.5, top + 2.5, ang)
     layers = [(plat, 0, 0, None), (frame, 0, 0, OL), (bimg, 0, 0, OL)]
     # rope from the beam to the operator paw
     rope = E.new(FW, FH)
@@ -868,17 +828,34 @@ def station_frost_whisker(tier: int, clip: str, f: int) -> np.ndarray:
     op = tiny_operator("white_cat", "reach" if pulling else ("blink" if clip == "idle" and f == 1 else "idle"))
     layers.append((op, 0, 11, OL))
     fx = E.new(FW, FH)
-    mouth = (20 + int(round(swing * (bh + 1))), by + bh)
+    a = math.radians(ang)
+    mx = 20.5 - math.sin(a) * (bh + 1)
+    my = top + 2.5 + math.cos(a) * (bh + 1)
     if clip == "fire" and f in (1, 2, 3):
-        r = {1: 3, 2: 5, 3: 7}[f]
-        fx_ring(fx, mouth[0], mouth[1] - 1, r, r * 0.6, PAL['frost3'], 255 if f < 3 else 170, gap=0 if f == 1 else 2)
-        for _ in range(4 + tier * 2):
-            a = rnd.uniform(0, 2 * math.pi)
-            d = rnd.uniform(1, r + 1)
-            put_empty(fx, mouth[0] + math.cos(a) * d, mouth[1] - 1 + math.sin(a) * d * 0.6,
-                      PAL['frost4'] if rnd.random() < 0.5 else PAL['snow2'])
+        frost = [PAL['white'], PAL['frost4'], PAL['frost3'], PAL['frost2'], PAL['frost1']]
+        if f == 1:
+            # icy rays + a small opaque puff at the bell mouth
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (1, 1), (-1, 1)):
+                for i in range(1, 4 + tier // 2):
+                    put_empty(fx, mx + dx * i, my + dy * i * 0.8, frost[min(4, i - 1)])
+            for (dx, dy, c) in ((0, 0, 1), (-1, 0, 2), (1, 0, 2), (0, 1, 2), (-1, 1, 3), (1, 1, 3), (0, -1, 1)):
+                put_empty(fx, mx + dx, my + 1 + dy, frost[c])
+        else:
+            n = 6 if f == 2 else 8
+            rr = 4.5 if f == 2 else 6.5
+            for k in range(n):
+                aa = 2 * math.pi * k / n + (0.3 if f == 3 else 0.0)
+                sx, sy = mx + math.cos(aa) * rr, my + 1 + math.sin(aa) * rr * 0.65
+                if f == 2:
+                    put_empty(fx, sx, sy, PAL['white'])
+                    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                        put_empty(fx, sx + dx, sy + dy, PAL['frost3'])
+                else:
+                    put_empty(fx, sx, sy, PAL['frost3'] if k % 2 else PAL['frost2'])
+            if f == 2:
+                for (dx, dy, c) in ((0, 1, 2), (-1, 1, 3), (1, 1, 3), (0, 2, 3)):
+                    put_empty(fx, mx + dx, my + dy, frost[c])
     else:
-        # twinkles
         for k in range(tier):
             x = rnd.randint(12, 29)
             y = rnd.randint(3, 16)
@@ -1039,7 +1016,7 @@ def station_ward_lantern(tier: int, clip: str, f: int) -> np.ndarray:
     pole_cols = {1: (PAL['wood1'], PAL['wood2'], PAL['wood3']), 2: (PAL['iron1'], PAL['iron2'], PAL['iron3']),
                  3: (PAL['gold0'], PAL['gold1'], PAL['gold3'])}[tier]
     pole = E.new(FW, FH)
-    px_, top = 16, 2
+    px_, top = 16, 3
     for y in range(top, 23):
         put(pole, px_, y, pole_cols[2] if y % 5 else pole_cols[1])
         put(pole, px_ + 1, y, pole_cols[0])
@@ -1663,6 +1640,111 @@ def portrait(cat: str) -> np.ndarray:
 
 
 # --------------------------------------------------------------------------------------
+# 16 px operator heads (module icons) - derived from the in-game hero head proportions
+# --------------------------------------------------------------------------------------
+GEN_SHEAD = [
+    ".4............3.",
+    ".44..........32.",
+    ".4P3........3N2.",
+    ".4PN3......33N2.",
+    "44PN43....333n22",
+    "44PN4333333333n2",
+    "4444333333333322",
+    "4443333333333322",
+    "4433333333333322",
+    "4331113333111322",
+    "431WF#1331WF#122",
+    "431FE#1331EE#122",
+    "a4332233qp32332a",
+    ".a3333bccbb3332a",
+    "..33333bab3332..",
+    "...2223333222...",
+    ".....2222222....",
+]
+SHEAD_OVERLAY = {
+    "silver_tabby": {6: "......1.1.......", 7: "99hhh9999hhh999.", 8: "..hzh.....hzh...", 12: "1..............1"},
+    "orange_cat": {7: "..........kk....", 8: "...........k....", 13: ".kk.............", 14: "..k.........k..."},
+    "purple_eyed_cat": {6: ".......Y........", 7: "......YXY.......", 8: ".......Y........",
+                        10: "...WXY.....WXY..", 11: "...XXX.....XXX.."},
+    "hooded_cat": {0: ".B............A.", 1: ".BB..........AA.", 2: ".BCB........ABA.", 3: ".BCBB......AABA.",
+                   4: "BBCBBB....AAABAA", 5: "BCCBBBBBBBBBBBAA", 6: "BCBBBBBBBBBBBBBA", 7: "BCB11111111111BA",
+                   8: "CB11111111111BA.", 9: "CB1..........1BA", 10: "CB.WFF1..1WFF1BA", 11: "CB..EE1...EE1.BA",
+                   12: "C..............A", 13: "C..............A"},
+}
+
+
+def op_small_head(cat: str) -> np.ndarray:
+    rows = list(GEN_SHEAD)
+    L = dict(BASE_LEGEND)
+    L.update(ACCENT)
+    if cat == "skeletal_cat":
+        m = {'1': '5', '2': '6', '3': '7', '4': '8', 'P': '5', 'N': '4', 'n': '4', 'a': '6', 'b': '7', 'c': '8',
+             'q': '#', 'p': '#', 'F': '7', 'E': '7', 'W': '7', '#': '7'}
+        rows = ["".join(m.get(ch, ch) for ch in r) for r in rows]
+        rows = _ov(rows, ["..##......##....", ".###D....###D...", "..#D......#D....",
+                          "........#.......", ".......8#8#8....", "........5#5....."], 9)
+        L.update(CAT_HEAD_COLORS[cat])
+        return E.ascii_art(rows, L)
+    L.update(CAT_HEAD_COLORS[cat])
+    L.update({k: v for k, v in ACCENT.items() if k in "hgyz9kKoOuUXYVBCAjLlm"})
+    ov = SHEAD_OVERLAY.get(cat, {})
+    for i, o in ov.items():
+        rows = _ov(rows, [o], i)
+    return E.ascii_art(rows, L)
+
+
+def _weapon_only(mid: str, tier: int = 2) -> np.ndarray:
+    """Render a station frame without platform/operator and crop to the weapon."""
+    _RENDER["platform"] = False
+    _RENDER["operator"] = False
+    try:
+        fr = STATIONS[mid](tier, "idle", 0)
+    finally:
+        _RENDER["platform"] = True
+        _RENDER["operator"] = True
+    x0, y0, x1, y1 = E.trim_box(fr)
+    return E.crop(fr, x0, y0, x1 - x0, y1 - y0)
+
+
+ICON_LAYOUT = {  # weapon tier and top-left placement inside the 32x32 icon
+    "arc_coil": (2, None, 2), "ember_maw": (2, None, 3), "frost_whisker": (1, 11, 4),
+    "bone_ballista": (2, 9, 4), "ward_lantern": (2, None, 2), "gravity_paw": (2, None, 3),
+}
+
+
+def module_icon(mid: str) -> np.ndarray:
+    """Operator face + weapon over a subtle family-coloured disc."""
+    W = H = 32
+    ramp = RAMPS[FAMILY[mid]]
+    img = E.new(W, H)
+    for y in range(H):
+        for x in range(W):
+            d = math.hypot(x + 0.5 - 16, y + 0.5 - 16)
+            if d <= 14.5:
+                if d > 13.2:
+                    c = ramp[1] if (x + y) < 27 else ramp[0]
+                elif d > 12.2:
+                    c = ramp[0]
+                else:
+                    c = PAL['stone1'] if (x + y) < 30 else PAL['stone0']
+                img[y, x] = c
+    fr = E.outline(img)
+    tier, wx, wy = ICON_LAYOUT[mid]
+    wpn = _weapon_only(mid, tier)
+    ww, wh = wpn.shape[1], wpn.shape[0]
+    if wx is None:
+        wx = max(10, min(W - ww - 2, 20 - ww // 2))
+    wy = max(1, min(wy, H - wh - 1))
+    E.paste(fr, wpn, wx, wy)
+    hl = E.new(W, H)
+    E.paste(hl, op_small_head(OPERATOR[mid]), 1, 14)
+    hl = E.outline(hl)
+    m = mask_img(hl)
+    fr[m] = hl[m]
+    return fr
+
+
+# --------------------------------------------------------------------------------------
 # Build
 # --------------------------------------------------------------------------------------
 CLIP_SPEC = {"idle": (4, 6, True), "fire": (5, 14, False)}
@@ -1679,8 +1761,16 @@ def build_stations(reg: "E.Registry") -> None:
                 reg.anim("stations", f"station/{mid}/t{tier}/{clip}", frames, fps, loop, pivot=PIVOT)
 
 
+AVATAR_CATS = ["silver_tabby", "orange_cat", "white_cat", "skeletal_cat", "hooded_cat", "purple_eyed_cat", "calico_cat"]
+
+
 def build(reg: "E.Registry") -> None:
     build_stations(reg)
+    for mid in MODULES:
+        reg.sprite("portraits", f"portrait/{mid}", portrait(OPERATOR[mid]), pivot=(0.5, 0.5))
+        reg.sprite("icons", f"icon/module/{mid}", module_icon(mid), pivot=(0.5, 0.5))
+    for cat in AVATAR_CATS:
+        reg.sprite("portraits", f"avatar/{cat}", avatar(cat), pivot=(0.5, 0.5))
 
 
 def _iter_preview():

@@ -2,14 +2,164 @@
  "atlas": "icons",
  "texture": "icons.png",
  "flashTexture": null,
- "width": 128,
- "height": 128,
+ "width": 256,
+ "height": 256,
  "ppu": 16,
  "coordinateOrigin": "top-left",
  "sprites": {
-  "icon/enemy/bat_swarm": {
+  "icon/ad": {
+   "x": 54,
+   "y": 114,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/arrow_left": {
+   "x": 72,
+   "y": 114,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/arrow_right": {
+   "x": 90,
+   "y": 114,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/back": {
+   "x": 108,
+   "y": 114,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/bolt": {
+   "x": 126,
+   "y": 114,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/bone": {
+   "x": 144,
+   "y": 114,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/boss": {
+   "x": 162,
+   "y": 114,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/calendar": {
+   "x": 180,
+   "y": 114,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/chain": {
+   "x": 198,
+   "y": 114,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/check": {
+   "x": 216,
+   "y": 114,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/clock": {
+   "x": 234,
+   "y": 114,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/close": {
    "x": 2,
-   "y": 2,
+   "y": 140,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/cloud": {
+   "x": 20,
+   "y": 140,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/crit": {
+   "x": 38,
+   "y": 140,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/crown": {
+   "x": 56,
+   "y": 140,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/enemy/bat_swarm": {
+   "x": 74,
+   "y": 140,
    "w": 16,
    "h": 16,
    "pivot": [
@@ -18,8 +168,8 @@
    ]
   },
   "icon/enemy/bell_priest": {
-   "x": 20,
-   "y": 2,
+   "x": 92,
+   "y": 140,
    "w": 16,
    "h": 16,
    "pivot": [
@@ -28,8 +178,8 @@
    ]
   },
   "icon/enemy/crow_archer": {
-   "x": 38,
-   "y": 2,
+   "x": 110,
+   "y": 140,
    "w": 16,
    "h": 16,
    "pivot": [
@@ -38,8 +188,8 @@
    ]
   },
   "icon/enemy/hound_runner": {
-   "x": 56,
-   "y": 2,
+   "x": 128,
+   "y": 140,
    "w": 16,
    "h": 16,
    "pivot": [
@@ -48,8 +198,28 @@
    ]
   },
   "icon/enemy/iron_golem": {
-   "x": 74,
-   "y": 2,
+   "x": 146,
+   "y": 140,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/enemy/king_goldenfang": {
+   "x": 164,
+   "y": 140,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/enemy/mother_carrion": {
+   "x": 182,
+   "y": 140,
    "w": 16,
    "h": 16,
    "pivot": [
@@ -58,8 +228,8 @@
    ]
   },
   "icon/enemy/powder_rat": {
-   "x": 92,
-   "y": 2,
+   "x": 200,
+   "y": 140,
    "w": 16,
    "h": 16,
    "pivot": [
@@ -68,8 +238,8 @@
    ]
   },
   "icon/enemy/rat_raider": {
-   "x": 110,
-   "y": 2,
+   "x": 218,
+   "y": 140,
    "w": 16,
    "h": 16,
    "pivot": [
@@ -78,8 +248,898 @@
    ]
   },
   "icon/enemy/shield_guard": {
+   "x": 236,
+   "y": 140,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/enemy/sir_barkhelm": {
    "x": 2,
-   "y": 20,
+   "y": 158,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/eye": {
+   "x": 20,
+   "y": 158,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/flag": {
+   "x": 38,
+   "y": 158,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/flame": {
+   "x": 56,
+   "y": 158,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/flash_off": {
+   "x": 74,
+   "y": 158,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/gift": {
+   "x": 92,
+   "y": 158,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/globe": {
+   "x": 110,
+   "y": 158,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/gravity": {
+   "x": 128,
+   "y": 158,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/haste": {
+   "x": 146,
+   "y": 158,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/heart": {
+   "x": 164,
+   "y": 158,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/heart_plus": {
+   "x": 182,
+   "y": 158,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/home": {
+   "x": 200,
+   "y": 158,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/info": {
+   "x": 218,
+   "y": 158,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/lantern": {
+   "x": 236,
+   "y": 158,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/lock": {
+   "x": 2,
+   "y": 176,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/magnet": {
+   "x": 20,
+   "y": 176,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/map": {
+   "x": 38,
+   "y": 176,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/minus": {
+   "x": 56,
+   "y": 176,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/module/arc_coil": {
+   "x": 2,
+   "y": 2,
+   "w": 32,
+   "h": 32,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/module/bone_ballista": {
+   "x": 36,
+   "y": 2,
+   "w": 32,
+   "h": 32,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/module/ember_maw": {
+   "x": 70,
+   "y": 2,
+   "w": 32,
+   "h": 32,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/module/frost_whisker": {
+   "x": 104,
+   "y": 2,
+   "w": 32,
+   "h": 32,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/module/gravity_paw": {
+   "x": 138,
+   "y": 2,
+   "w": 32,
+   "h": 32,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/module/ward_lantern": {
+   "x": 172,
+   "y": 2,
+   "w": 32,
+   "h": 32,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/moon_gold": {
+   "x": 74,
+   "y": 176,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/music": {
+   "x": 92,
+   "y": 176,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/numbers": {
+   "x": 110,
+   "y": 176,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/pause": {
+   "x": 128,
+   "y": 176,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/arc_conductive_chill": {
+   "x": 206,
+   "y": 2,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/arc_forked_bolt": {
+   "x": 2,
+   "y": 36,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/arc_overcharged_crown": {
+   "x": 28,
+   "y": 36,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/arc_static_mark": {
+   "x": 54,
+   "y": 36,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/arc_thunderclap": {
+   "x": 80,
+   "y": 36,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/bone_armour_break": {
+   "x": 106,
+   "y": 36,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/bone_barbed_bolts": {
+   "x": 132,
+   "y": 36,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/bone_double_nock": {
+   "x": 158,
+   "y": 36,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/bone_executioner": {
+   "x": 184,
+   "y": 36,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/bone_heavy_quarrels": {
+   "x": 210,
+   "y": 36,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/ember_cinder_spread": {
+   "x": 2,
+   "y": 62,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/ember_furnace_heart": {
+   "x": 28,
+   "y": 62,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/ember_lingering_embers": {
+   "x": 54,
+   "y": 62,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/ember_molten_shell": {
+   "x": 80,
+   "y": 62,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/ember_wildfire_pact": {
+   "x": 106,
+   "y": 62,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/frost_brittle_armour": {
+   "x": 132,
+   "y": 62,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/frost_deep_chill": {
+   "x": 158,
+   "y": 62,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/frost_frozen_oath": {
+   "x": 184,
+   "y": 62,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/frost_shatter": {
+   "x": 210,
+   "y": 62,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/frost_winter_ring": {
+   "x": 2,
+   "y": 88,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/gravity_crushing_centre": {
+   "x": 28,
+   "y": 88,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/gravity_event_horizon": {
+   "x": 54,
+   "y": 88,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/gravity_falling_star": {
+   "x": 80,
+   "y": 88,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/gravity_unstable_singularity": {
+   "x": 106,
+   "y": 88,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/gravity_wider_orbit": {
+   "x": 132,
+   "y": 88,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/ward_guardian_pact": {
+   "x": 158,
+   "y": 88,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/ward_last_thread": {
+   "x": 184,
+   "y": 88,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/ward_mending_purr": {
+   "x": 210,
+   "y": 88,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/ward_reflective_fur": {
+   "x": 2,
+   "y": 114,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/perk/ward_reinforced_barrier": {
+   "x": 28,
+   "y": 114,
+   "w": 24,
+   "h": 24,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/play": {
+   "x": 146,
+   "y": 176,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/play_ad": {
+   "x": 164,
+   "y": 176,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/plus": {
+   "x": 182,
+   "y": 176,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/profile": {
+   "x": 200,
+   "y": 176,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/refresh": {
+   "x": 218,
+   "y": 176,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/regen": {
+   "x": 236,
+   "y": 176,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/scroll": {
+   "x": 2,
+   "y": 194,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/settings": {
+   "x": 20,
+   "y": 194,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/sfx": {
+   "x": 38,
+   "y": 194,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/shake_off": {
+   "x": 56,
+   "y": 194,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/shield": {
+   "x": 74,
+   "y": 194,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/shop": {
+   "x": 92,
+   "y": 194,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/skull": {
+   "x": 110,
+   "y": 194,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/snowflake": {
+   "x": 128,
+   "y": 194,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/spark": {
+   "x": 146,
+   "y": 194,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/speed1": {
+   "x": 164,
+   "y": 194,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/speed2": {
+   "x": 182,
+   "y": 194,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/star": {
+   "x": 200,
+   "y": 194,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/star_burst": {
+   "x": 218,
+   "y": 194,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/star_empty": {
+   "x": 236,
+   "y": 194,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/storm_shard": {
+   "x": 2,
+   "y": 212,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/swap": {
+   "x": 20,
+   "y": 212,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/sword": {
+   "x": 38,
+   "y": 212,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/target_nearest": {
+   "x": 56,
+   "y": 212,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/target_ranged": {
+   "x": 74,
+   "y": 212,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/target_strongest": {
+   "x": 92,
+   "y": 212,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/trophy": {
+   "x": 110,
+   "y": 212,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/up_arrow": {
+   "x": 128,
+   "y": 212,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/vibration": {
+   "x": 146,
+   "y": 212,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/warning": {
+   "x": 164,
+   "y": 212,
+   "w": 16,
+   "h": 16,
+   "pivot": [
+    0.5,
+    0.5
+   ]
+  },
+  "icon/xp": {
+   "x": 182,
+   "y": 212,
    "w": 16,
    "h": 16,
    "pivot": [

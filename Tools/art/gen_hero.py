@@ -318,13 +318,32 @@ FUR_RAMP = [PAL['fur1'], PAL['fur2'], PAL['fur3']]
 
 
 def tail_layer(sway: float = 0.0, curl: float = 0.0, puff: float = 0.0, limp: float = 0.0):
-    """Curved tail rising on the left behind the mantle.  limp (0..1) lowers it to the ground."""
-    s = sway
-    up = [(13, 33.5), (8.5, 33.5), (5.5, 31.5), (4 + s * 0.3, 28), (4 + s * 0.6, 24),
-          (5 + s, 20.5 - curl), (7 + s, 19 - curl), (8 + s, 20.5 - curl)]
+    """Curved tail rising on the left behind the mantle.  limp (0..1) lowers it to the ground.
+    Sway is a rigid shear of the same shape (top moves by round(sway) px) so it stays on-model."""
+    up = [(13, 33.5), (8.5, 33.5), (5.5, 31.5), (4, 28), (4, 24),
+          (5, 20.5 - curl), (7, 19 - curl), (8, 20.5 - curl)]
     down = [(13, 34), (9, 34.3), (6, 34.2), (3.5, 33.6), (2.5, 32.2), (2.8, 30.8), (3.6, 30.2), (4.3, 30.8)]
     pts = [(a[0] + (b[0] - a[0]) * limp, a[1] + (b[1] - a[1]) * limp) for a, b in zip(up, down)]
-    return tube(pts, 1.15 + puff, 0.75 + puff, FUR_RAMP)
+    img, path = tube(pts, 1.15 + puff, 0.75 + puff, FUR_RAMP)
+    s = int(round(sway * (1.0 - limp)))
+    if s:
+        base_y, top_y = 31.0, 18.0
+
+        def dx_of(y):
+            t = min(1.0, max(0.0, (base_y - y) / (base_y - top_y)))
+            return int(round(s * t))
+        out = E.new(FW, FH)
+        for y in range(FH):
+            d = dx_of(y)
+            if d > 0:
+                out[y, d:] = img[y, :-d]
+            elif d < 0:
+                out[y, :d] = img[y, -d:]
+            else:
+                out[y] = img[y]
+        img = out
+        path = [(x + dx_of(y), y) for x, y in path]
+    return img, path
 
 
 def _interp(ctrl: Sequence[Tuple[float, ...]], y: float) -> Tuple[float, ...]:
@@ -697,7 +716,7 @@ def render(pose: dict, L: Dict[str, Color], seed: int = 0) -> np.ndarray:
     cstate = pose.get("crystal_state", "normal")
     cdx, cdy = pose.get("crystal", (0, 0))
     cimg = E.new(FW, FH)
-    ccx, ccy = sx - 2 + slean + cdx, 4 + sr + cdy
+    ccx, ccy = sx - 2 + slean + cdx, max(1, 4 + sr + cdy)   # keep 1px margin for the outline
     E.paste(cimg, A(recolor_chars(CRYSTAL, CRYSTAL_STATES[cstate]), L), ccx, ccy)
     cimg = E.outline(cimg)
     m = cimg[:, :, 3] > 0
@@ -851,10 +870,6 @@ CLIPS = {  # name: (builder, fps, loop)
 }
 
 
-def build_clips() -> Dict[str, Tuple[List[dict], float, bool]]:
-    return {k: (fn(), fps, loop) for k, (fn, fps, loop) in CLIPS.items()}
-
-
 def render_clip(name: str, skin: str) -> List[np.ndarray]:
     fn, fps, loop = CLIPS[name]
     return [render(p, SKINS[skin], seed=i + 31 * len(name)) for i, p in enumerate(fn())]
@@ -866,12 +881,6 @@ def render_clip(name: str, skin: str) -> List[np.ndarray]:
 def _poly_mask(pts, W, H) -> np.ndarray:
     im = E.new(W, H)
     E.polygon(im, pts, (255, 255, 255, 255))
-    return im[:, :, 3] > 0
-
-
-def _ell_mask(cx, cy, rx, ry, W, H) -> np.ndarray:
-    im = E.new(W, H)
-    E.ellipse(im, cx, cy, rx, ry, (255, 255, 255, 255))
     return im[:, :, 3] > 0
 
 

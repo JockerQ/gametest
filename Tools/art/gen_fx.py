@@ -310,49 +310,26 @@ def lightning_tex() -> np.ndarray:
 
 
 def target_reticle() -> List[np.ndarray]:
+    """Arc Storm aim: cyan ring with cross-hair ticks and corner brackets (2 frames pulse)."""
     frames = []
     for f in range(2):
         img = E.new(32, 32)
         r = 11 if f == 0 else 10
         E.circle(img, 15.5, 15.5, r, C["cyan2"], fill=False)
-        # gaps at the cardinal points
-        for (x, y) in ((15, 15 - r), (16, 15 - r), (15, 16 + r), (16, 16 + r), (15 - r, 15), (15 - r, 16), (16 + r, 15), (16 + r, 16)):
-            if 0 <= x < 32 and 0 <= y < 32:
-                img[y, x] = 0
-        # ticks pointing inward
-        g = 3 if f == 0 else 2
-        for i in range(3):
-            hard(img, [(15.5 - 0.5, 15.5 - r - 2 + i), (15.5 + 0.5, 15.5 - r - 2 + i)], C["cyan3"])
-        for (x0, y0, dx, dy) in ((15, 1, 0, 1), (15, 28, 0, 1), (1, 15, 1, 0), (28, 15, 1, 0)):
-            pass
-        for d in range(4):
+        for d in range(4):                                  # cross-hair ticks through the ring
             a = d * math.pi / 2
             for t in range(r - 3, r + 3):
-                x = 15.5 + math.cos(a) * t
-                y = 15.5 + math.sin(a) * t
-                hard(img, [(x - 0.5, y - 0.5), (x - 0.5 + (0 if d % 2 == 0 else 0), y - 0.5)], C["cyan3"])
-        # corner brackets closing in
-        c0 = 15.5 - (6 if f == 0 else 5)
+                hard(img, [(15.5 + math.cos(a) * t - 0.5, 15.5 + math.sin(a) * t - 0.5)], C["cyan3"])
+        c0 = 15.5 - (6 if f == 0 else 5)                     # corner brackets closing in
         c1 = 15.5 + (6 if f == 0 else 5)
         for (bx, by, sx, sy) in ((c0, c0, 1, 1), (c1, c0, -1, 1), (c0, c1, 1, -1), (c1, c1, -1, -1)):
             hard(img, [(bx - 0.5, by - 0.5), (bx - 0.5 + sx, by - 0.5), (bx - 0.5, by - 0.5 + sy)], C["cyan4"])
         hard(img, [(15, 15), (16, 16), (15, 16), (16, 15)], C["cyan4"] if f == 0 else C["cyan3"])
-        img = E.outline(img, C["cyan0"])
-        frames.append(img)
+        frames.append(E.outline(img, C["cyan0"]))
     return frames
 
 
 def mark() -> np.ndarray:
-    rows = [
-        "...oo...",
-        "..o33o..",
-        ".o3.43o.",
-        "o3.44.3o",
-        "o3.44.3o",
-        ".o34.3o.",
-        "..o33o..",
-        "...oo...",
-    ]
     rows = [
         "...oo...",
         "..o22o..",
@@ -437,7 +414,9 @@ def explosion() -> List[np.ndarray]:
             if f >= 3:     # smoke puffs outside, a little fire left inside
                 _draw_puffs(L, puffs, cx, cy, t * 1.6, grow, 3 * t, lambda r: smoke, alpha)
                 if f <= 4:
-                    _draw_puffs(L, puffs[:4], cx, cy, t, grow * 0.6, 2 * t, lambda r: tones if f == 3 else ember_dark, alpha)
+                    inner = sorted(puffs, key=lambda q: q["d"])[:5]
+                    core = [dict(q, d=q["d"] * 0.4) for q in inner]
+                    _draw_puffs(L, core, cx, cy, t, grow * 0.62, 2 * t, lambda r: tones if f == 3 else ember_dark, alpha)
             else:
                 _draw_puffs(L, puffs, cx, cy, t, grow, 2 * t, lambda r: tones, alpha)
             if f == 1:
@@ -479,8 +458,11 @@ def powder_blast() -> List[np.ndarray]:
             if f >= 2:
                 _draw_puffs(L, puffs, cx, cy, t * 1.5, grow, 3 * t, lambda r: soot, alpha)
             if f <= 3:
-                _draw_puffs(L, puffs[:6] if f > 1 else puffs, cx, cy, t, grow * (1 if f == 1 else 0.6), 2 * t,
-                            lambda r: hot if f == 1 else mid, 1.0 if f < 3 else 0.8)
+                # fire stays in a burning core: the innermost puffs, pulled toward the centre
+                inner = sorted(puffs, key=lambda q: q["d"])[:7]
+                core = [dict(q, d=q["d"] * (1.0 if f == 1 else 0.45)) for q in inner]
+                _draw_puffs(L, puffs if f == 1 else core, cx, cy, t, grow * (1 if f == 1 else 0.75), 2 * t,
+                            lambda r: hot if f < 3 else mid, 1.0 if f < 3 else 0.85)
         if f >= 1:
             for (a, s_) in planks:
                 tt = [0, 10, 15, 19, 22, 24][f] * s_
@@ -875,14 +857,6 @@ def xp_orb() -> List[np.ndarray]:
 
 def ballista_bolt() -> np.ndarray:
     rows = [
-        "..............ooo...",
-        "oo.........oooo44o..",
-        "o3oooooooooo433344oo",
-        "o3222222222223333344",
-        "o3oooooooooo433344oo",
-        "oo.........oooo44o..",
-    ]
-    rows = [
         "...................",
         "oo...........oo....",
         "o2ooooooooooo43o...",
@@ -898,12 +872,6 @@ def ballista_bolt() -> np.ndarray:
 
 
 def arrow() -> np.ndarray:
-    rows = [
-        "cc......o...",
-        ".cwwwwwwsso.",
-        "cc......o...",
-        "............",
-    ]
     rows = [
         "kc.......o..",
         ".kwwwwwwwsS.",

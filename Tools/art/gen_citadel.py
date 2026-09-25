@@ -586,8 +586,9 @@ def shade(a: dict) -> np.ndarray:
     put(mat == CRADLE, SILV, np.where(top, 2, 1) + lit)
     ir = mat == IRON
     if ir.any():
-        rivet = side & (np.floor(u + 0.5) % 4 == 0)
-        put(ir, IRON_R, np.where(top, 3, 2) + lit + np.where(rivet, 1, 0))
+        rivet = side & (np.floor(u + 0.5) % 3 == 0)
+        itone = np.where(top, 3, 1) + np.clip(lit, -1, 1)
+        put(ir, IRON_R, np.where(rivet, 4, itone))
     put(mat == SPIKE, SILV, np.where(top, 4, 3) + lit)
     out[mat == RUNE] = PAL["cyan2"]
     wn = mat == WINDOW
@@ -802,18 +803,27 @@ def diff_overlay(base: np.ndarray, other: np.ndarray) -> np.ndarray:
 
 
 def crack_overlay(base: np.ndarray, info: dict, level: int) -> np.ndarray:
-    """Dark jagged cracks with a lit lip, chipped crenels, soot and rubble at the wall foot.
-    level 2 is a strict superset of level 1 (same pixels + more)."""
+    """Dark jagged cracks with a lit lip, chipped rims, broken crenels, soot and rubble.
+    Level 2 is a strict superset of level 1 (identical pixels + more)."""
     at = info["at"]
     hit = info["hit"]
     matmap = np.zeros((H, W), np.uint8)
     matmap[info["ys"], info["xs"]] = at["mat"]
     facemap = np.full((H, W), -1, np.int8)
     facemap[info["ys"], info["xs"]] = at["f"]
-    stone = np.isin(matmap, [WALL, BASTION_M, GATEH, SPIRE_M, PLAT, FLOOR, STEPS])
+    stone = np.isin(matmap, [WALL, BASTION_M, GATEH, SPIRE_M, PLAT]) & hit
+    # never draw over the pasted Stormheart crystal (it is not part of the voxel render)
+    heart = E.new(W, H)
+    paste_heart(heart)
+    hm = heart[:, :, 3] > 0
+    hm = hm | np.roll(hm, 1, 0) | np.roll(hm, -1, 0) | np.roll(hm, 1, 1) | np.roll(hm, -1, 1)
+    # keep the cat gate (eyes + arch) readable at every damage level
+    gate_rows = PY + GATE_Y1 - 1
+    hm[gate_rows - GATE_H:gate_rows + 1, PX - 9:PX + 9] = True
+    stone &= ~hm
+    wallface = stone & (facemap == SOUTH) & np.isin(matmap, [WALL, BASTION_M, GATEH, SPIRE_M])
+    walltop = np.isin(matmap, [WALL, GATEH, PLAT, BASTION_M]) & (facemap == TOP) & ~hm
     ov = E.new(W, H)
-    wallface = stone & (facemap == SOUTH)
-    walltop = np.isin(matmap, [WALL, GATEH, PLAT]) & (facemap == TOP)
 
     def spread_points(mask, n, seed, min_d=9):
         ys, xs = np.nonzero(mask)
@@ -829,65 +839,93 @@ def crack_overlay(base: np.ndarray, info: dict, level: int) -> np.ndarray:
                 break
         return pts
 
-    groups = [(spread_points(wallface, 7, 31), spread_points(walltop, 3, 32))]
-    if level >= 2:
-        groups.append((spread_points(wallface, 16, 41, 7)[7:], spread_points(walltop, 8, 42, 7)[3:]))
-    n = 0
-    for faces, tops in groups:
-        for (x, y) in faces + tops:
-            n += 1
-            rr = E.rng(1000 + n)
-            length = rr.randint(4, 7) + (2 if level >= 2 else 0)
-            dx = rr.choice((-1, 1))
-            cx, cy = x, y
-            for _ in range(length):
-                if not (0 <= cx < W and 0 <= cy < H) or not stone[cy, cx]:
-                    break
-                ov[cy, cx] = OUT if rr.random() < 0.45 else PAL["stone0"]
-                lx, ly = cx + 1, cy + (1 if facemap[cy, cx] == TOP else 0)
-                if 0 <= lx < W and 0 <= ly < H and stone[ly, lx] and ov[ly, lx, 3] == 0 and rr.random() < 0.55:
-                    ov[ly, lx] = PAL["stone4"] if facemap[ly, lx] == TOP else PAL["stone3"]
-                if rr.random() < 0.6:
-                    cy += 1
+    def crack(x, y, length, rr, vertical, depth=0):
+        dx = rr.choice((-1, 1))
+        pts = []
+        for _ in range(length):
+            if not (0 <= x < W and 0 <= y < H) or not stone[y, x]:
+                break
+            pts.append((x, y))
+            if vertical:
+                if rr.random() < 0.72:
+                    y += 1
                 else:
-                    cx += dx
-                if rr.random() < 0.25:
-                    dx = -dx
-    # chipped crenels: darken bites out of a few paw crenels
-    mer = np.argwhere(matmap == MERLON)
-    rr = E.rng(55)
-    bites = [tuple(mer[rr.randrange(len(mer))]) for _ in range(3 + (5 if level >= 2 else 0))] if len(mer) else []
-    for (y, x) in bites:
-        for ddx, ddy in ((0, 0), (1, 0)):
-            if 0 <= x + ddx < W and hit[y + ddy, x + ddx]:
-                ov[y + ddy, x + ddx] = PAL["stone1"]
-    # rubble at the foot of the south wall (outside the silhouette)
-    foot_cols = [22, 72] + ([30, 63, 86, 13] if level >= 2 else [])
-    for x in foot_cols:
+                    x += dx
+            else:
+                if rr.random() < 0.6:
+                    x += dx
+                else:
+                    y += rr.choice((-1, 1))
+            if rr.random() < 0.15:
+                dx = -dx
+            if depth == 0 and len(pts) > 3 and rr.random() < 0.12:
+                crack(x, y, 3, rr, not vertical, 1)
+        for (cx, cy) in pts:
+            ov[cy, cx] = OUT
+        for (cx, cy) in pts:            # lit lip to the lower right
+            for (lx, ly) in ((cx + 1, cy), (cx, cy + 1)):
+                if 0 <= lx < W and 0 <= ly < H and stone[ly, lx] and ov[ly, lx, 3] == 0 and rr.random() < 0.5:
+                    ov[ly, lx] = PAL["stone4"] if facemap[ly, lx] == TOP else PAL["stone3"]
+
+    def chip(x, y):
+        """A bite out of a wall rim: dark notch with a lit lower edge."""
+        for (ddx, ddy, c) in ((0, 0, OUT), (1, 0, PAL["stone0"]), (0, 1, PAL["stone1"]), (1, 1, PAL["stone3"]), (-1, 0, PAL["stone1"])):
+            xx, yy = x + ddx, y + ddy
+            if 0 <= xx < W and 0 <= yy < H and hit[yy, xx] and not hm[yy, xx]:
+                ov[yy, xx] = c
+
+    def rubble_at(x):
         col = np.nonzero(hit[:, x])[0]
         if len(col) == 0:
-            continue
-        yy = int(col.max()) + 2          # below the outline row
+            return
+        yy = int(col.max()) + 2
         if yy >= H - 1:
-            continue
-        for ddx, c in ((0, PAL["stone3"]), (1, PAL["stone2"])):
-            ov[yy, x + ddx] = c
-            ov[yy + 1, x + ddx] = OUT
-        ov[yy, x - 1] = OUT
-        ov[yy, x + 2] = OUT
-        ov[yy - 1, x] = OUT
-        ov[yy - 1, x + 1] = OUT
+            return
+        for (ddx, ddy, c) in ((0, 0, PAL["stone3"]), (1, 0, PAL["stone2"]), (0, 1, PAL["stone2"]), (1, 1, PAL["stone1"])):
+            ov[min(H - 1, yy + ddy), x + ddx] = c
+        for (ddx, ddy) in ((-1, 0), (-1, 1), (2, 0), (2, 1), (0, 2), (1, 2), (0, -1), (1, -1)):
+            xx, y2 = x + ddx, yy + ddy
+            if 0 <= xx < W and 0 <= y2 < H and not hit[y2, xx] and ov[y2, xx, 3] == 0:
+                ov[y2, xx] = OUT
+
+    # rim pixels (top faces whose north neighbour is empty or much lower) for chips
+    rim = walltop & ~np.roll(hit, 1, axis=0)
+    groups = [(spread_points(wallface, 8, 31, 10), spread_points(walltop, 4, 32, 12), spread_points(rim, 3, 33, 14),
+               [24, 71])]
     if level >= 2:
-        # soot scorch patches on the south faces (dithered)
-        cands = spread_points(wallface, 3, 77, 20)
-        for (x0, y0) in cands:
-            r = 3.5
+        groups.append((spread_points(wallface, 18, 41, 7)[8:], spread_points(walltop, 10, 42, 8)[4:],
+                       spread_points(rim, 8, 43, 9)[3:], [31, 62, 86, 12, 44]))
+    n = 0
+    for gi, (faces, tops, rims, foot) in enumerate(groups):
+        for (x, y) in faces:
+            n += 1
+            crack(x, y, E.rng(1000 + n).randint(6, 10) + 3 * gi, E.rng(2000 + n), True)
+        for (x, y) in tops:
+            n += 1
+            crack(x, y, E.rng(1000 + n).randint(5, 8), E.rng(2000 + n), False)
+        for (x, y) in rims:
+            chip(x, y)
+        for x in foot:
+            rubble_at(x)
+    if level >= 2:
+        # broken paw crenels (dark tops) and soot scorch on the south faces
+        mer = np.argwhere(matmap == MERLON)
+        rr = E.rng(55)
+        for _ in range(9):
+            if not len(mer):
+                break
+            y, x = mer[rr.randrange(len(mer))]
+            for (ddx, ddy) in ((0, 0), (1, 0), (0, 1)):
+                if 0 <= x + ddx < W and 0 <= y + ddy < H and hit[y + ddy, x + ddx] and not hm[y + ddy, x + ddx]:
+                    ov[y + ddy, x + ddx] = PAL["stone1"]
+        for (x0, y0) in spread_points(wallface, 4, 77, 18):
+            r = 4.0
             for yy in range(int(y0 - r), int(y0 + r) + 1):
                 for xx in range(int(x0 - r), int(x0 + r) + 1):
-                    if 0 <= xx < W and 0 <= yy < H and wallface[yy, xx] and ov[yy, xx, 3] == 0:
+                    if 0 <= xx < W and 0 <= yy < H and (wallface[yy, xx] or walltop[yy, xx]) and ov[yy, xx, 3] == 0:
                         d = math.hypot(xx - x0, (yy - y0) * 1.3)
-                        if d < r and ((xx + yy) % 2 == 0 or d < r * 0.45):
-                            ov[yy, xx] = PAL["stone1"]
+                        if d < r and ((xx + yy) % 2 == 0 or d < r * 0.5):
+                            ov[yy, xx] = PAL["stone0"] if d < r * 0.5 else PAL["stone1"]
     return ov
 
 

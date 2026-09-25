@@ -195,6 +195,8 @@ namespace EvilCats.Sim
         public string heroSkin = "arc_light_cat";
         public bool emitEvents = true;                             // headless sims can turn this off
         public int endlessStartWave = 1;
+        /// <summary>Tests/tools only: no waves are started and the battle never ends by itself.</summary>
+        public bool sandbox;
     }
 
     /// <summary>Everything needed to restart a run at the beginning of a wave.</summary>

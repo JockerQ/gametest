@@ -205,8 +205,13 @@ def cloud(w: int, h: int, blobs: Sequence[Tuple[float, float, float]], ramp=DUST
     """Bumpy cartoon cloud: circles drawn back-to-front, each shaded from the top-left,
     so every bump keeps its own lit rim. Hard pixels + dark outline."""
     img = E.new(w, h)
-    for (cx, cy, r) in sorted(blobs, key=lambda b: -(b[0] * 0.3 + b[1])):  # back (low) first
-        r = max(0.9, r)
+    fitted = []
+    for (cx, cy, r) in blobs:
+        r = max(0.9, min(r, (w - 3) / 2.0, (h - 3) / 2.0))
+        cx = min(max(cx, 1.5 + r), w - 1.5 - r)
+        cy = min(max(cy, 1.5 + r), h - 1.5 - r)
+        fitted.append((cx, cy, r))
+    for (cx, cy, r) in sorted(fitted, key=lambda b: -(b[0] * 0.3 + b[1])):  # back (low) first
         for yy in range(int(math.floor(cy - r - 1)), int(math.ceil(cy + r + 1)) + 1):
             for xx in range(int(math.floor(cx - r - 1)), int(math.ceil(cx + r + 1)) + 1):
                 if not (0 <= xx < w and 0 <= yy < h):
@@ -221,6 +226,10 @@ def cloud(w: int, h: int, blobs: Sequence[Tuple[float, float, float]], ramp=DUST
 
 
 def spark(img, x, y, big: bool = False, colors=SPARKS):
+    h, w = img.shape[:2]
+    m = 2 if big else 1
+    x = min(max(int(round(x)), m), w - 1 - m)
+    y = min(max(int(round(y)), m), h - 1 - m)
     E.px(img, x, y, colors[0])
     if big:
         for ox, oy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
@@ -294,7 +303,7 @@ def death_frames(hurt: np.ndarray, seed: int, scale: float = 1.0, sparks=SPARKS,
 
     # 1: crumple (squashed body) swallowed by a rising puff
     f = E.new(w, h)
-    blit(f, squash(hurt, 0.72, 1.08, None if not flying else int(cy + R)), 0, 0)
+    blit(f, squash(hurt, 0.72, 1.08 if bw < w - 5 else 1.0, None if not flying else int(cy + R)), 0, 0)
     bl = [(cx - R * 0.55 * sx, base - R * 0.35, R * 0.62), (cx + R * 0.5 * sx, base - R * 0.3, R * 0.58),
           (cx - R * 0.05, base - R * 0.85, R * 0.66)]
     if sx > 1.3:
@@ -328,7 +337,7 @@ def death_frames(hurt: np.ndarray, seed: int, scale: float = 1.0, sparks=SPARKS,
         collar_ring(f, int(round(cx)), g)
     for i in range(4):
         a = i / 4.0 * math.tau + 1.1
-        E.px(f, cx + math.cos(a) * R * 1.7 * sx, cy - 1 + math.sin(a) * R * 1.45, sparks[1])
+        spark(f, cx + math.cos(a) * R * 1.7 * sx, cy - 1 + math.sin(a) * R * 1.45, False, (sparks[1], sparks[1]))
     frames.append(f)
 
     # 4: last dithered wisps; collar glints
@@ -393,7 +402,7 @@ RAT_UPPER = _ra("""
 .........CnqBCDD....
 .......DDCBDDDDDDC..
 ......DDCDCDDD9ADDC.
-.....CDDCBBCDDDDDDDn
+.....CDDCBBCDDDDDDn.
 .....BCC23445CC%%W..
 ....BC788834BBB.....
 ....BC7888874.......
@@ -404,13 +413,13 @@ RAT_UPPER = _ra("""
 """)
 # elite: gold hem trim, gold shoulder stud, gold crest on the head
 RAT_UPPER_ELITE = _ra("""
-..........5.........
+....................
 .........E45........
 .........D43........
 .........CnqB.......
 .......DDCBDDDDDDC..
 ......DDCDCDDD9ADDC.
-.....CDDCBBCDDDDDDDn
+.....CDDCBBCDDDDDDn.
 .....BCC23445CC%%W..
 ....BC784434BBB.....
 ....BC7843874.......
@@ -512,16 +521,16 @@ BD3k...
 .D2....
 """),
     "thrust": _ra("""
-C.........
-.BD.3.....
-..DD2kllmW
-....3.....
+C........
+.BD.3....
+..DD2klmW
+....3....
 """),
     "slash": _ra("""
-C.........
-.BDD3.....
-...D2kllmW
-....3...5.
+C........
+.BDD3....
+...D2klmW
+....3...5
 """),
 }
 
@@ -546,16 +555,16 @@ def draw_rat_raider(pose: dict, elite: bool) -> np.ndarray:
     c = Canvas(20, 20)
     g = ground_row(20)
     bx, by = pose.get("bx", 0), pose.get("by", 0)
-    c.put(RAT_TAILS[pose.get("tail", 0)], 1 + bx, 5 + by)
+    c.put(RAT_TAILS[pose.get("tail", 0)], 1 + max(0, bx), 6 + by)
     front, fx_, fy_ = _rat_legs(c, pose.get("legs", ("stand", "stand")), g, 4, 8, pose.get("lx", 0))
     up = RAT_UPPER_ELITE if elite else RAT_UPPER
     if pose.get("hurt"):
         up = E.recolor(up, HURT_EYE)
-    c.put(up, bx, by)
+    c.put(up, bx, by + 1)
     c.put(front, fx_, fy_, sep=PAL["rat0"])
     arm = RAT_ARMS[pose.get("arm", "hold")]
     ax, ay = pose.get("ax", 0), pose.get("ay", 0)
-    arm_y = {"back": 5}.get(pose.get("arm", "hold"), 8)
+    arm_y = {"back": 6}.get(pose.get("arm", "hold"), 9)
     c.put(arm, 9 + bx + ax, arm_y + by + ay, sep=OUTLINE)
     img = c.finish()
     if pose.get("glint"):
@@ -572,8 +581,8 @@ RAT_RAIDER = EnemyDef(
                   P(legs=("fwd", "back"), tail=2),
                   P(legs=("stand", "lift"), by=-1, tail=1)], 8, True),
         "attack": ([P(legs=("stand", "stand"), bx=-1, arm="back", tail=0),
-                    P(legs=("back", "fwd"), bx=1, arm="thrust", tail=1),
-                    P(legs=("back", "fwd"), bx=1, arm="slash", tail=2, glint=(17, 9)),
+                    P(legs=("back", "fwd"), bx=0, ax=1, arm="thrust", tail=1),
+                    P(legs=("back", "fwd"), bx=0, ax=1, arm="slash", tail=2, glint=(17, 10)),
                     P(legs=("stand", "stand"), arm="hold", tail=1)], 10, False),
     },
     hurt=P(legs=("stand", "stand"), bx=-1, hurt=True, arm="hold", tail=2),
@@ -665,17 +674,17 @@ HOUND_CREST = _ha("""
 .3.
 """)
 HOUND_TAILS = [_ha("""
-DC......
+.C......
 .BCC....
 ....BCC.
 """), _ha("""
 ........
-DBCC....
+.BCC....
 ....BCC.
 """), _ha("""
 ........
 ........
-DBCCBCC.
+.BCCBCC.
 """)]
 
 # joint sets: nf/ff = near/far front, nh/fh = near/far hind: [hip, joint, paw]
@@ -700,7 +709,7 @@ def draw_hound_runner(pose: dict, elite: bool) -> np.ndarray:
     dx, dy = pose.get("bx", 0), pose.get("by", 0)
     L = HOUND_LEGS[pose.get("legs", "stand")]
     sh = lambda pts, ox, oy: [(pts[0][0] + ox, pts[0][1] + oy)] + list(pts[1:])  # hips follow the body
-    c.put(HOUND_TAILS[pose.get("tail", 0)], dx, 7 + dy)
+    c.put(HOUND_TAILS[pose.get("tail", 0)], max(0, dx), 7 + dy)
     limb(c.img, sh(L["fh"], dx, dy), PAL["brown1"], PAL["brown0"], PAL["bone1"])
     limb(c.img, sh(L["ff"], dx, dy), PAL["brown1"], PAL["brown0"], PAL["bone1"])
     c.put(HOUND_BODY_ELITE if elite else HOUND_BODY, dx, 8 + dy)
@@ -709,7 +718,7 @@ def draw_hound_runner(pose: dict, elite: bool) -> np.ndarray:
     head = HOUND_HEADS[pose.get("head", "run")]
     if pose.get("hurt"):
         head = E.recolor(head, HURT_EYE)
-    hx, hy = 12 + dx + pose.get("hx", 0), 4 + dy + pose.get("hy", 0)
+    hx, hy = 10 + dx + pose.get("hx", 0), 4 + dy + pose.get("hy", 0)
     c.put(head, hx, hy)
     if elite:
         c.put(HOUND_CREST, hx + 2, hy - 2)
@@ -730,11 +739,11 @@ HOUND_RUNNER = EnemyDef(
                   P(legs="gather", tail=2),
                   P(legs="push", by=-1, tail=1, dust=[(3.5, 16.8)])], 8, True),
         "attack": ([P(legs="crouch", bx=-1, by=1, head="run", hy=1, tail=2),
-                    P(legs="ext", bx=1, head="bite", tail=0, dust=[(3.5, 16.5)]),
-                    P(legs="ext", bx=2, head="snap", tail=0, glint=(21, 10)),
+                    P(legs="ext", bx=0, head="bite", tail=0, dust=[(3.5, 16.5)]),
+                    P(legs="ext", bx=0, head="snap", tail=0, glint=(20, 10)),
                     P(legs="stand", head="run", tail=1)], 10, False),
     },
-    hurt=P(legs="crouch", bx=-1, hurt=True, head="run", tail=2),
+    hurt=P(legs="crouch", bx=0, hurt=True, head="run", tail=2),
     seed=202,
 )
 
@@ -765,11 +774,9 @@ BCCCWMMMMMWCCCB
 ..ABBBBBBBBBA..
 """)
 SG_HEAD_ELITE = _ba("""
-.......5.......
-......545......
-.....i434i.....
-....ijklllmj...
-...3444444443..
+.....i354i.....
+....ijk4lmmj...
+...i34444443...
 .NM.DDDDDDD.MN.
 .MCD%%DDD%%DCM.
 ..CD9xDDD9xDC..
@@ -865,10 +872,10 @@ def draw_shield_guard(pose: dict, elite: bool) -> np.ndarray:
     head = SG_HEAD_ELITE if elite else SG_HEAD
     if pose.get("hurt"):
         head = E.recolor(head, HURT_EYE)
-    hy = 1 + by + pose.get("hy", 0) - (2 if elite else 0)
+    hy = 1 + by + pose.get("hy", 0)
     c.put(head, 5 + bx + pose.get("hx", 0), hy)
     sx, sy = pose.get("sx", 0), pose.get("sy", 0)
-    c.put(SG_SHIELD_ELITE if elite else SG_SHIELD, 11 + bx + sx, 11 + by + sy, sep=OUTLINE)
+    c.put(SG_SHIELD_ELITE if elite else SG_SHIELD, 11 + bx + sx, 10 + by + sy, sep=OUTLINE)
     img = c.finish()
     if pose.get("impact"):
         ix, iy = pose["impact"]
@@ -885,8 +892,8 @@ SHIELD_GUARD = EnemyDef(
                   P(legs=("lift", "stand")),
                   P(legs=("stand", "stand"), by=1, sy=0)], 8, True),
         "attack": ([P(bx=-1, sx=-1, legs=("stand", "stand"), hy=1),
-                    P(bx=1, sx=1, legs=("stand", "lift")),
-                    P(bx=1, sx=2, legs=("stand", "stand"), impact=(23, 17)),
+                    P(bx=1, sx=0, legs=("stand", "lift")),
+                    P(bx=1, sx=1, legs=("stand", "stand"), impact=(22, 16)),
                     P(bx=0, sx=0, legs=("stand", "stand"))], 10, False),
     },
     hurt=P(bx=-1, sx=-1, hurt=True, legs=("stand", "stand")),
@@ -926,9 +933,8 @@ BCCDDDDD%....
 """),
 }
 CROW_CREST = art("""
-.5.5
-4.44
-.34.
+5.5.
+4545
 """)
 CROW_BODY = _ca("""
 ....BCCD....
@@ -1061,8 +1067,9 @@ def draw_crow_archer(pose: dict, elite: bool) -> np.ndarray:
     c = Canvas(22, 24)
     g = ground_row(24)
     bx, by = pose.get("bx", 0), pose.get("by", 0)
+    by += 1  # whole crow sits 1px lower so the bob never clips the frame top
     c.put(CROW_QUIVER, 2 + bx, 5 + by)
-    c.put(CROW_TAILS[pose.get("tail", 0)], 1 + bx, 14 + by)
+    c.put(CROW_TAILS[pose.get("tail", 0)], 1 + max(0, bx), 14 + by)
     lb, lf = pose.get("legs", ("stand", "stand"))
     for name, hip, parts in ((lb, 7, CROW_LEGS_B), (lf, 10, CROW_LEGS)):
         part = parts[name]
@@ -1076,7 +1083,7 @@ def draw_crow_archer(pose: dict, elite: bool) -> np.ndarray:
     hx, hy = 6 + bx + pose.get("hx", 0), 1 + by + pose.get("hy", 0)
     c.put(head, hx, hy)
     if elite:
-        c.put(CROW_CREST, hx + 2, hy - 2)
+        c.put(CROW_CREST, hx + 3, hy)
     # bow: bx2/by2 = bow offset, draw = how far the string is pulled back (0 = straight)
     bow = CROW_BOW_ELITE if elite else CROW_BOW
     wx, wy = 15 + bx + pose.get("wx", 0), 8 + by + pose.get("wy", 0)
@@ -1093,7 +1100,7 @@ def draw_crow_archer(pose: dict, elite: bool) -> np.ndarray:
         pts = [(wx, wy + i + 1) for i in range(11)]
         for i, (x, y) in enumerate(pts):
             E.px(img, x + (1 if i in (3, 4, 5) else 0), y, sc)
-        for (x, y) in ((wx + 6, wy + 5), (wx + 5, wy + 7), (wx + 7, wy + 6)):
+        for (x, y) in ((wx + 5, wy + 5), (wx + 4, wy + 7), (wx + 6, wy + 6)):
             E.px(img, x, y, PAL["white"])
     else:
         E.line(img, top[0], top[1] + 1, mid[0], mid[1], sc)
@@ -1112,8 +1119,8 @@ CROW_ARCHER = EnemyDef(
                   P(legs=("fwd", "back"), tail=0),
                   P(legs=("stand", "lift"), by=-1, tail=1, wy=-1)], 8, True),
         "attack": ([P(bx=-1, hx=-1, head="idle", tail=1),
-                    P(bx=1, hx=2, hy=1, head="peck", legs=("back", "fwd"), tail=0),
-                    P(bx=1, hx=2, hy=1, head="idle", legs=("back", "fwd"), tail=0, glint=(20, 5)),
+                    P(bx=0, hx=1, hy=1, head="peck", legs=("back", "fwd"), tail=0),
+                    P(bx=0, hx=1, hy=1, head="idle", legs=("back", "fwd"), tail=0, glint=(19, 7)),
                     P(head="idle", tail=1)], 10, False),
         "shoot": ([P(wx=-2, wy=-1, arrow=True, draw=0, tail=1),
                    P(wx=-1, wy=-1, arrow=True, draw=2, bx=-1, tail=1),
@@ -1130,69 +1137,68 @@ CROW_ARCHER = EnemyDef(
 # --------------------------------------------------------------------------------------
 BAT_BODY = {
     "idle": _ra("""
-B..B.
-BCDCB
-BC5C5
-BCCCB
-.B3W.
-..B..
+B..B
+BDCB
+C5C5
+BCCB
+.3W.
+.BB.
 """),
     "bite": _ra("""
-B..B.
-BCDCB
-BC5C5
-BCW%W
-.B3..
-..B..
+B..B
+BDCB
+C5C5
+BW%W
+.3..
+.BB.
 """),
 }
-BAT_BODY_ELITE = {k: v for k, v in BAT_BODY.items()}
-BAT_BODY_ELITE["idle"] = _ra("""
-..5..
-B.4.B
-BCDCB
-BC5C5
-BCCCB
-.343.
-..4..
-""")
-BAT_BODY_ELITE["bite"] = _ra("""
-..5..
-B.4.B
-BCDCB
-BC5C5
-BCW%W
-.343.
-..4..
-""")
+BAT_BODY_ELITE = {
+    "idle": _ra("""
+.45.
+B..B
+BDCB
+C5C5
+BCCB
+.4W.
+.34.
+"""),
+    "bite": _ra("""
+.45.
+B..B
+BDCB
+C5C5
+BW%W
+.4..
+.34.
+"""),
+}
 BAT_WINGS = {
     "up": art("""
-....9
-...98
-..988
-.9878
-98778
-87.7.
+...9
+..98
+.988
+9878
+87.7
 """),
     "mid": art("""
-99999.
-788889
-77.878
-7...7.
+9999
+7889
+7.78
+7..7
 """),
     "down": art("""
-9.....
-89....
-789...
-7789..
-.7788.
-.7.78.
+9...
+89..
+789.
+7788
+.7.7
 """),
     "fold": art("""
-99....
-7889..
-.7879.
-.7.78.
+99..
+789.
+.789
+..77
 """),
 }
 BAT_WING_GOLD = {PAL["red3"]: PAL["gold3"]}
@@ -1207,13 +1213,13 @@ def draw_bat(pose: dict, elite: bool) -> np.ndarray:
     if elite:
         w = E.recolor(w, BAT_WING_GOLD)
     body_y = 4 + by
-    wy = {"up": body_y - 4, "mid": body_y + 1, "down": body_y + 1, "fold": body_y + 1}[st]
+    wy = {"up": body_y - 3, "mid": body_y + 1, "down": body_y + 1, "fold": body_y + 1}[st]
     c.put(w, 9 + bx, wy)
     c.put(E.flip_x(w), 5 - w.shape[1] + bx, wy)
     body = (BAT_BODY_ELITE if elite else BAT_BODY)[pose.get("face", "idle")]
     if pose.get("hurt"):
         body = E.recolor(body, {PAL["gold4"]: PAL["outline_soft"]})
-    c.put(body, 4 + bx, body_y - (1 if elite else 0))
+    c.put(body, 5 + bx, body_y - (1 if elite else 0))
     img = c.finish()
     if pose.get("glint"):
         gx, gy = pose["glint"]
@@ -1225,9 +1231,9 @@ BAT = EnemyDef(
     "bat", 14, 12, draw_bat,
     {
         "fly": ([P(wings="up", by=1), P(wings="mid"), P(wings="down", by=-1), P(wings="fold")], 12, True),
-        "attack": ([P(wings="up", by=1, bx=-1),
-                    P(wings="fold", bx=1, by=1, face="bite"),
-                    P(wings="down", bx=1, by=1, face="bite", glint=(9, 9)),
+        "attack": ([P(wings="up", by=1, bx=0),
+                    P(wings="fold", bx=0, by=1, face="bite"),
+                    P(wings="down", bx=0, by=0, face="bite", glint=(8, 9)),
                     P(wings="mid")], 10, False),
     },
     hurt=P(wings="fold", hurt=True),
@@ -1290,7 +1296,6 @@ PR_ROBE = [_pa("""
 BBCDDD87DDDDC
 BBCDDD87DDDDC
 BBCDDD87DDDDC
-BBCDDD87DDDDC
 BBCCDD5.5DDCC
 BBCCCDDDDDCCC
 BABCCCCCCCCCB
@@ -1302,7 +1307,6 @@ BABCCCCCCCCCB
 .BCDD8778DDC.
 .BCDDD87DDDC.
 .BCDDD87DDDDC
-BBCDDD87DDDDC
 BBCDDD87DDDDC
 BBCDDD87DDDDC
 BBCDDD87DDDDC
@@ -1395,30 +1399,30 @@ def draw_bell_priest(pose: dict, elite: bool) -> np.ndarray:
     halo = pose.get("halo", 0)
     if halo:
         hc = (PAL["gold4"], PAL["gold3"])
-        _ring(c.fx_under, 11 + bx, 6 + by, 7 + (1 if halo == 3 else 0), 6 + (1 if halo == 3 else 0), hc, dither=halo in (1, 4))
+        _ring(c.fx_under, 11 + bx, 8 + by, 7 + (1 if halo == 3 else 0), 5 + (1 if halo == 3 else 0), hc, dither=halo in (1, 4))
         if halo in (2, 3):
-            _ring(c.fx_under, 11 + bx, 6 + by, 9 + halo - 2, 8 + halo - 2, (PAL["gold3"], PAL["gold2"]), dither=True)
+            _ring(c.fx_under, 11 + bx, 8 + by, 9, 6 + halo - 2, (PAL["gold3"], PAL["gold2"]), dither=True)
     hv = PR_HOOVES
     c.put(hv, 7 + pose.get("hoof", 0), g)
     robe = PR_ROBE[pose.get("robe", 0)]
     if elite:
         robe = E.recolor(robe, PR_TRIM) if False else robe
-    c.put(robe, 4 + bx, 11 + by)
+    c.put(robe, 4 + bx, 12 + by)
     if elite:
         # gold hem + cuffs trim
         for x in range(5 + bx, 17 + bx):
-            if c.img[11 + by + 12, x, 3] > 0:
-                c.img[11 + by + 12, x] = PAL["gold2"] if (x % 2) else PAL["gold3"]
+            if c.img[12 + by + 11, x, 3] > 0:
+                c.img[12 + by + 11, x] = PAL["gold2"] if (x % 2) else PAL["gold3"]
     if pose.get("hurt"):
         head = PR_HEAD_ELITE_HURT if elite else PR_HEAD_HURT
     else:
         head = PR_HEAD_ELITE if elite else PR_HEAD
-    c.put(head, 5 + bx + pose.get("hx", 0), 1 + by + pose.get("hy", 0))
+    c.put(head, 5 + bx + pose.get("hx", 0), 2 + by + pose.get("hy", 0))
     arm = pose.get("arm", "hold")
-    ax, ay = {"hold": (12, 13), "raise": (12, 8), "swing": (12, 14)}[arm]
+    ax, ay = {"hold": (12, 14), "raise": (12, 9), "swing": (12, 15)}[arm]
     c.put(PR_ARM[arm], ax + bx, ay + by, sep=OUTLINE)
     bell = pose.get("bell", "up")
-    blx, bly = pose.get("bell_at", {"hold": (16, 10), "raise": (15, 2), "swing": (17, 13)}[arm])
+    blx, bly = pose.get("bell_at", {"hold": (16, 11), "raise": (15, 3), "swing": (15, 14)}[arm])
     c.put(PR_BELL[bell], blx + bx, bly + by, sep=OUTLINE)
     img = c.finish()
     for (x, y) in pose.get("sparkles", []):
@@ -1426,7 +1430,7 @@ def draw_bell_priest(pose: dict, elite: bool) -> np.ndarray:
     if pose.get("dings"):
         # little ringing arcs beside the bell
         cx, cy = blx + bx + 2, bly + by + 3
-        for (ox, oy) in ((4, -1), (5, 0), (4, 1), (-2, -1), (-3, 0), (-2, 1)):
+        for (ox, oy) in ((3, -2), (4, 0), (3, 2), (-2, -2), (-3, 0), (-2, 2)):
             E.px(img, cx + ox, cy + oy, PAL["gold4"])
     if pose.get("impact"):
         ix, iy = pose["impact"]
@@ -1439,11 +1443,11 @@ BELL_PRIEST = EnemyDef(
     {
         "walk": ([P(robe=0, hoof=0),
                   P(robe=1, by=-1, hoof=1),
-                  P(robe=0, hoof=0, bell_at=(16, 11)),
+                  P(robe=0, hoof=0, bell_at=(16, 12)),
                   P(robe=1, by=-1, hoof=-1)], 8, True),
         "attack": ([P(arm="raise", bell="tilt_l", bx=-1),
                     P(arm="swing", bell="down", bx=1),
-                    P(arm="swing", bell="down", bx=1, impact=(20, 21)),
+                    P(arm="swing", bell="down", bx=1, impact=(20, 22)),
                     P(arm="hold", bell="up")], 10, False),
         "cast": ([P(arm="raise", bell="up", halo=1, sparkles=[(3, 8)]),
                   P(arm="raise", bell="tilt_r", halo=2, dings=True, sparkles=[(2, 5), (20, 15)]),
@@ -1556,13 +1560,13 @@ def _spark_star(img, x, y, kind: int) -> None:
             E.px(img, x + ox, y + oy, F)
         E.px(img, x - 2, y + 1, R)
         return
-    # big burst
+    # big burst (radius 2 so it never leaves the frame)
     E.px(img, x, y, W)
     for ox, oy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
         E.px(img, x + ox, y + oy, W if (ox, oy) == (0, -1) else Y)
     for ox, oy in ((1, 1), (-1, -1), (1, -1), (-1, 1)):
         E.px(img, x + ox, y + oy, F)
-    for ox, oy in ((3, 0), (-3, 0), (0, -3), (2, -2), (-2, -2)):
+    for ox, oy in ((2, 0), (-2, 0), (0, -2), (2, -2), (-2, -2)):
         E.px(img, x + ox, y + oy, R)
 
 
@@ -1590,7 +1594,7 @@ def draw_powder_rat(pose: dict, elite: bool) -> np.ndarray:
     g = ground_row(20)
     bx, by = pose.get("bx", 0), pose.get("by", 0)
     kx, ky = bx + pose.get("kx", 0), by + pose.get("ky", 0)
-    c.put(RAT_TAILS[pose.get("tail", 0)], 1 + bx, 8 + by)
+    c.put(RAT_TAILS[pose.get("tail", 0)], 1 + max(0, bx), 9 + by)
     front, fx_, fy_ = _rat_legs(c, pose.get("legs", ("stand", "stand")), g, 5, 10, pose.get("lx", 0))
     if pose.get("wide"):
         body = PW_BODY_WIDE_E if elite else PW_BODY_WIDE
@@ -1598,16 +1602,16 @@ def draw_powder_rat(pose: dict, elite: bool) -> np.ndarray:
         body = PW_BODY_ELITE if elite else PW_BODY
     if pose.get("hurt"):
         body = E.recolor(body, HURT_EYE)
-    c.put(body, 1 + bx, 4 + by)
+    c.put(body, 1 + bx, 5 + by)
     c.put(front, fx_, fy_, sep=PAL["rat0"])
-    kox, koy = 0 + kx, 4 + ky
+    kox, koy = max(0, kx), 5 + ky
     c.put(PW_KEG_ELITE if elite else PW_KEG, kox, koy, sep=OUTLINE)
     # fuse cord from the lid, curling up
-    cord = pose.get("cord", [(6, 0), (6, -1), (7, -2)])
+    cord = pose.get("cord", [(6, 0), (6, -1)])
     for (x, y) in cord:
         E.px(c.img, kox + x, koy + y, PAL["leather1"])
     arm = pose.get("arm", "hold")
-    ax, ay = {"hold": (10, 12), "brace": (9, 9), "pump": (10, 11), "shove": (10, 12)}[arm]
+    ax, ay = {"hold": (10, 13), "brace": (9, 10), "pump": (10, 12), "shove": (10, 13)}[arm]
     c.put(PW_ARMS[arm], ax + bx, ay + by, sep=OUTLINE)
     img = c.finish()
     tx, ty = kox + cord[-1][0] + 1, koy + cord[-1][1] - 1
@@ -1630,27 +1634,27 @@ POWDER_RAT = EnemyDef(
     "powder_rat", 20, 20, draw_powder_rat,
     {
         "walk": ([P(legs=("back", "fwd"), tail=0, spark=0),
-                  P(legs=("lift", "stand"), by=-1, tail=1, spark=0, ky=0, embers=[(1, -1, "s")]),
+                  P(legs=("lift", "stand"), by=-1, tail=1, spark=0, ky=0, embers=[(2, 0, "s")]),
                   P(legs=("fwd", "back"), tail=2, spark=0),
-                  P(legs=("stand", "lift"), by=-1, tail=1, spark=0, embers=[(-1, -2, "s")])], 8, True),
+                  P(legs=("stand", "lift"), by=-1, tail=1, spark=0, embers=[(-2, -1, "s")])], 8, True),
         "attack": ([P(legs=("crouch", "crouch"), bx=-1, by=1, arm="brace", spark=1, tail=2),
-                    P(legs=("back", "fwd"), bx=1, arm="shove", spark=2, tail=0, kx=1),
-                    P(legs=("back", "fwd"), bx=2, arm="shove", spark=3, tail=0, kx=2, embers=_EMB[0]),
+                    P(legs=("back", "fwd"), bx=0, arm="shove", spark=2, tail=0, kx=1),
+                    P(legs=("back", "fwd"), bx=0, arm="shove", spark=3, tail=0, kx=2, embers=_EMB[0]),
                     P(legs=("stand", "stand"), arm="hold", spark=1, tail=1)], 10, False),
         "fuse": ([P(legs=("crouch", "crouch"), by=1, arm="brace", wide=True, spark=1, embers=_EMB[0], tail=2, smoke=(-3, -1)),
                   P(legs=("crouch", "crouch"), by=1, arm="brace", wide=True, spark=2, embers=_EMB[1], tail=2, kx=1, smoke=(-4, -2)),
                   P(legs=("crouch", "crouch"), by=1, arm="brace", wide=True, spark=3, embers=_EMB[2], tail=2),
                   P(legs=("crouch", "crouch"), by=1, arm="brace", wide=True, spark=2, embers=_EMB[3], tail=2, kx=-1, smoke=(-3, -1))], 12, True),
-        "charge": ([P(legs=("back", "fwd"), bx=1, arm="pump", wide=True, spark=1, tail=0, ky=-1,
+        "charge": ([P(legs=("back", "fwd"), bx=0, arm="pump", wide=True, spark=1, tail=0, ky=1,
                       embers=[(-3, 2, "f"), (-5, 3, "r")], dust=[(3.5, 16.5)]),
-                    P(legs=("lift", "back"), bx=1, by=-1, arm="hold", wide=True, spark=2, tail=0,
+                    P(legs=("lift", "back"), bx=0, by=0, arm="hold", wide=True, spark=2, tail=0,
                       embers=[(-3, 1, "y"), (-6, 2, "f")]),
-                    P(legs=("fwd", "back"), bx=1, arm="pump", wide=True, spark=3, tail=0, ky=-1,
+                    P(legs=("fwd", "back"), bx=0, arm="pump", wide=True, spark=3, tail=0, ky=1,
                       embers=[(-4, 2, "r"), (-2, 3, "f")], dust=[(5.5, 16.5)]),
-                    P(legs=("back", "lift"), bx=1, by=-1, arm="hold", wide=True, spark=2, tail=0,
+                    P(legs=("back", "lift"), bx=0, by=0, arm="hold", wide=True, spark=2, tail=0,
                       embers=[(-3, 0, "f"), (-5, 2, "y")])], 14, True),
     },
-    hurt=P(legs=("stand", "stand"), bx=-1, hurt=True, spark=0, tail=2),
+    hurt=P(legs=("stand", "stand"), bx=0, hurt=True, spark=0, tail=2),
     seed=707,
     death_sparks=(PAL["fire4"], PAL["fire2"]),
 )
@@ -1877,7 +1881,7 @@ def draw_iron_golem(pose: dict, elite: bool) -> np.ndarray:
     glow_disc(img, 17.5 + bx, 17.5 + by, 7.5, PAL["fire2"], 0.28, under_only=True)
     if pose.get("smoke") is not None:
         k = pose["smoke"]
-        pts = [(8.5, 0.8, 1.3), (7.5, -0.6, 1.6), (9.5, -1.2, 1.9), (8.0, -1.0, 1.1)][k]
+        pts = [(8.5, 1.5, 1.2), (7.5, 1.0, 1.4), (9.5, 0.8, 1.6), (8.0, 1.0, 1.0)][k]
         blit(img, cloud(36, 40, [(pts[0] + bx, pts[1] + 1 + by, pts[2])], DUST[:4]), 0, 0)
     for (kx, ky) in pose.get("dust", []):
         dust_kick(img, kx, ky, 1.8)
@@ -1909,16 +1913,16 @@ def glow_disc(img: np.ndarray, cx: float, cy: float, r: float, color, strength: 
 IRON_GOLEM = EnemyDef(
     "iron_golem", 36, 40, draw_iron_golem,
     {
-        "walk": ([P(legs=("plant", "lift"), fa=(-1, 0), ba=(1, 0), fire=0, smoke=0),
+        "walk": ([P(legs=("plant", "lift"), fa=(0, -1), ba=(0, 1), fire=0, smoke=0),
                   P(legs=("plant", "plant"), by=1, fire=1, smoke=1, dust=[(25.5, 35.5)]),
-                  P(legs=("lift", "plant"), fa=(1, 0), ba=(-1, 0), fire=0, smoke=2),
+                  P(legs=("lift", "plant"), fa=(0, 1), ba=(0, -1), fire=0, smoke=2),
                   P(legs=("plant", "plant"), by=1, fire=1, smoke=3, dust=[(12.5, 35.5)])], 8, True),
-        "attack": ([P(arms="up", bx=-1, by=-1, fire=1, smoke=0),
-                    P(arms="up", bx=0, by=-1, fire=0, hy=-1, smoke=1),
-                    P(arms="slam", bx=1, by=2, fire=1, impact=[(30, 34)], smoke=2),
+        "attack": ([P(arms="up", bx=-1, by=0, fire=1, smoke=0),
+                    P(arms="up", bx=0, by=0, fire=0, hy=-1, smoke=1),
+                    P(arms="slam", bx=0, by=2, fire=1, impact=[(29, 34)], smoke=2),
                     P(arms="hang", fire=0, smoke=3)], 10, False),
     },
-    hurt=P(bx=-1, hurt=True, fire=1),
+    hurt=P(bx=0, hurt=True, fire=1),
     seed=808,
     death_scale=1.0,
 )

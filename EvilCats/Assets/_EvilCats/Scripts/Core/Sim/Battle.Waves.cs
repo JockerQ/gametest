@@ -89,6 +89,7 @@ namespace EvilCats.Sim
         // ---- wave flow --------------------------------------------------------------------------
         private void UpdateWaveFlow()
         {
+            if (Setup.sandbox) return;
             if (!_waveActive)
             {
                 _waveStartDelay -= Dt;
@@ -162,7 +163,7 @@ namespace EvilCats.Sim
 
         private void CheckWaveCleared()
         {
-            if (!_waveActive || IsOver) return;
+            if (Setup.sandbox || !_waveActive || IsOver) return;
             if (_nextOrder < _plan.orders.Count || AliveCount > 0) return;
             _waveActive = false;
             RunStats.wavesCleared = Wave;
@@ -338,6 +339,34 @@ namespace EvilCats.Sim
             }
             for (int i = _zones.Count - 1; i >= 0; i--)
                 if (!_zones[i].alive) _zones.RemoveAt(i);
+        }
+    
+        // ---- sandbox helpers (tests, tools and the editor's debug scene; not used by gameplay) ----
+        /// <summary>Spawns an enemy at an exact position (sandbox/tests). Uses wave-1 scaling.</summary>
+        public Enemy DebugSpawn(string enemyId, Vec2 pos, bool elite = false)
+        {
+            if (_plan == null) _plan = new WavePlan { wave = 1 };
+            var def = C.Enemy(enemyId);
+            if (def != null) return SpawnEnemy(def, 0, 0f, elite, pos, false, 0);
+            var bdef = C.Boss(enemyId);
+            if (bdef == null) return null;
+            SpawnBoss(new SpawnOrder { enemyId = enemyId, boss = true, route = 0 });
+            var b = _enemies[_enemies.Count - 1];
+            b.pos = b.prevPos = pos;
+            b.state = MoveState.Holding;
+            return b;
+        }
+
+        public void DebugSetHp(float hp) => Hp = Math.Max(0f, Math.Min(MaxHp, hp));
+
+        public void DebugAddSparks(float amount) => _sparks += amount;
+
+        public void DebugAddPerk(string id)
+        {
+            float oldMax = MaxHp;
+            _perkStacks[id] = PerkStack(id) + 1;
+            RebuildStats();
+            ApplyMaxHealthChange(oldMax);
         }
     }
 }

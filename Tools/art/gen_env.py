@@ -472,7 +472,7 @@ def contact_shadow(w: int, h: int, cx: float, cy: float, rx: float, ry: float, a
 GW_STONE = [E.hexc("#15191c"), E.hexc("#1f2629"), E.hexc("#2b3437"), E.hexc("#3a4548"), E.hexc("#4d5a5b"), E.hexc("#627274")]
 GW_MOSS = [E.hexc("#141d18"), E.hexc("#1b2a21"), E.hexc("#24382a"), E.hexc("#2f4834"), E.hexc("#3b5a40")]
 GW_DIRT = [E.hexc("#141216"), E.hexc("#1e1a20"), E.hexc("#28232b"), E.hexc("#332c36"), E.hexc("#3d3541")]
-GW_WOOD = [E.hexc("#161214"), E.hexc("#211a1c"), E.hexc("#2d2326"), E.hexc("#3b2e30"), E.hexc("#4a3b3b"), E.hexc("#5a4a48")]
+GW_WOOD = [E.hexc("#151216"), E.hexc("#1f1a1f"), E.hexc("#2a2329"), E.hexc("#372e34"), E.hexc("#463b41"), E.hexc("#564a4e")]
 MF_STONE = [E.hexc("#17151f"), E.hexc("#221f2e"), E.hexc("#2f2b3f"), E.hexc("#3e3953"), E.hexc("#514b69"), E.hexc("#686184")]
 MF_IRON = [PAL["iron0"], PAL["iron1"], PAL["iron2"], PAL["iron3"]]
 
@@ -609,7 +609,7 @@ def stump() -> np.ndarray:
     v.t[top & (np.floor(r * 1.2) % 2 == 0)] = -1
     groove = (v.m == 1) & (np.floor(np.arctan2(v.Y - cy, v.X - cx) * 3.5) % 2 == 0)
     v.t[groove] = -1
-    ring_pal = [E.hexc("#2a2226"), E.hexc("#3a2f30"), E.hexc("#4b3d3c"), E.hexc("#5c4c48"), E.hexc("#6d5b54")]
+    ring_pal = [E.hexc("#28232a"), E.hexc("#362e35"), E.hexc("#463c43"), E.hexc("#564b50"), E.hexc("#665a5c")]
     img = outline_img(v.render([GW_WOOD, ring_pal]))
     sh = contact_shadow(img.shape[1], img.shape[0], cx + 2, H_ + cy + 1.8, 6.5, 3.4)
     return place_prop(img, cx + 1, H_ + cy + 1, (16, 16), sh)
@@ -618,7 +618,8 @@ def stump() -> np.ndarray:
 # ---- 2D organic props -------------------------------------------------------------------
 BARK = [E.hexc("#141117"), E.hexc("#1d1820"), E.hexc("#272029"), E.hexc("#332a35"), E.hexc("#403543")]
 BARK_MOON = E.hexc("#4a5a6c")
-LEAF = [E.hexc("#121b19"), E.hexc("#182521"), E.hexc("#1f302a"), E.hexc("#283d35"), E.hexc("#34504a")]
+LEAF = [E.hexc("#15201d"), E.hexc("#1c2c27"), E.hexc("#253a32"), E.hexc("#2f4a3f"), E.hexc("#3d5f55")]
+LEAF_MOON = E.hexc("#4c6f73")
 
 
 class Stroke:
@@ -758,6 +759,9 @@ def bush(variant: str) -> np.ndarray:
                 img[yi, xi] = BARK[3]
     img[:, 0] = img[:, -1] = 0
     img[0, :] = img[-1, :] = 0
+    a = img[:, :, 3] > 0
+    toprim = a & ~np.roll(a, 1, axis=0) & (np.arange(W_)[None, :] < W_ * 0.7)
+    img[toprim & (bayer(H_, W_) < 0.7)] = LEAF_MOON
     img = E.outline(img)
     out = E.new(W_, H_)
     E.paste(out, contact_shadow(W_, H_, W_ / 2 + 1, H_ * 0.9 - 0.5, W_ * 0.42, 1.8), 0, 0)
@@ -770,12 +774,11 @@ def ascii_prop(rows: Sequence[str], legend: Dict[str, Tuple[int, int, int, int]]
     """ASCII art placed so its bottom-centre base sits on the prop pivot."""
     art = E.ascii_art(rows, legend)
     if outline:
-        art = outline_img(art)
-        art = E.outline(art[1:-1, 1:-1] if False else art, outline_color) if False else art
+        art = E.recolor(outline_img(art), {OUT: outline_color}) if outline_color != OUT else outline_img(art)
     Wf, Hf = size
     out = E.new(Wf, Hf)
     ah, aw = art.shape[:2]
-    ox = (Wf - aw) // 2 + (Wf - aw) % 2 * 0
+    ox = (Wf - aw) // 2
     base_row = Hf * (1 - PROP_PIVOT[1])
     oy = int(round(base_row - ah + 1 + (1 if outline else 0)))
     if shadow is not None:
@@ -969,7 +972,7 @@ def cat_statue(variant: str) -> np.ndarray:
     E.paste(canvas, fig, px0 + int(cx + 1 - fig.shape[1] / 2), py0 + 8 - fig.shape[0] + 3)
     if variant == "b":     # the fallen head lies beside the plinth
         hv = _cat_figure(False)[0:13, :]
-        head = np.rot90(hv, -1).copy() if False else hv[:, ::-1].copy()
+        head = hv[:, ::-1].copy()                      # mirrored so it faces the plinth
         small = E.new(head.shape[1], head.shape[0])
         E.paste(small, head, 0, 0)
         E.paste(canvas, small, px0 + plinth.shape[1] - 7, py0 + plinth.shape[0] - small.shape[0] + 1)
@@ -1200,18 +1203,46 @@ def banner_torn() -> np.ndarray:
     leg = {"I": PAL["iron2"], "p": PAL["wood1"], "P": PAL["wood2"], "b": E.hexc("#3d2a57"), "B": E.hexc("#4c3570"),
            "d": E.hexc("#2c1f40"), "s": E.hexc("#8c8aa0")}
     art = outline_img(E.ascii_art([r.ljust(13, ".") for r in rows], leg))
-    Wf, Hf = 16, 32
+    Wf, Hf = 28, 32
     out = E.new(Wf, Hf)
-    E.paste(out, contact_shadow(Wf, Hf, 5, Hf * 0.9, 3.5, 1.2), 0, 0)
-    E.paste(out, art, 3, int(round(Hf * 0.9)) - art.shape[0] + 2)
+    pole_x = 1                                         # pole column inside the outlined art
+    ox = Wf // 2 - pole_x - 1                          # pole occupies the pixel just right of the pivot
+    E.paste(out, contact_shadow(Wf, Hf, Wf / 2 + 1.5, Hf * 0.9, 3.5, 1.2), 0, 0)
+    E.paste(out, art, ox, int(round(Hf * 0.9)) - art.shape[0] + 2)
     return out
 
 
 # ======================================================================================
 # Build
 # ======================================================================================
+def fit_prop(img: np.ndarray, max_drop: float = 2.5) -> np.ndarray:
+    """Trim a prop canvas to its content, keeping the pivot at (0.5, 0.1). The horizontal
+    pivot stays exactly on the same pixel boundary; the base point may slide down by up to
+    `max_drop` px onto the prop's front edge / contact shadow so the canvas stays compact."""
+    h, w = img.shape[:2]
+    x0, y0, x1, y1 = E.trim_box(img)
+    px, py = w * PROP_PIVOT[0], h * (1 - PROP_PIVOT[1])
+    half = int(math.ceil(max(px - x0, x1 - px)))
+    Wn = max(2, 2 * half)
+    ox = int(round(Wn * PROP_PIVOT[0] - px))
+    for Hn in range(max(2, y1 - y0), 4 * h):
+        # the pivot may slide down (onto the prop's front/shadow edge) by up to max_drop px
+        lo = max(-y0, int(math.ceil(Hn * (1 - PROP_PIVOT[1]) - py - max_drop)))
+        hi = min(Hn - y1, int(math.floor(Hn * (1 - PROP_PIVOT[1]) - py)))
+        if lo <= hi:
+            oy = hi
+            break
+    out = E.new(Wn, Hn)
+    E.paste(out, img, ox, oy)
+    return out
+
+
 def props(biome: str) -> Dict[str, np.ndarray]:
-    """All props of a biome, keyed by prop name."""
+    """All props of a biome, keyed by prop name (canvases trimmed around the base pivot)."""
+    return {k: fit_prop(v) for k, v in _props_raw(biome).items()}
+
+
+def _props_raw(biome: str) -> Dict[str, np.ndarray]:
     if biome == "gravewood":
         out = {}
         for v in "abc":
