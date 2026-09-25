@@ -29,8 +29,7 @@ if HERE not in sys.path:
 import eclib as E  # noqa: E402
 from eclib import PAL  # noqa: E402
 import gen_enemies as GE  # noqa: E402  (shared rig helpers)
-from gen_enemies import (OUTLINE, Canvas, art, blit, cloud, spark, soft_glow, glow_disc, dust_kick,  # noqa: E402
-                         brighten, tint, squash, DUST, _sheet)
+from gen_enemies import (OUTLINE, Canvas, art, blit, cloud, spark, soft_glow, dust_kick, _sheet)  # noqa: E402
 
 ITER_DIR = GE.ITER_DIR
 DARK = {PAL["iron4"]: PAL["iron3"], PAL["iron3"]: PAL["iron2"], PAL["iron2"]: PAL["iron1"], PAL["iron1"]: PAL["iron0"]}
@@ -102,12 +101,6 @@ def aura(img: np.ndarray, color, radius: int = 2, strength: float = 0.5) -> np.n
     return E.glow(img, color, radius=radius, strength=strength)
 
 
-def boss_death_puffs(img: np.ndarray, blobs, sparks_at=(), sparks=(PAL["gold4"], PAL["gold3"])) -> None:
-    blit(img, cloud(img.shape[1], img.shape[0], blobs), 0, 0)
-    for (x, y, big) in sparks_at:
-        spark(img, x, y, big, sparks)
-
-
 def dist_in(mask: np.ndarray, cap: int = 12) -> np.ndarray:
     """Chamfer-ish distance (in px) from each masked pixel to the mask edge (4-neighbour erosion)."""
     d = np.zeros(mask.shape, np.float32)
@@ -161,11 +154,6 @@ def ell_mask(cx, cy, rx, ry, w: int, h: int) -> np.ndarray:
     tmp = E.new(w, h)
     E.ellipse(tmp, cx, cy, rx, ry, (255, 255, 255, 255))
     return tmp[:, :, 3] > 0
-
-
-def stamp(img: np.ndarray, rows: str, x: int, y: int, legend: Dict) -> None:
-    """Paste hand-placed ASCII detail at (x, y) (opaque pixels only)."""
-    blit(img, art(rows, legend), x, y)
 
 
 # ======================================================================================
@@ -373,7 +361,6 @@ CDD...
 ...BCC
 ....BB
 """)]
-BK_ARM = PAL["iron2"], PAL["iron3"]
 
 
 def bone_mace(c: Canvas, hx: int, hy: int, ang: float, length: int = 9, dark: bool = False) -> Tuple[float, float]:
@@ -488,13 +475,13 @@ def _loose_collar(img, x, y, rot: int) -> None:
 
 BARKHELM_CLIPS = {
     # clip: (poses, fps, loop)
-    "walk": ([dict(legs=("reach", "push"), leg_x=(15, 21), plume=0, tail=0, by=0),
-              dict(legs=("stand", "bend"), by=-1, plume=1, tail=1, sy=-1),
-              dict(legs=("push", "reach"), leg_x=(17, 21), plume=2, tail=0, by=0),
-              dict(legs=("bend", "stand"), by=-1, plume=1, tail=1, sy=-1)], 8, True),
-    "attack": ([dict(mace=(16, 12, -2.3), arm_from=(19, 20), mace_layer="back", bx=-1, hy=-1, plume=2),
-                dict(mace=(26, 8, -0.9), arm_from=(20, 19), mace_layer="top", plume=1,
-                     smear=(24, 20, 16, -2.6, -0.6)),
+    "walk": ([dict(legs=("reach", "push"), leg_x=(15, 21), plume=0, tail=0, by=1),
+              dict(legs=("stand", "bend"), by=0, plume=1, tail=1, sy=-1),
+              dict(legs=("push", "reach"), leg_x=(17, 21), plume=2, tail=0, by=1),
+              dict(legs=("bend", "stand"), by=0, plume=1, tail=1, sy=-1)], 8, True),
+    "attack": ([dict(mace=(16, 15, -2.3), arm_from=(19, 20), mace_layer="back", bx=-1, hy=0, plume=2),
+                dict(mace=(26, 14, -0.75), arm_from=(20, 19), mace_layer="top", plume=1,
+                     smear=(24, 21, 16, -2.6, -0.6)),
                 dict(mace=(33, 24, 0.9), arm_from=(21, 19), mace_layer="top", bx=2, by=1, hx=1, plume=0,
                      sparks=[(44, 39, True), (41, 42, False), (46, 35, False)], dust=[(42.5, 42.5, 2.2)],
                      smear=(26, 22, 16, -0.9, 0.7)),
@@ -519,20 +506,20 @@ BARKHELM_CLIPS = {
                      speed=(21, 28, 35), dust=[(20.5, 42.5, 2.0)], tail=1),
                 dict(bx=5, by=1, hy=2, legs=("stand", "bend"), leg_x=(19, 26), sx=2, eyes="red", red_glow=1, plume=2,
                      speed=(19, 25, 32, 38), tail=1)], 12, True),
-    "hit": ([dict(bx=-2, hx=-3, hy=-1, eyes="dim", sx=-1, plume=1, sparks=[(38, 20, True)]),
+    "hit": ([dict(bx=-2, hx=-3, hy=0, eyes="dim", sx=-1, plume=1, sparks=[(38, 20, True)]),
              dict(bx=-1, hx=-1, eyes="normal", plume=2)], 12, False),
-    "defeat": ([dict(bx=-2, hx=-3, hy=-1, eyes="dim", plume=1),
+    "defeat": ([dict(bx=-2, hx=-3, hy=0, eyes="dim", plume=1),
                 dict(by=3, hy=3, legs=("bend", "kneel_up"), leg_x=(16, 20), eyes="dim", sy=7, sx=3, plume=2,
-                     mace=(14, 36, 2.6)),
+                     mace=(15, 33, 2.6)),
                 dict(by=6, hy=8, hx=1, legs=("kneel", "kneel_up"), leg_x=(11, 20), eyes="dim", shield_flat=True,
-                     plume=0, mace=(12, 38, 2.9), dust=[(40.5, 42.5, 1.6), (29.5, 42.8, 1.3)]),
+                     plume=0, mace=(15, 32, 2.75), dust=[(40.5, 42.5, 1.6), (29.5, 42.8, 1.3)]),
                 dict(by=6, hy=8, hx=1, legs=("kneel", "kneel_up"), leg_x=(11, 20), eyes="dim", shield_flat=True,
-                     plume=0, mace=(12, 38, 2.9), no_collar=True, collar_at=(27, 5, 1), sparks=[(31, 8, False)]),
+                     plume=0, mace=(15, 32, 2.75), no_collar=True, collar_at=(27, 5, 1), sparks=[(31, 8, False)]),
                 dict(by=6, hy=9, hx=1, legs=("kneel", "kneel_up"), leg_x=(11, 20), eyes="dim", shield_flat=True,
-                     plume=0, mace=(12, 38, 2.9), no_collar=True, collar_at=(38, 34, 2),
+                     plume=0, mace=(15, 32, 2.75), no_collar=True, collar_at=(38, 34, 2),
                      sparks=[(35, 32, False), (42, 33, True)]),
                 dict(by=6, hy=9, hx=1, legs=("kneel", "kneel_up"), leg_x=(11, 20), eyes="dim", shield_flat=True,
-                     plume=0, mace=(12, 38, 2.9), no_collar=True, collar_at=(37, 37, 3), glint=(41, 36))], 8, False),
+                     plume=0, mace=(15, 32, 2.75), no_collar=True, collar_at=(37, 37, 3), glint=(41, 36))], 8, False),
 }
 
 
@@ -638,6 +625,22 @@ TSSRRRRRRRRRRQQQQP....
 ....RR.....RR.....Q...
 ...R.......R..........
 """)]
+def _robe_folds(part: np.ndarray) -> np.ndarray:
+    """Vertical fold strokes on the robe: a lit edge (violet2) beside a shadow crease (violet0)."""
+    out = part.copy()
+    R, Q, S = np.array(PAL["violet1"], np.uint8), np.array(PAL["violet0"], np.uint8), np.array(PAL["violet2"], np.uint8)
+    h = out.shape[0]
+    for x0, y0, drift in ((7, 10, 0), (12, 12, 1), (4, 14, -1)):
+        for y in range(y0, h - 2):
+            x = x0 + (drift * (y - y0)) // 8
+            if 0 < x < out.shape[1] and np.all(out[y, x] == R):
+                out[y, x] = Q
+                if np.all(out[y, x - 1] == R):
+                    out[y, x - 1] = S
+    return out
+
+
+MC_ROBE = [_robe_folds(r) for r in MC_ROBE]
 MC_BELL = {
     "up": _mc("""
 .....cdd.....
@@ -748,6 +751,20 @@ def bird_wing(img, shoulder, ang_deg, span, side, ramp, seed=1, n=11, tatter=0.3
         E.line(img, sx + ox, sy + oy, ex + ox * 0.5, ey + oy * 0.5, col)
 
 
+def fitted_wing(img, shoulder, ang, span, side, ramp, seed, spread, margin: int = 1) -> None:
+    """Draw a bird_wing, shrinking its span (never its angle) until it fits inside the frame."""
+    h, w = img.shape[:2]
+    sp = span
+    while sp > 8:
+        tmp = E.new(w + 40, h + 40)
+        bird_wing(tmp, (shoulder[0] + 20, shoulder[1] + 20), ang, sp, side, ramp, seed=seed, spread=spread)
+        x0, y0, x1, y1 = E.trim_box(tmp)
+        if x0 - 20 >= margin and x1 - 20 <= w - margin and y0 - 20 >= margin and y1 - 20 <= h - margin:
+            break
+        sp -= 0.5
+    bird_wing(img, shoulder, ang, sp, side, ramp, seed=seed, spread=spread)
+
+
 def _feather_fx(img, x, y, kind=0) -> None:
     """Small loose feather (FX): kind 0 = level, 1 = tilted."""
     pts = [(0, 0, PAL["crow3"]), (1, 0, PAL["crow2"]), (2, 0, PAL["crow2"]), (3, 0, PAL["crow1"]), (-1, 0, PAL["stone3"])] \
@@ -763,11 +780,11 @@ def draw_carrion(pose: dict) -> np.ndarray:
     ground = pose.get("ground", False)
     # wings behind the body
     if wl is not None:
-        bird_wing(c.img, (26 + bx, 22 + by), wl, pose.get("span_l", 30), -1, MC_RAMP_FAR, seed=4,
-                  spread=pose.get("spread_l", 1.0))
+        fitted_wing(c.img, (26 + bx, 22 + by), wl, pose.get("span_l", 27), -1, MC_RAMP_FAR, 4,
+                    pose.get("spread_l", 0.85))
     if wr is not None:
-        bird_wing(c.img, (37 + bx, 22 + by), wr, pose.get("span_r", 31), 1, MC_RAMP_NEAR, seed=3,
-                  spread=pose.get("spread_r", 1.0))
+        fitted_wing(c.img, (37 + bx, 22 + by), wr, pose.get("span_r", 28), 1, MC_RAMP_NEAR, 3,
+                    pose.get("spread_r", 0.85))
     # dangling back leg + talon
     if not ground:
         thick_line(c.img, 28 + bx, 40 + by, 29 + bx, MC_G - 3, PAL["iron1"], 2)
@@ -784,13 +801,10 @@ def draw_carrion(pose: dict) -> np.ndarray:
         thick_line(c.img, 35 + bx, 38 + by, blx + 6, bly - 1, PAL["iron2"], 2)
         c.put(MC_BELL[bell], blx, bly, sep=OUTLINE)
         c.put(MC_TALON_GRIP, blx + 4, bly - 3, sep=OUTLINE)
-    # FX under
-    if pose.get("red_mark"):
-        pass
     img = c.finish()
     for ring in pose.get("rings", []):
         rx, ry, rr, strength = ring
-        GE._ring(img, rx + bx, ry + by, rr, rr * 0.8, (PAL["gold4"], PAL["gold3"]), dither=strength < 1)
+        GE._ring(img, rx, ry, rr, rr * 0.8, (PAL["gold4"], PAL["gold3"]), dither=strength < 1)
     if pose.get("glint"):
         gx, gy, big = pose["glint"]
         soft_glow(img, gx + 0.5, gy + 0.5, 5 + (3 if big else 0), PAL["red3"], 0.9)
@@ -819,30 +833,30 @@ CARRION_CLIPS = {
                      rings=[(43, 44, 9, 1)]),
                 dict(wings=(10, 10), bell="tilt_l", bell_dx=-1, robe=0, eyeglow=True,
                      rings=[(42, 44, 12, 1), (42, 44, 7, 0.5)]),
-                dict(wings=(45, 45), bell="up", robe=1, rings=[(42, 44, 15, 0.5)],
+                dict(wings=(45, 45), bell="up", robe=1, rings=[(42, 44, 11, 0.5)],
                      sparks=[(22, 30, False), (58, 33, True), (48, 24, False)])], 10, False),
-    "mark": ([dict(wings=(30, 5), span_r=31, robe=0, hx=1),
-              dict(wings=(35, -5), span_r=33, spread_r=0.5, robe=1, hx=2, head="shriek"),
-              dict(wings=(35, -5), span_r=33, spread_r=0.5, robe=0, hx=2, head="shriek", glint=(61, 26, True)),
-              dict(wings=(35, -5), span_r=33, spread_r=0.5, robe=1, hx=2, glint=(61, 26, False))], 10, False),
-    "barrage": ([dict(wings=(-35, -35), span_l=24, span_r=25, by=2, robe=0),
-                 dict(wings=(75, 75), span_l=32, span_r=33, spread_l=1.25, spread_r=1.25, by=-1, robe=1, head="shriek"),
-                 dict(wings=(70, 70), span_l=32, span_r=33, spread_l=1.25, spread_r=1.25, by=-1, robe=0, head="shriek",
-                      feathers=[(4, 12, 1), (58, 8, 1), (2, 28, 0), (60, 30, 0), (10, 4, 1), (52, 3, 0)]),
-                 dict(wings=(25, 25), robe=1, feathers=[(1, 10, 1), (61, 6, 0), (0, 32, 0)])], 10, False),
+    "mark": ([dict(wings=(30, 5), robe=0, hx=1),
+              dict(wings=(35, -5), span_r=28, spread_r=0.4, robe=1, hx=2, head="shriek"),
+              dict(wings=(35, -5), span_r=28, spread_r=0.4, robe=0, hx=2, head="shriek", glint=(59, 27, True)),
+              dict(wings=(35, -5), span_r=28, spread_r=0.4, robe=1, hx=2, glint=(59, 27, False))], 10, False),
+    "barrage": ([dict(wings=(-35, -35), span_l=22, span_r=23, by=2, robe=0),
+                 dict(wings=(58, 58), span_l=25, span_r=26, spread_l=1.0, spread_r=1.0, by=0, robe=1, head="shriek"),
+                 dict(wings=(52, 52), span_l=25, span_r=26, spread_l=1.0, spread_r=1.0, by=0, robe=0, head="shriek",
+                      feathers=[(4, 12, 1), (55, 8, 1), (3, 28, 0), (56, 30, 0), (10, 4, 1), (50, 3, 0)]),
+                 dict(wings=(25, 25), robe=1, feathers=[(2, 10, 1), (56, 6, 0), (2, 33, 0)])], 10, False),
     "hit": ([dict(wings=(40, 40), bx=-2, by=-1, head="hurt", robe=1, feathers=[(18, 20, 1), (44, 16, 0), (30, 12, 1)]),
              dict(wings=(25, 25), bx=-1, robe=0, feathers=[(16, 24, 0), (47, 18, 1)])], 12, False),
     "defeat": ([dict(wings=(45, 45), bx=-2, by=-1, head="hurt", robe=1, feathers=[(18, 20, 1), (44, 14, 0)]),
-                dict(wings=(-20, -10), span_l=24, span_r=24, by=3, head="hurt", robe=0, bell_dy=1,
+                dict(wings=(-20, -10), span_l=22, span_r=22, by=3, head="hurt", robe=0, bell_dy=-2,
                      feathers=[(14, 12, 1), (50, 10, 0), (30, 6, 1)]),
-                dict(wings=(-45, -40), span_l=22, span_r=22, by=6, head="hurt", robe=1, ground=True, bell="fallen",
+                dict(wings=(-45, -40), span_l=20, span_r=20, by=6, head="hurt", robe=1, ground=True, bell="fallen",
                      bell_x=44, dust=[(20.5, 50.5, 2.2), (44.5, 50.5, 2.4)], feathers=[(10, 18, 0), (54, 16, 1)]),
-                dict(wings=(-50, -45), span_l=21, span_r=21, by=7, head="hurt", robe=0, ground=True, bell="fallen",
+                dict(wings=(-50, -45), span_l=19, span_r=19, by=7, head="hurt", robe=0, ground=True, bell="fallen",
                      bell_x=45, sparks=[(46, 41, True), (56, 44, False), (41, 45, False)],
                      rings=[(51, 46, 8, 0.5)], feathers=[(8, 24, 1), (57, 22, 0)]),
-                dict(wings=(-55, -50), span_l=20, span_r=20, by=8, head="hurt", robe=1, ground=True, bell="fallen",
+                dict(wings=(-55, -50), span_l=18, span_r=18, by=8, head="hurt", robe=1, ground=True, bell="fallen",
                      bell_x=45, feathers=[(12, 30, 0), (55, 28, 1), (33, 18, 0)]),
-                dict(wings=(-55, -50), span_l=20, span_r=20, by=8, head="hurt", robe=0, ground=True, bell="fallen",
+                dict(wings=(-55, -50), span_l=18, span_r=18, by=8, head="hurt", robe=0, ground=True, bell="fallen",
                      bell_x=45, feathers=[(14, 38, 0), (52, 36, 1)])], 8, False),
 }
 
@@ -1054,19 +1068,22 @@ CDDC.
 """)
 
 
-def kg_cape(img, sway: int = 0, lift: int = 0, ground: int = KG_G) -> None:
+def kg_cape(img, sway: int = 0, lift: int = 0, ground: int = KG_G, top_dy: int = 0) -> None:
     """Royal cape: drapes from the shoulders to the ground, flaring out behind (left).
-    Lit on the left, folds as darker vertical strokes, dark hem."""
-    top_l, top_r = (17, 19), (37, 19)
+    Lit on the left, folds as darker vertical strokes, dark hem. top_dy lowers the
+    shoulders (kneeling) while the hem stays on the ground."""
+    top = 19 + top_dy
+    top_l, top_r = (17, top), (37, top)
     bot_l, bot_r = (3 + sway, ground - lift), (42 + sway // 2, ground - lift)
-    poly = [top_l, top_r, (40 + sway // 2, 36), bot_r, (bot_r[0] - 6, bot_r[1] + 1), (22 + sway, ground - lift - 1),
-            (12 + sway, bot_l[1] + 1), bot_l, (9 + sway // 2, 34)]
+    mid_y = (top + ground) // 2 + 2
+    poly = [top_l, top_r, (40 + sway // 2, mid_y), bot_r, (bot_r[0] - 6, bot_r[1] + 1), (22 + sway, ground - lift - 1),
+            (12 + sway, bot_l[1] + 1), bot_l, (9 + sway // 2, mid_y - 2)]
     mask_img = E.new(img.shape[1], img.shape[0])
     E.polygon(mask_img, poly, (255, 255, 255, 255))
     m = mask_img[:, :, 3] > 0
     ys, xs = np.nonzero(m)
     for x, y in zip(xs, ys):
-        t = (y - 19) / max(1, (ground - 19))
+        t = (y - top) / max(1, (ground - top))
         left = 17 + (bot_l[0] - 17) * t  # approximate left edge at this row
         rel = (x - left) / max(1.0, 25 + 14 * t)
         if rel < 0.08:
@@ -1080,8 +1097,8 @@ def kg_cape(img, sway: int = 0, lift: int = 0, ground: int = KG_G) -> None:
         img[y, x] = c
     # folds
     for fx in (0.3, 0.55, 0.78):
-        for y in range(24, ground - lift):
-            t = (y - 19) / max(1, (ground - 19))
+        for y in range(top + 5, ground - lift):
+            t = (y - top) / max(1, (ground - top))
             left = 17 + (bot_l[0] - 17) * t
             x = int(round(left + fx * (25 + 14 * t)))
             if 0 <= x < img.shape[1] and m[y, x]:
@@ -1107,7 +1124,8 @@ def _arc(img, cx, cy, r, a0, a1, color, dither=False) -> None:
         seen.add((x, y))
         if dither and (x + y) % 2:
             continue
-        E.px(img, x, y, color)
+        if 1 <= x < img.shape[1] - 1 and 1 <= y < img.shape[0] - 1:
+            E.px(img, x, y, color)
 
 
 def draw_goldenfang(pose: dict) -> np.ndarray:
@@ -1121,8 +1139,8 @@ def draw_goldenfang(pose: dict) -> np.ndarray:
         soft_glow(c.fx_under, 30 + bx, 32 + by, 20 + k * 4, PAL["gold3"], 0.18 + 0.1 * k)
     c.put(KG_TAIL[pose.get("tail", 0)], 3 + bx, 42 + by)
     cape = E.new(KG_W, KG_H)
-    kg_cape(cape, pose.get("sway", 0), pose.get("cape_lift", 0), g if not pose.get("kneel") else g)
-    c.put(E.shift(cape, bx, by if pose.get("kneel") else 0), 0, 0)
+    kg_cape(cape, pose.get("sway", 0), pose.get("cape_lift", 0), g, by if pose.get("kneel") else 0)
+    c.put(E.shift(cape, bx, 0), 0, 0)
     legs = KG_LEGS[pose.get("legs", "stand")]
     c.put(legs, 22 + bx + (0 if pose.get("legs", "stand") != "step_a" else -1), g - legs.shape[0] + 1)
     c.put(KG_TORSO, 18 + bx, 21 + by)
@@ -1164,8 +1182,10 @@ def draw_goldenfang(pose: dict) -> np.ndarray:
     if pose.get("rays"):
         for i in range(8):
             a = i / 8 * math.tau + pose["rays"] * 0.2
-            for r in range(8, 8 + pose.get("ray_len", 4)):
-                E.px(img, gem[0] + math.cos(a) * r, gem[1] + math.sin(a) * r, PAL["gold4"] if r % 2 else PAL["gold3"])
+            for r in range(6, 6 + pose.get("ray_len", 3)):
+                x, y = gem[0] + math.cos(a) * r, gem[1] + math.sin(a) * r
+                if 1 <= x < KG_W - 1 and 1 <= y < KG_H - 1:
+                    E.px(img, x, y, PAL["gold4"] if r % 2 else PAL["gold3"])
     if pose.get("eyes_glow"):
         soft_glow(img, 27.5 + hx, 11.5 + hy, 4.0, PAL["gold4"], 0.9)
     for ring in pose.get("rings", []):
@@ -1196,15 +1216,15 @@ GOLDENFANG_CLIPS = {
               dict(sway=1, by=0, hy=1, tail=1, gem_glow=1),
               dict(sway=1, tail=1),
               dict(sway=0, hy=1, tail=0)], 6, True),
-    "walk": ([dict(legs="step_a", sway=-2, tail=0, by=0),
-              dict(legs="stand", sway=-1, by=-1, tail=1),
-              dict(legs="step_b", sway=-2, tail=0),
-              dict(legs="stand", sway=-1, by=-1, tail=1)], 8, True),
+    "walk": ([dict(legs="step_a", sway=-2, tail=0, by=1),
+              dict(legs="stand", sway=-1, by=0, tail=1),
+              dict(legs="step_b", sway=-2, tail=0, by=1),
+              dict(legs="stand", sway=-1, by=0, tail=1)], 8, True),
     "command": ([dict(sceptre=(45, 26, 0), elbow=(41, 25), rod_top=(46, 9), rod_bot=(46, 46)),
                  dict(sceptre=(44, 14, 1), elbow=(40, 19), rod_top=(45, 2 + 8), rod_bot=(45, 34), gem_glow=2, head="glow",
-                      hy=-1, sway=1),
-                 dict(sceptre=(44, 14, 1), elbow=(40, 19), rod_top=(45, 10), rod_bot=(45, 34), gem_glow=3, rays=1, ray_len=5,
-                      head="glow", hy=-1, sway=1),
+                      hy=0, sway=1),
+                 dict(sceptre=(44, 14, 1), elbow=(40, 19), rod_top=(45, 10), rod_bot=(45, 34), gem_glow=3, rays=1, ray_len=3,
+                      head="glow", hy=0, sway=1),
                  dict(sceptre=(45, 26, 0), elbow=(41, 25), rod_top=(46, 9), rod_bot=(46, 46), gem_glow=1)], 8, False),
     "windup": ([dict(sceptre=(46, 26, 0), elbow=(41, 26), rod_top=(51, 11), rod_bot=(42, 44), gold_aura=1, gem_glow=1,
                      head="glow", eyes_glow=True, by=1),
@@ -1221,16 +1241,16 @@ GOLDENFANG_CLIPS = {
                 dict(sceptre=(46, 26, 0), elbow=(41, 26), rod_top=(51, 11), rod_bot=(42, 44), gem_glow=1, bx=-1),
                 dict(sceptre=(47, 32, 0))], 10, False),
     "roar": ([dict(head="normal", hy=1, bx=-1, sway=0),
-              dict(head="roar", hy=-2, hx=1, sway=2, eyes_glow=True, rings=[(44, 12, 6, 1)], cape_lift=1,
+              dict(head="roar", hy=0, hx=1, sway=2, eyes_glow=True, rings=[(44, 12, 6, 1)], cape_lift=1,
                    sceptre=(46, 36, 0), elbow=(40, 31), rod_top=(55, 28), rod_bot=(40, 55)),
-              dict(head="roar", hy=-2, hx=1, sway=3, eyes_glow=True, rings=[(44, 12, 10, 1), (44, 12, 6, 0.5)],
+              dict(head="roar", hy=0, hx=1, sway=3, eyes_glow=True, rings=[(44, 12, 10, 1), (44, 12, 6, 0.5)],
                    cape_lift=1, sparks=[(59, 3, True), (61, 19, False)],
                    sceptre=(46, 36, 0), elbow=(40, 31), rod_top=(55, 28), rod_bot=(40, 55)),
-              dict(head="roar", hy=-1, hx=1, sway=2, eyes_glow=True, rings=[(44, 12, 14, 0.5), (44, 12, 9, 0.5)],
+              dict(head="roar", hy=0, hx=1, sway=2, eyes_glow=True, rings=[(44, 12, 14, 0.5), (44, 12, 9, 0.5)],
                    sceptre=(46, 36, 0), elbow=(40, 31), rod_top=(55, 28), rod_bot=(40, 55))], 8, False),
-    "hit": ([dict(bx=-2, hx=-3, hy=-1, head="hurt", sway=2, cx=-1, sparks=[(44, 16, True)]),
+    "hit": ([dict(bx=-2, hx=-3, hy=0, head="hurt", sway=2, cx=-1, sparks=[(44, 16, True)]),
              dict(bx=-1, hx=-1, sway=1)], 12, False),
-    "defeat": ([dict(bx=-2, hx=-3, hy=-1, head="hurt", sway=2, cx=-2, cy=0),
+    "defeat": ([dict(bx=-2, hx=-3, hy=0, head="hurt", sway=2, cx=-2, cy=0),
                 dict(bx=-1, by=4, hx=-1, hy=5, head="hurt", legs="stand", cx=-3, cy=1, sway=1,
                      sceptre=(46, 36, 0), rod_top=(52, 20), rod_bot=(40, 55)),
                 dict(by=9, hy=11, head="hurt", legs="kneel", kneel=True, no_crown=True, crown_at=(38, 6, 1),
@@ -1256,7 +1276,6 @@ FUR = [PAL["gold0"], PAL["gold1"], PAL["gold2"], PAL["gold3"]]
 FUR_D = [PAL["brown1"], PAL["gold0"], PAL["gold1"], PAL["gold2"]]
 RED = [PAL["red0"], PAL["red1"], PAL["red2"], PAL["red3"]]
 IRON = [PAL["iron1"], PAL["iron2"], PAL["iron3"], PAL["iron4"]]
-GOLD = [PAL["gold1"], PAL["gold2"], PAL["gold3"], PAL["gold4"]]
 
 
 def layer(mask, ramp, **kw) -> np.ndarray:
@@ -1349,17 +1368,6 @@ HOOD = [PAL["crow0"], PAL["violet0"], PAL["violet1"], PAL["violet2"], PAL["viole
 BONE = [PAL["bone0"], PAL["bone1"], PAL["bone2"], PAL["bone3"], PAL["bone4"]]
 BRONZE = [PAL["brown1"], PAL["gold0"], PAL["gold1"], PAL["orange3"], PAL["gold4"]]
 
-
-def feathers_mask(base_y, x0, x1, n, length, seed):
-    rnd = E.rng(seed)
-    m = np.zeros((H, W), bool)
-    for i in range(n):
-        x = x0 + (x1 - x0) * i / (n - 1)
-        L = length * rnd.uniform(0.7, 1.1)
-        ang = math.radians(100 + (i - n / 2) * 9)
-        tipx, tipy = x + math.cos(ang) * L * 0.4, base_y + L
-        m |= poly_mask([(x - 3, base_y), (x + 3, base_y), (tipx + 1, tipy), (tipx - 1, tipy)], W, H)
-    return m
 
 def carrion_portrait():
     c = Canvas(W, H)
@@ -1549,58 +1557,52 @@ def preview_boss(bid: str, scale: int = 5) -> str:
 # 16x16 boss icons (hand-placed; the in-game heads are too wide to crop cleanly)
 # ======================================================================================
 ICON_BARKHELM = """
-................
-.0..............
-98..lm....lm....
-87..lkj..lkj....
-87.jkllllllkj...
-.8jklmmlllllkj..
-..jkllllllllkkj.
-.ijkk%Fy%%%kkkkj
-.ijkkkkkkkklmmlj
-.ijkkkkk%k%kllkj
-..ijkkkkkkkkkkj.
-..234444444432..
-.23455555554432.
-.12233333333221.
-..111222222111..
-................
+.0............
+98.lm...lm....
+87.lkj..lkj...
+87jkllllllkj..
+.8klmmlllllkj.
+.jkllllllllkkj
+.jk%Fy%%%%kkkj
+.jkkkkkkklmmlj
+.jkkkk%k%kllkj
+..jkkkkkkkkkj.
+..2344444432..
+.234555554432.
+.12233333332..
+..111222211...
 """
 ICON_CARRION = """
-................
-......3.4.3.....
-.....2434343....
-....PQRSSTSS....
-...PQRRSSSSSR...
-..PQRSAAAAAASR..
-..PQRSAB9BAAAR..
-.PQRSAB90BAAGHI.
-.PQQRSAABBAGHIIJ
-.PQQRSAAAAGHHIIJ
-..PQRRSAAAGGH.JI
-..PPQQRRSAAG...H
-...PPQQRRR......
-....3444443.....
-.....33333......
-................
+.....3.4.3....
+....2434343...
+...PQRSSTS....
+..PQRRSSSSR...
+.PQRSAAAAASR..
+.PQRSAB9BAAR..
+PQRSAB90BAGHI.
+PQQRSAABBGHIIJ
+PQQRSAAAAGHHIJ
+.PQRRSAAAGGH.J
+.PPQQRRSAAG...
+..PPQQRRR.....
+...3444443....
+....33333.....
 """
 ICON_KING = """
-.....5..0..5....
-.....4.404.4....
-....343454343...
-...2349934994...
-...ACDEEEEDDC...
-..NACDEEDDDDDC..
-.NNCD%%%DDDDDDC.
-.NCD%5x9DDDDDEDK
-.ACCDDDDDDDDDDKK
-.ACCCDDDDCCCCC%.
-..ACCDDC%%%%%%..
-..ACCCC45CC45...
-...ABCCBBCCB....
-....ABCB.BC.....
-.....AB.........
-................
+....5.0.5.....
+...3434343....
+..234993492...
+..ACDEEEDDC...
+.NACDEEDDDDC..
+NNCD%%%DDDDDC.
+NCD%5x9DDDDEDK
+ACCDDDDDDDDDKK
+ACCCDDDDCCCC%.
+.ACCDDC%%%%%..
+.ACCCC45CC4...
+..ABCCBBCCB...
+...ABCB.BC....
+....AB........
 """
 
 
@@ -1608,11 +1610,11 @@ def boss_icons() -> Dict[str, np.ndarray]:
     out = {}
     for bid, src, lg in (("sir_barkhelm", ICON_BARKHELM, BK_LEG), ("mother_carrion", ICON_CARRION, MC_LEG),
                          ("king_goldenfang", ICON_KING, KG_LEG)):
-        img = art(src, lg)
-        img = E.outline(img, OUTLINE)
-        out[bid] = img
+        img = E.new(16, 16)
+        blit(img, art(src, lg), 1, 1)
+        out[bid] = E.outline(img, OUTLINE)
     # small glows so the eyes read at icon size
-    soft_glow(out["sir_barkhelm"], 7.5, 7.5, 2.5, PAL["fire2"], 0.5)
+    soft_glow(out["sir_barkhelm"], 6.5, 8.5, 2.5, PAL["fire2"], 0.5)
     soft_glow(out["mother_carrion"], 8.5, 7.5, 2.5, PAL["red3"], 0.5)
     return out
 

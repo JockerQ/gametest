@@ -18,7 +18,7 @@ drawn from a parametric design so gen_marketing can render it at launcher sizes.
 from __future__ import annotations
 
 import math
-from typing import Dict, List, Optional, Sequence, Tuple
+from typing import Dict, Optional, Sequence, Tuple
 
 import numpy as np
 
@@ -194,12 +194,6 @@ def nine_slice(img: np.ndarray, border: Tuple[int, int, int, int], W: int, H: in
     xs = axis_map(w, l, r, W)
     ys = axis_map(h, t, b, H)
     return img[ys][:, xs].copy()
-
-
-def recolor_px(img: np.ndarray, pts: Sequence[Tuple[int, int]], c: Color) -> None:
-    for x, y in pts:
-        if 0 <= x < img.shape[1] and 0 <= y < img.shape[0]:
-            img[y, x] = c
 
 
 def stamp_corners(img: np.ndarray, orn: np.ndarray, dx: int = 0, dy: int = 0, mirror: bool = True) -> None:
@@ -506,10 +500,11 @@ def make_vignette() -> np.ndarray:
 
 
 def make_divider() -> np.ndarray:
+    # thin silver rule with small knobs at both ends; only the ends are fixed (border 4 l/r)
     return ascii_img([
         "..oo........oo..",
-        "ooHSoooooooooSHoo"[:16],
-        "oHSSSSSSSSSSSSSo"[:16],
+        "ooHSoooooooooSHo",
+        "oHSSSSSSSSSSSSSo",
         "..oo........oo..",
     ], {"o": O, "H": PAL["silver3"], "S": PAL["silver1"]})
 
@@ -571,7 +566,7 @@ EAR_L = [(15.2, 37.0), (11.6, 11.0), (30.6, 28.0)]
 EAR_IN_L = [(18.2, 31.5), (15.2, 17.5), (25.6, 28.2)]
 TUFT_L = [(17.5, 38.0), (6.8, 47.0), (14.0, 47.2), (10.8, 52.2), (22.5, 50.5)]
 JAW = [(24.0, 50.0), (32.0, 56.0), (40.0, 50.0)]
-CROWN = [(25.6, 27.6), (25.6, 18.0), (28.9, 22.2), (32.0, 13.6), (35.1, 22.2), (38.4, 18.0), (38.4, 27.6)]
+CROWN = [(25.8, 27.6), (24.2, 16.2), (28.8, 21.6), (32.0, 12.4), (35.2, 21.6), (39.8, 16.2), (38.2, 27.6)]
 EYE_L = [(19.0, 37.0), (29.4, 40.8), (28.4, 44.2), (20.8, 43.4)]
 MUZZLE_L = (29.2, 49.0, 3.8, 3.0)
 MANTLE_L = [(6.0, 44.0), (19.0, 52.0), (32.0, 59.0), (32.0, 66.0), (8.0, 60.0)]
@@ -589,18 +584,50 @@ BOLT_BIG = [          # forehead lightning, sizes >= 48
     "c....",
 ]
 BOLT_MID = [          # sizes 36..47
-    "..hc",
-    ".hc.",
-    "hccc",
-    ".cc.",
-    ".c..",
-    "c...",
+    "..h",
+    ".hc",
+    "hcc",
+    ".c.",
+    "c..",
 ]
 BOLT_SMALL = [        # sizes < 36
     ".h",
     "hc",
     ".c",
     "c.",
+]
+CROWN_BIG = [         # sizes >= 48 (14 wide, symmetric about the centre line)
+    "......oo......",
+    ".....oWSo.....",
+    "..o..oWSo..o..",
+    ".oWo.oWSo.oSo.",
+    ".oWWooWSooSso.",
+    ".oWWSoWSoSSso.",
+    ".oWSSSSSSSSso.",
+    ".osssYCssssdo.",
+    ".oooooooooooo.",
+]
+CROWN_MID = [         # sizes 36..47
+    "....oo....",
+    ".o.oWSo.o.",
+    "oWooWSooSo",
+    "oWWSSSSSso",
+    "ossYCsssdo",
+    "oooooooooo",
+]
+MUZZLE_BIG = [        # sizes >= 48: silver cheek puffs, nose, little w-mouth and one fang
+    "...sSSSSSSs...",
+    ".sSSSnnnnSSSs.",
+    "sSSSSSnnSSSSSs",
+    "sSSSnSnnSnSSSs",
+    ".ssSSnSSnSSss.",
+    "...sssssswss..",
+]
+MUZZLE_MID = [        # sizes 36..47
+    "..sSSSSs..",
+    ".sSSnnSSs.",
+    "sSSSnnSSSs",
+    ".sssssws..",
 ]
 NOSE_BIG = ["nnnn", ".nn."]
 NOSE_SMALL = ["nn"]
@@ -617,6 +644,16 @@ def _clean(m: np.ndarray, min_nb: int = 2) -> np.ndarray:
         nb[:, :-1] += m[:, 1:]
         m &= ~(m & (nb < min_nb))
     return m
+
+
+def _sym(m: np.ndarray) -> np.ndarray:
+    """Mirror the left half of a mask onto the right half (emblem centre line = S/2)."""
+    S = m.shape[1]
+    if S % 2:
+        return m
+    out = m.copy()
+    out[:, S // 2:] = m[:, :S // 2][:, ::-1]
+    return out
 
 
 def _stamp(img, rows, x0, y0, legend):
@@ -724,8 +761,19 @@ def emblem(S: int = 64, seal: bool = True) -> np.ndarray:
     head |= _poly_mask(S, EAR_L, k) | _poly_mask(S, _mirror_pts(EAR_L), k)
     head |= _poly_mask(S, TUFT_L, k) | _poly_mask(S, _mirror_pts(TUFT_L), k)
     head |= _poly_mask(S, JAW, k)
-    head = _clean(head)
-    crown = _clean(_poly_mask(S, CROWN, k))
+    head = _sym(_clean(head))
+    crown_rows = None if S >= 60 else (CROWN_BIG if S >= 48 else (CROWN_MID if S >= 36 else None))
+    crown = np.zeros((S, S), bool)
+    crx = cry = 0
+    if crown_rows is None:
+        crown = _clean(_poly_mask(S, CROWN, k))
+    else:
+        cw, ch = len(crown_rows[0]), len(crown_rows)
+        crx, cry = S // 2 - cw // 2, int(round(27.8 * k)) - ch + 1
+        for j, row in enumerate(crown_rows):
+            for i, c in enumerate(row):
+                if c != "." and 0 <= cry + j < S:
+                    crown[cry + j, crx + i] = True
     grp = head | crown
     img[_dilate(grp) & ~grp] = O
     img[head] = PAL["fur2"]
@@ -740,16 +788,19 @@ def emblem(S: int = 64, seal: bool = True) -> np.ndarray:
     t2, _ = _edges(ei)
     img[t2] = PAL["violet1"]
 
-    # silver muzzle: two cheek puffs
-    muz = _ellipse_mask(S, *MUZZLE_L, k) | _ellipse_mask(S, 64 - MUZZLE_L[0], *MUZZLE_L[1:], k)
-    muz &= head
-    img[muz] = PAL["silver1"]
-    t3, _ = _edges(muz)
-    img[t3] = PAL["silver2"]
+    # silver muzzle: two cheek puffs (hand stamp from 36px up)
+    muzzle_rows = MUZZLE_BIG if S >= 48 else (MUZZLE_MID if S >= 36 else None)
+    if muzzle_rows is None:
+        muz = _ellipse_mask(S, *MUZZLE_L, k) | _ellipse_mask(S, 64 - MUZZLE_L[0], *MUZZLE_L[1:], k)
+        muz &= head
+        img[muz] = PAL["silver1"]
+        t3, _ = _edges(muz)
+        img[t3] = PAL["silver2"]
 
-    # eyes: glowing cyan, slit pupil, glint
-    for pts, side in ((EYE_L, -1), (_mirror_pts(EYE_L), 1)):
-        em = _clean(_poly_mask(S, pts, k), 1)
+    # eyes: glowing cyan, slit pupil, glint (right eye = mirrored left eye)
+    eye_l = _clean(_poly_mask(S, EYE_L, k), 1)
+    eye_r = eye_l[:, ::-1] if S % 2 == 0 else _clean(_poly_mask(S, _mirror_pts(EYE_L), k), 1)
+    for em, side in ((eye_l, -1), (eye_r, 1)):
         ys, xs = np.nonzero(em)
         if not len(xs):
             continue
@@ -767,7 +818,11 @@ def emblem(S: int = 64, seal: bool = True) -> np.ndarray:
 
     # nose (+ smirk and one fang on bigger sizes)
     nl = {"n": PAL["fur0"]}
-    if S >= 48:
+    if muzzle_rows is not None:
+        mw = len(muzzle_rows[0])
+        _stamp(img, muzzle_rows, S // 2 - mw // 2, int(round(46.2 * k)) - 1,
+               {"s": PAL["silver1"], "S": PAL["silver2"], "n": PAL["fur0"], "w": PAL["white"]})
+    elif S >= 48:
         mx0 = int(round(32 * k))          # first pixel right of the centre line
         ny0 = int(round(46.4 * k))
         _stamp(img, NOSE_BIG, mx0 - 2, ny0, nl)
@@ -784,10 +839,14 @@ def emblem(S: int = 64, seal: bool = True) -> np.ndarray:
     stamp = BOLT_BIG if S >= 48 else (BOLT_MID if S >= 36 else BOLT_SMALL)
     bw, bh = len(stamp[0]), len(stamp)
     bx0 = int(round(32.6 * k - bw / 2))
-    by0 = int(round(35.0 * k - bh / 2))
+    by0 = int(round((35.0 if S >= 48 else 33.0) * k - bh / 2))
     _stamp(img, stamp, bx0, by0, bl)
 
     # crown: angular silver with a cyan gem
+    if crown_rows is not None:
+        _stamp(img, crown_rows, crx, cry, {"o": O, "W": PAL["silver3"], "S": PAL["silver2"], "s": PAL["silver1"],
+                                           "d": PAL["silver0"], "Y": PAL["cyan3"], "C": PAL["cyan2"]})
+        crown = np.zeros((S, S), bool)
     img[crown] = PAL["silver2"]
     tc, bc = _edges(crown)
     img[bc] = PAL["silver0"]
@@ -795,7 +854,9 @@ def emblem(S: int = 64, seal: bool = True) -> np.ndarray:
     band_m = crown & (yy + 0.5 >= 23.4 * k) & ~tc & ~bc
     img[band_m] = PAL["silver1"]
     gy, gx = int(24.6 * k), int(round(32 * k)) - (1 if S >= 48 else 0)
-    if S >= 48:
+    if crown_rows is not None:
+        pass
+    elif S >= 48:
         _stamp(img, ["cc", "cc"], gx, gy - 1, {"c": PAL["cyan2"]})
         img[gy - 1, gx] = PAL["cyan4"]
     else:
@@ -845,11 +906,8 @@ def build(reg: E.Registry) -> None:
     add("ui/slider_handle", make_slider_handle())
     add("ui/circle", make_circle())
     add("ui/ring", make_ring())
-    try:
-        import gen_icons
-        add("ui/lock", gen_icons.lock_overlay())
-    except Exception as ex:  # pragma: no cover - gen_icons is part of the same kit
-        raise
+    import gen_icons  # the padlock is shared with icon/lock
+    add("ui/lock", gen_icons.lock_overlay())
     add("ui/vignette", make_vignette())
     add("ui/divider", make_divider(), (4, 0, 4, 0))
     add("ui/white", make_white())

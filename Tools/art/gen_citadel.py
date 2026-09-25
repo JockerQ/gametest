@@ -933,7 +933,8 @@ def crack_overlay(base: np.ndarray, info: dict, level: int) -> np.ndarray:
 # Misc sprites
 # --------------------------------------------------------------------------------------
 SHADOW_W, SHADOW_H = 80, 24
-SHADOW_CENTRE = (3.0, 29.0)           # ground offset of the shadow centre from the citadel pivot
+SHADOW_CENTRE = (4.0, 33.0)           # ground offset of the shadow centre from the citadel pivot
+                                      # (south-east of the footprint: light comes from the top-left)
 
 
 def shadow_sprite() -> Tuple[np.ndarray, Tuple[float, float]]:
@@ -942,7 +943,7 @@ def shadow_sprite() -> Tuple[np.ndarray, Tuple[float, float]]:
     nx = (xx + 0.5 - SHADOW_W / 2) / (SHADOW_W / 2)
     ny = (yy + 0.5 - SHADOW_H / 2) / (SHADOW_H / 2)
     d = np.sqrt(nx * nx + ny * ny)
-    a = np.where(d < 1, np.clip(1.0 - d, 0, 1) ** 0.6 * 150, 0)
+    a = np.where(d < 1, np.clip(1.0 - d, 0, 1) ** 0.45 * 175, 0)
     img[:, :, 0], img[:, :, 1], img[:, :, 2] = PAL["outline"][:3]
     img[:, :, 3] = (np.round(a / 15) * 15).astype(np.uint8)
     cx, cy = SHADOW_CENTRE
@@ -962,7 +963,7 @@ def slot_glow() -> np.ndarray:
     white = np.array(PAL["cyan4"][:3], float)
     mix = ringv[..., None]
     img[:, :, :3] = (col * (1 - mix) + white * mix).astype(np.uint8)
-    img[:, :, 3] = np.round(a * 225).astype(np.uint8)
+    img[:, :, 3] = np.round(np.clip(a * 1.1, 0, 1) * 235).astype(np.uint8)
     return img
 
 
@@ -981,7 +982,7 @@ def anchors() -> Dict[str, Tuple[float, float]]:
         "middle": (bx, -(by - (BASTION_H + 1))),
         "base": (gpx, -(gpy - (GATE_H + 1))),
         "gate": (0.0, -((GATE_Y1 - 0.5) - 5.5)),
-        "barrier_center": (0.0, 10.0),
+        "barrier_center": (0.0, 16.0),     # centre of the whole fortress (spire top..gate)
     }
 
 

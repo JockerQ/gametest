@@ -27,7 +27,7 @@ from __future__ import annotations
 import math
 import os
 import sys
-from typing import Callable, Dict, List, Optional, Sequence, Tuple
+from typing import Dict, Optional, Sequence, Tuple
 
 import numpy as np
 
@@ -78,16 +78,6 @@ def fbm(size: int, rnd, octaves=((4, 0.5), (8, 0.27), (16, 0.15), (32, 0.08))) -
 def wrap_px(img: np.ndarray, x: int, y: int, c) -> None:
     h, w = img.shape[:2]
     img[y % h, x % w] = c
-
-
-def stamp_wrap(img: np.ndarray, spr: np.ndarray, x: int, y: int) -> None:
-    """Paste with wrap-around (for seamless tiles). Opaque pixels only."""
-    h, w = img.shape[:2]
-    sh, sw = spr.shape[:2]
-    for yy in range(sh):
-        for xx in range(sw):
-            if spr[yy, xx, 3] > 0:
-                img[(y + yy) % h, (x + xx) % w] = spr[yy, xx]
 
 
 # ======================================================================================
@@ -431,10 +421,6 @@ class Vox:
                 edge |= hit & qh & (dist > 2.9) & (depth < qd - 2)
             img[edge] = OUT
         return img
-
-    def ground_row(self, gy: float) -> float:
-        """Screen row (boundary coords) of the ground point at ground row gy (z = 0)."""
-        return gy + self.h
 
 
 def outline_img(img: np.ndarray) -> np.ndarray:
@@ -883,7 +869,6 @@ def lantern_post() -> np.ndarray:
 
 
 # ---- moonfall props -----------------------------------------------------------------------
-MF_LICHEN = [E.hexc("#1f2426"), E.hexc("#283032"), E.hexc("#323d3c"), E.hexc("#3d4a47")]
 CRYSTAL = [E.hexc("#1f1030"), E.hexc("#35195a"), E.hexc("#4f2a82"), E.hexc("#7148aa"), E.hexc("#9d7fd0"), E.hexc("#d4c4f2")]
 VFLAME = [E.hexc("#3d1f6e"), E.hexc("#5f35a8"), E.hexc("#8a62cc"), E.hexc("#b9a0e6"), E.hexc("#e0d4f5")]
 

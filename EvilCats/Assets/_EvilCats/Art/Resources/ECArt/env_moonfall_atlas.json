@@ -18,7 +18,7 @@
    ]
   },
   "env/moonfall/path/0": {
-   "x": 208,
+   "x": 94,
    "y": 132,
    "w": 16,
    "h": 16,
@@ -28,7 +28,7 @@
    ]
   },
   "env/moonfall/path/1": {
-   "x": 226,
+   "x": 112,
    "y": 132,
    "w": 16,
    "h": 16,
@@ -38,8 +38,8 @@
    ]
   },
   "env/moonfall/path/2": {
-   "x": 2,
-   "y": 174,
+   "x": 130,
+   "y": 132,
    "w": 16,
    "h": 16,
    "pivot": [
@@ -48,8 +48,8 @@
    ]
   },
   "env/moonfall/path/3": {
-   "x": 20,
-   "y": 174,
+   "x": 148,
+   "y": 132,
    "w": 16,
    "h": 16,
    "pivot": [
@@ -58,80 +58,80 @@
    ]
   },
   "env/moonfall/prop/banner_torn": {
-   "x": 50,
+   "x": 2,
    "y": 132,
-   "w": 16,
-   "h": 32,
+   "w": 22,
+   "h": 30,
    "pivot": [
     0.5,
     0.1
    ]
   },
   "env/moonfall/prop/brazier": {
-   "x": 68,
+   "x": 78,
    "y": 132,
-   "w": 18,
-   "h": 28,
+   "w": 14,
+   "h": 21,
    "pivot": [
     0.5,
     0.1
    ]
   },
   "env/moonfall/prop/cat_statue_a": {
-   "x": 2,
-   "y": 132,
-   "w": 24,
-   "h": 40,
+   "x": 214,
+   "y": 2,
+   "w": 22,
+   "h": 33,
    "pivot": [
     0.5,
     0.1
    ]
   },
   "env/moonfall/prop/cat_statue_b": {
-   "x": 216,
-   "y": 2,
+   "x": 48,
+   "y": 132,
    "w": 28,
-   "h": 40,
+   "h": 25,
    "pivot": [
     0.5,
     0.1
    ]
   },
   "env/moonfall/prop/crystal_a": {
-   "x": 140,
+   "x": 166,
    "y": 132,
-   "w": 18,
-   "h": 19,
+   "w": 16,
+   "h": 16,
    "pivot": [
     0.5,
     0.1
    ]
   },
   "env/moonfall/prop/crystal_b": {
-   "x": 38,
-   "y": 174,
-   "w": 15,
-   "h": 15,
+   "x": 26,
+   "y": 164,
+   "w": 14,
+   "h": 12,
    "pivot": [
     0.5,
     0.1
    ]
   },
   "env/moonfall/prop/grass_a": {
-   "x": 83,
-   "y": 174,
-   "w": 9,
-   "h": 8,
+   "x": 90,
+   "y": 164,
+   "w": 10,
+   "h": 7,
    "pivot": [
     0.5,
     0.1
    ]
   },
   "env/moonfall/prop/grass_b": {
-   "x": 71,
-   "y": 174,
+   "x": 78,
+   "y": 164,
    "w": 10,
-   "h": 9,
+   "h": 8,
    "pivot": [
     0.5,
     0.1
@@ -140,68 +140,68 @@
   "env/moonfall/prop/pillar_a": {
    "x": 198,
    "y": 2,
-   "w": 16,
-   "h": 42,
+   "w": 14,
+   "h": 41,
    "pivot": [
     0.5,
     0.1
    ]
   },
   "env/moonfall/prop/pillar_b": {
-   "x": 28,
+   "x": 26,
    "y": 132,
    "w": 20,
-   "h": 32,
+   "h": 27,
    "pivot": [
     0.5,
     0.1
    ]
   },
   "env/moonfall/prop/pillar_c": {
-   "x": 112,
+   "x": 212,
    "y": 132,
-   "w": 26,
-   "h": 20,
+   "w": 24,
+   "h": 13,
    "pivot": [
     0.5,
     0.1
    ]
   },
   "env/moonfall/prop/puddle": {
-   "x": 180,
+   "x": 184,
    "y": 132,
    "w": 26,
-   "h": 16,
+   "h": 14,
    "pivot": [
     0.5,
     0.1
    ]
   },
   "env/moonfall/prop/rubble_a": {
-   "x": 160,
-   "y": 132,
+   "x": 58,
+   "y": 164,
    "w": 18,
-   "h": 18,
+   "h": 9,
    "pivot": [
     0.5,
     0.1
    ]
   },
   "env/moonfall/prop/rubble_b": {
-   "x": 55,
-   "y": 174,
+   "x": 42,
+   "y": 164,
    "w": 14,
-   "h": 15,
+   "h": 10,
    "pivot": [
     0.5,
     0.1
    ]
   },
   "env/moonfall/prop/rubble_c": {
-   "x": 88,
-   "y": 132,
+   "x": 2,
+   "y": 164,
    "w": 22,
-   "h": 21,
+   "h": 13,
    "pivot": [
     0.5,
     0.1

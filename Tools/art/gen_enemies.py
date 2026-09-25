@@ -50,7 +50,7 @@ LEG: Dict[str, Tuple[int, int, int, int]] = {
     "L": PAL["leather0"], "M": PAL["leather1"], "N": PAL["leather2"],
 }
 
-RAT_LEG = {"A": PAL["rat0"], "B": PAL["rat1"], "C": PAL["rat2"], "D": PAL["rat3"], "E": E.hexc("#bcaebb")}
+RAT_LEG = {"A": PAL["rat0"], "B": PAL["rat1"], "C": PAL["rat2"], "D": PAL["rat3"], "E": PAL["silver2"]}
 
 
 def art(s: str, legend: Optional[Dict] = None) -> np.ndarray:
@@ -89,20 +89,6 @@ def blit(dst: np.ndarray, src: np.ndarray, x: int, y: int) -> None:
         ys, xs = np.nonzero(tr)
         for yy, xx in zip(ys, xs):
             E._blend_px(dst, x0 + xx, y0 + yy, tuple(int(v) for v in s[yy, xx]))
-
-
-def dilate(m: np.ndarray, diag: bool = False) -> np.ndarray:
-    g = m.copy()
-    g[1:, :] |= m[:-1, :]
-    g[:-1, :] |= m[1:, :]
-    g[:, 1:] |= m[:, :-1]
-    g[:, :-1] |= m[:, 1:]
-    if diag:
-        g[1:, 1:] |= m[:-1, :-1]
-        g[1:, :-1] |= m[:-1, 1:]
-        g[:-1, 1:] |= m[1:, :-1]
-        g[:-1, :-1] |= m[1:, 1:]
-    return g
 
 
 class Canvas:
@@ -172,19 +158,6 @@ def brighten(img: np.ndarray, k: float = 1.1, add: int = 8, keep=(OUTLINE,)) -> 
     return out
 
 
-def tint(img: np.ndarray, color, amount: float) -> np.ndarray:
-    out = img.copy()
-    m = img[:, :, 3] > 0
-    rgb = out[:, :, :3].astype(np.float32)
-    rgb = rgb * (1 - amount) + np.array(color[:3], np.float32) * amount
-    out[:, :, :3] = np.where(m[:, :, None], np.clip(rgb, 0, 255).astype(np.uint8), out[:, :, :3])
-    return out
-
-
-def recolor_chars(img: np.ndarray, mapping: Dict) -> np.ndarray:
-    return E.recolor(img, mapping)
-
-
 # --------------------------------------------------------------------------------------
 # Death puff (shared by all enemies): the body crumples into a bumpy cloud of dust, a few
 # sparks fly out and the little gold collar is left glinting on the ground. No gore.
@@ -234,6 +207,57 @@ def spark(img, x, y, big: bool = False, colors=SPARKS):
     if big:
         for ox, oy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
             E.px(img, x + ox, y + oy, colors[1])
+
+
+def soft_glow(img: np.ndarray, cx: float, cy: float, r: float, color, strength: float = 0.5) -> None:
+    """Soft translucent glow (FX only): brightens pixels and adds alpha into empty space."""
+    h, w = img.shape[:2]
+    ys, xs = np.mgrid[0:h, 0:w]
+    d = np.hypot(xs + 0.5 - cx, ys + 0.5 - cy) / r
+    a = (np.clip(1 - d, 0, 1) ** 1.6) * strength
+    src_a = img[:, :, 3].astype(np.float32) / 255.0
+    col = np.array(color[:3], np.float32)
+    rgb = img[:, :, :3].astype(np.float32)
+    # over opaque pixels: lighten toward the glow colour
+    lit = rgb * (1 - a[:, :, None] * 0.6) + col * a[:, :, None] * 0.6
+    empty = src_a == 0
+    out_rgb = np.where(empty[:, :, None], col, lit)
+    out_a = np.where(empty, a, src_a)
+    keep = (a > 0.02)
+    img[:, :, :3] = np.where(keep[:, :, None], np.clip(out_rgb, 0, 255), img[:, :, :3]).astype(np.uint8)
+    img[:, :, 3] = np.where(keep, np.clip(out_a * 255, 0, 255), img[:, :, 3]).astype(np.uint8)
+
+
+def glow_disc(img: np.ndarray, cx: float, cy: float, r: float, color, strength: float = 0.35,
+              under_only: bool = False) -> None:
+    """Soft additive-looking glow (FX only). With under_only, only brightens opaque pixels'
+    surroundings (never paints into empty space)."""
+    h, w = img.shape[:2]
+    ys, xs = np.mgrid[0:h, 0:w]
+    d = np.hypot(xs + 0.5 - cx, ys + 0.5 - cy) / r
+    a = np.clip(1 - d, 0, 1) ** 1.5 * strength
+    if under_only:
+        a = a * (img[:, :, 3] > 0)
+    a3 = a[:, :, None]
+    rgb = img[:, :, :3].astype(np.float32)
+    col = np.array(color[:3], np.float32)
+    rgb = rgb * (1 - a3) + col * a3 + (col * a3 * 0.3)
+    img[:, :, :3] = np.clip(rgb, 0, 255).astype(np.uint8)
+
+
+def _ring(img, cx, cy, rx, ry, colors, dither=False):
+    """1px ellipse ring (FX), light on the top-left arc."""
+    n = int(max(rx, ry) * 8)
+    pts = set()
+    for i in range(n):
+        a = i / n * math.tau
+        x, y = int(round(cx + math.cos(a) * rx)), int(round(cy + math.sin(a) * ry))
+        pts.add((x, y, a))
+    for (x, y, a) in pts:
+        if dither and (x + y) % 2:
+            continue
+        lit = math.cos(a) * -0.7 + math.sin(a) * -0.7
+        E.px(img, x, y, colors[0] if lit > 0.2 else colors[1])
 
 
 def squash(img: np.ndarray, fy: float, fx: float = 1.0, base: Optional[int] = None) -> np.ndarray:
@@ -328,10 +352,8 @@ def death_frames(hurt: np.ndarray, seed: int, scale: float = 1.0, sparks=SPARKS,
     frames.append(f)
 
     # 3: breaks up into smaller rising puffs, collar drops
-    bl = []
-    for i, (bx, by, br) in enumerate(blobs[:5]):
-        if i % 2 == 0 or i == 3:
-            bl.append((bx + (bx - cx) * 0.45, by - R * 0.45 + (by - cy) * 0.3, br * 0.6))
+    bl = [(cx - R * 0.95 * sx, cy - R * 0.55, R * 0.42), (cx + R * 0.9 * sx, cy - R * 0.35, R * 0.4),
+          (cx + R * 0.05, cy - R * 1.05, R * 0.46)]
     f = cloud(w, h, bl, ramp)
     if collar:
         collar_ring(f, int(round(cx)), g)
@@ -344,8 +366,9 @@ def death_frames(hurt: np.ndarray, seed: int, scale: float = 1.0, sparks=SPARKS,
     f = E.new(w, h)
     wisp = cloud(w, h, [(bx + (bx - cx) * 0.6, by - R * 0.9 + (by - cy) * 0.4, br * 0.6) for (bx, by, br) in bl],
                  ramp[1:], outline=False)
-    m = E.dither_mask(wisp[:, :, 3] > 0, 0.55, "checker")
-    f[m] = wisp[m]
+    m = wisp[:, :, 3] > 0
+    wisp[m, 3] = 120  # fading smoke (soft alpha is allowed for FX)
+    blit(f, wisp, 0, 0)
     if collar:
         collar_ring(f, int(round(cx)), g, glint=True)
         E.px(f, int(round(cx)) + 2, g - 3, PAL["gold4"])
@@ -368,7 +391,7 @@ class EnemyDef:
         if clip == "death":
             hurt = self.render(self.hurt, elite)
             fr = death_frames(hurt, self.seed + (7 if elite else 0), scale=self.death_scale,
-                              sparks=self.death_sparks, flying=self.flying)
+                              sparks=self.death_sparks, flying=self.flying, collar=not self.flying)
             return fr
         poses, _, _ = self.clips[clip]
         return [self.render(p, elite) for p in poses]
@@ -1315,7 +1338,6 @@ BBCCDD5.5DDDC
 .BBCCCCCCCCCC
 ..AABBBBBBBBA
 """)]
-PR_TRIM = {PAL["bone1"]: PAL["gold2"], PAL["bone0"]: PAL["gold1"]}
 PR_HOOVES = art("""
 jk...jk
 """)
@@ -1377,21 +1399,6 @@ PR_BELL = {
 }
 
 
-def _ring(img, cx, cy, rx, ry, colors, dither=False):
-    """1px ellipse ring (FX), light on the top-left arc."""
-    n = int(max(rx, ry) * 8)
-    pts = set()
-    for i in range(n):
-        a = i / n * math.tau
-        x, y = int(round(cx + math.cos(a) * rx)), int(round(cy + math.sin(a) * ry))
-        pts.add((x, y, a))
-    for (x, y, a) in pts:
-        if dither and (x + y) % 2:
-            continue
-        lit = math.cos(a) * -0.7 + math.sin(a) * -0.7
-        E.px(img, x, y, colors[0] if lit > 0.2 else colors[1])
-
-
 def draw_bell_priest(pose: dict, elite: bool) -> np.ndarray:
     c = Canvas(22, 28)
     g = ground_row(28)
@@ -1405,8 +1412,6 @@ def draw_bell_priest(pose: dict, elite: bool) -> np.ndarray:
     hv = PR_HOOVES
     c.put(hv, 7 + pose.get("hoof", 0), g)
     robe = PR_ROBE[pose.get("robe", 0)]
-    if elite:
-        robe = E.recolor(robe, PR_TRIM) if False else robe
     c.put(robe, 4 + bx, 12 + by)
     if elite:
         # gold hem + cuffs trim
@@ -1430,7 +1435,7 @@ def draw_bell_priest(pose: dict, elite: bool) -> np.ndarray:
     if pose.get("dings"):
         # little ringing arcs beside the bell
         cx, cy = blx + bx + 2, bly + by + 3
-        for (ox, oy) in ((3, -2), (4, 0), (3, 2), (-2, -2), (-3, 0), (-2, 2)):
+        for (ox, oy) in ((3, -2), (3, 0), (3, 2), (-2, -2), (-3, 0), (-2, 2)):
             E.px(img, cx + ox, cy + oy, PAL["gold4"])
     if pose.get("impact"):
         ix, iy = pose["impact"]
@@ -1534,7 +1539,6 @@ CB....
 .BDDDD
 """),
 }
-FUSE_TIP = (7, 0)  # relative to the keg origin
 
 
 def _spark_star(img, x, y, kind: int) -> None:
@@ -1568,25 +1572,6 @@ def _spark_star(img, x, y, kind: int) -> None:
         E.px(img, x + ox, y + oy, F)
     for ox, oy in ((2, 0), (-2, 0), (0, -2), (2, -2), (-2, -2)):
         E.px(img, x + ox, y + oy, R)
-
-
-def soft_glow(img: np.ndarray, cx: float, cy: float, r: float, color, strength: float = 0.5) -> None:
-    """Soft translucent glow (FX only): brightens pixels and adds alpha into empty space."""
-    h, w = img.shape[:2]
-    ys, xs = np.mgrid[0:h, 0:w]
-    d = np.hypot(xs + 0.5 - cx, ys + 0.5 - cy) / r
-    a = (np.clip(1 - d, 0, 1) ** 1.6) * strength
-    src_a = img[:, :, 3].astype(np.float32) / 255.0
-    col = np.array(color[:3], np.float32)
-    rgb = img[:, :, :3].astype(np.float32)
-    # over opaque pixels: lighten toward the glow colour
-    lit = rgb * (1 - a[:, :, None] * 0.6) + col * a[:, :, None] * 0.6
-    empty = src_a == 0
-    out_rgb = np.where(empty[:, :, None], col, lit)
-    out_a = np.where(empty, a, src_a)
-    keep = (a > 0.02)
-    img[:, :, :3] = np.where(keep[:, :, None], np.clip(out_rgb, 0, 255), img[:, :, :3]).astype(np.uint8)
-    img[:, :, 3] = np.where(keep, np.clip(out_a * 255, 0, 255), img[:, :, 3]).astype(np.uint8)
 
 
 def draw_powder_rat(pose: dict, elite: bool) -> np.ndarray:
@@ -1893,23 +1878,6 @@ def draw_iron_golem(pose: dict, elite: bool) -> np.ndarray:
     return img
 
 
-def glow_disc(img: np.ndarray, cx: float, cy: float, r: float, color, strength: float = 0.35,
-              under_only: bool = False) -> None:
-    """Soft additive-looking glow (FX only). With under_only, only brightens opaque pixels'
-    surroundings (never paints into empty space)."""
-    h, w = img.shape[:2]
-    ys, xs = np.mgrid[0:h, 0:w]
-    d = np.hypot(xs + 0.5 - cx, ys + 0.5 - cy) / r
-    a = np.clip(1 - d, 0, 1) ** 1.5 * strength
-    if under_only:
-        a = a * (img[:, :, 3] > 0)
-    a3 = a[:, :, None]
-    rgb = img[:, :, :3].astype(np.float32)
-    col = np.array(color[:3], np.float32)
-    rgb = rgb * (1 - a3) + col * a3 + (col * a3 * 0.3)
-    img[:, :, :3] = np.clip(rgb, 0, 255).astype(np.uint8)
-
-
 IRON_GOLEM = EnemyDef(
     "iron_golem", 36, 40, draw_iron_golem,
     {
@@ -1962,9 +1930,9 @@ MINI_BAT_UP = art("""
 
 def bat_swarm_icon() -> np.ndarray:
     c = Canvas(16, 16)
-    c.put(MINI_BAT_UP, 0, 1)
-    c.put(MINI_BAT, 7, 3)
-    c.put(MINI_BAT, 3, 9)
+    c.put(MINI_BAT_UP, 1, 1)
+    c.put(MINI_BAT, 6, 4)
+    c.put(MINI_BAT, 2, 10)
     img = c.finish()
     return img
 

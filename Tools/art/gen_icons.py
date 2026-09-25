@@ -1520,7 +1520,7 @@ def _p_molten():
     for a in range(0, 360, 45):
         g.ring(7, 7, 5.4, 6.9, "F", a + 8, a + 37)
     g.circle(7, 7, 3.6, "N")
-    return g.stamp([".hh.", "hffh", ".hh."], 5, 5).px(5, 4, "n" if False else "0")
+    return g.stamp([".hh.", "hffh", ".hh."], 5, 5).px(5, 4, "0")
 
 
 @perk("ember_furnace_heart")
@@ -1530,9 +1530,9 @@ def _p_furnace():
               ".NNNNN..NNNNN.",
               "NNhhhNNNNhhhNN",
               "NhffhhNNhhffhN",
-              "NoooooooooooON".replace("O", "o"),
+              "NooooooooooooN",
               "NhhffhhhhffhhN",
-              ".NoooooooooooN"[:13] + ".",
+              ".Nooooooooooo.",
               "..NhhhffhhhN..",
               "...NNhhhhNN...",
               "....NNhhNN....",
@@ -1627,8 +1627,8 @@ def _p_frozen_oath():
     g.poly([(7.0, 0.0), (10.8, 3.4), (10.8, 10.6), (7.0, 14.0), (3.2, 10.6), (3.2, 3.4)], "I")
     g.poly([(7.0, 0.0), (7.0, 14.0), (3.2, 10.6), (3.2, 3.4)], "U")
     g.stamp(["i", "i", "i"], 5, 2)
-    return g.stamp(["SS.NN.SS.NN.SS",
-                    "S.SN.NS.SN.NS."[:14]], 0, 6).stamp(["SS.NN.SS.NN.SS"], 0, 8).rect(0, 7, 14, 1, "o")
+    # a chain band binding the crystal (the oath)
+    return g.stamp(["SS.NN.SS.NN.SS"], 0, 6).rect(0, 7, 14, 1, "o").stamp(["SS.NN.SS.NN.SS"], 0, 8)
 
 
 # ---- BONE -----------------------------------------------------------------------------
@@ -1772,16 +1772,16 @@ def _p_reflective():
 
 @perk("ward_guardian_pact")
 def _p_guardian():
-    g = Grid().stamp([r.replace("T", "T") for r in ["TTTTTTTTTTTT",
-                                                    "TTTTTTTTTTTT",
-                                                    "TTTTTTTTTTTT",
-                                                    "TTTTTTTTTTTT",
-                                                    "TTTTTTTTTTTT",
-                                                    "TTTTTTTTTTTT",
-                                                    ".TTTTTTTTTT.",
-                                                    "..TTTTTTTT..",
-                                                    "...TTTTTT...",
-                                                    "....TTTT...."]], 1, 1)
+    g = Grid().stamp(["TTTTTTTTTTTT",
+                      "TTTTTTTTTTTT",
+                      "TTTTTTTTTTTT",
+                      "TTTTTTTTTTTT",
+                      "TTTTTTTTTTTT",
+                      "TTTTTTTTTTTT",
+                      ".TTTTTTTTTT.",
+                      "..TTTTTTTT..",
+                      "...TTTTTT...",
+                      "....TTTT...."], 1, 1)                  # shield behind the lantern
     return g.stamp(["...NN...",
                     "..N..N..",
                     ".NNNNNN.",
@@ -1805,13 +1805,11 @@ def _p_wider():
 
 @perk("gravity_crushing_centre")
 def _p_crushing():
-    g = Grid()
-    g.poly(star_points(7.0, 7.0, 4.2, 1.5, n=4, rot=-90), "p")
-    g.stamp(["..P..", ".PPP.", "PPPPP"], 0, 0)
-    return (g.stamp(["......PP......", ".....PPPP.....", "......PP......"], 0, 0)
-             .stamp(["......PP......", ".....PPPP.....", "......PP......"], 0, 11)
-             .stamp([".P.", "PPP", "PPP", ".P."], 0, 5).stamp([".P.", "PPP", "PPP", ".P."], 11, 5)
-             .rect(0, 0, 5, 3, "."))
+    # a star collapsing under debris falling in from all four sides
+    g = Grid().poly(star_points(7.0, 7.0, 4.2, 1.5, n=4, rot=-90), "p")
+    shard_v = ["......PP......", ".....PPPP.....", "......PP......"]
+    shard_h = [".P.", "PPP", "PPP", ".P."]
+    return g.stamp(shard_v, 0, 0).stamp(shard_v, 0, 11).stamp(shard_h, 0, 5).stamp(shard_h, 11, 5)
 
 
 @perk("gravity_event_horizon")
@@ -1819,7 +1817,8 @@ def _p_horizon():
     g = Grid()
     g.ring(8.5, 7, 3.4, 5.4, "q")
     g.circle(8.5, 7, 3.4, "k")
-    return g.stamp(["PPP", "", "PPPP", "", "PPP"][:1], 0, 3).rect(0, 3, 3, 1, "P").rect(0, 6, 3, 2, "P").rect(0, 10, 3, 1, "P")
+    # dark disc with a bright rim and speed lines trailing behind it
+    return g.rect(0, 3, 3, 1, "P").rect(0, 6, 3, 2, "P").rect(0, 10, 3, 1, "P")
 
 
 @perk("gravity_falling_star")
