@@ -1,0 +1,8 @@
+== routes_3
+  m02: win 100%  minHP 92 %  time 7:58  attack-angle coverage 50 %  sprite crowding 0.31
+  m05: win 100%  minHP 80 %  time 10:05  attack-angle coverage 46 %  sprite crowding 0.35
+  m08: win 100%  minHP 84 %  time 9:20  attack-angle coverage 44 %  sprite crowding 0.34
+== routes_5
+  m02: win 100%  minHP 87 %  time 8:18  attack-angle coverage 75 %  sprite crowding 0.40
+  m05: win 75%  minHP 25 %  time 10:17  attack-angle coverage 77 %  sprite crowding 0.36
+  m08: win 100%  minHP 82 %  time 9:52  attack-angle coverage 69 %  sprite crowding 0.34

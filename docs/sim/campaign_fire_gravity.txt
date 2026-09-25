@@ -1,0 +1,28 @@
+--- campaign build=fire_gravity seed=1 ---
+m01 attempts  1  WIN  waves 10/10  MG    40  shards 1  permLv  4  tiers   minHP 80 %  t 3:31
+m02 attempts  1  WIN  waves 20/20  MG    20  shards 1  permLv  6  tiers   minHP 88 %  t 8:13
+m03 attempts  1  WIN  waves 20/20  MG     0  shards 3  permLv 10  tiers   minHP 66 %  t 8:31
+m04 attempts  1  WIN  waves 20/20  MG    59  shards 1  permLv 11  tiers   minHP 34 %  t 8:51
+m05 attempts  1  WIN  waves 20/20  MG    64  shards 3  permLv 13  tiers   minHP 33 %  t 10:36
+m06 attempts  1  WIN  waves 20/20  MG    30  shards 5  permLv 16  tiers 2/2  minHP 21 %  t 9:22
+m07 attempts  1  WIN  waves 20/20  MG    25  shards 8  permLv 18  tiers 2/2/2  minHP 48 %  t 10:34
+m08 attempts  1  WIN  waves 20/20  MG    84  shards 6  permLv 20  tiers 2/2/2/2  minHP 40 %  t 10:16
+m09 attempts  1  WIN  waves 20/20  MG    87  shards 10  permLv 25  tiers 2/2/2/2  minHP 73 %  t 11:11
+m10 attempts  1  WIN  waves 20/20  MG     9  shards 10  permLv 30  tiers 2/2/2/2  minHP 8 %  t 11:41
+m11 attempts  2  WIN  waves 20/20  MG    37  shards 10  permLv 33  tiers 2/2/2/2  minHP 10 %  t 10:51
+m12 attempts  1  WIN  waves 20/20  MG   145  shards 17  permLv 35  tiers 3/3/2/3  minHP 36 %  t 10:07
+total runs 13, total play 124 min
+--- campaign build=fire_gravity seed=2 ---
+m01 attempts  1  WIN  waves 10/10  MG    40  shards 1  permLv  4  tiers   minHP 98 %  t 3:43
+m02 attempts  1  WIN  waves 20/20  MG    20  shards 1  permLv  6  tiers   minHP 95 %  t 8:05
+m03 attempts  1  WIN  waves 20/20  MG     0  shards 3  permLv 10  tiers   minHP 86 %  t 8:50
+m04 attempts  1  WIN  waves 20/20  MG    59  shards 1  permLv 11  tiers   minHP 52 %  t 9:29
+m05 attempts  3  WIN  waves 20/20  MG    15  shards 3  permLv 15  tiers   minHP 6 %  t 10:13
+m06 attempts  1  WIN  waves 20/20  MG    61  shards 5  permLv 16  tiers 2/2/2  minHP 63 %  t 9:48
+m07 attempts  1  WIN  waves 20/20  MG    39  shards 8  permLv 19  tiers 2/2/2  minHP 20 %  t 10:02
+m08 attempts  1  WIN  waves 20/20  MG    21  shards 6  permLv 22  tiers 2/2/2/2  minHP 43 %  t 10:13
+m09 attempts  1  WIN  waves 20/20  MG    68  shards 10  permLv 27  tiers 2/2/2/2  minHP 58 %  t 10:02
+m10 attempts  1  WIN  waves 20/20  MG     2  shards 10  permLv 31  tiers 2/2/2/2  minHP 34 %  t 10:28
+m11 attempts  1  WIN  waves 20/20  MG    42  shards 10  permLv 33  tiers 2/2/2/2  minHP 32 %  t 11:16
+m12 attempts  1  WIN  waves 20/20  MG    50  shards 17  permLv 35  tiers 3/3/2/3  minHP 16 %  t 10:39
+total runs 14, total play 132 min

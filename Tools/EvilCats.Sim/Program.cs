@@ -24,6 +24,9 @@ namespace EvilCats.SimTool
     public static class Program
     {
         static GameContent C;
+        /// <summary>--ward active: bots cast Nine-Lives Ward whenever it is ready under pressure.</summary>
+        static bool s_WardActive;
+        static int s_ExitCode;
 
         public static int Main(string[] args)
         {
@@ -33,6 +36,7 @@ namespace EvilCats.SimTool
             if (!rep.Ok) { Console.WriteLine(rep); return 1; }
             string cmd = args.Length > 0 ? args[0] : "sweep";
             var opt = ParseOpts(args);
+            s_WardActive = Opt(opt, "ward", "saved") == "active";
             switch (cmd)
             {
                 case "mission": RunMission(args.Length > 1 ? args[1] : "m01", opt); break;
@@ -47,7 +51,7 @@ namespace EvilCats.SimTool
                 case "trace": Trace(opt); break;
                 default: Console.WriteLine("unknown command " + cmd); return 1;
             }
-            return 0;
+            return s_ExitCode;
         }
 
         static Dictionary<string, string> ParseOpts(string[] args)
@@ -109,10 +113,10 @@ namespace EvilCats.SimTool
             var meta = new GameMeta(C, save);
             var setup = meta.CreateCampaignSetup(missionId, seed, false);
             setup.emitEvents = false;
-            GameContent content = C;
-            if (layout != null) { content = TestContent.Fresh(); content.Mission(missionId).routeLayout = layout; }
-            var b = new Battle(content, setup);
+            if (layout != null) setup.routeLayout = layout;
+            var b = new Battle(C, setup);
             var pilot = AutoPilot.Build(build, seed);
+            pilot.WardOnCooldown = s_WardActive;
             var sw = Stopwatch.StartNew();
             var r = AutoPilot.Play(b, pilot);
             sw.Stop();
@@ -290,35 +294,65 @@ namespace EvilCats.SimTool
             return (b.BuildResult(), b, b.TickCount, 0);
         }
 
+        /// <summary>
+        /// Worst-case simulation load: the arena held at the enemy cap (maxAlive) with a mix of
+        /// every enemy type, three stations firing (chains, shells + burning, frost pulses) and the
+        /// hero chaining. The citadel is made unkillable so the load lasts the whole run. The first
+        /// 10 s are excluded (JIT warm-up). Reports per-tick cost and events per tick.
+        /// </summary>
         static void Stress(Dictionary<string, string> o)
         {
+            int seconds = int.Parse(Opt(o, "seconds", "120"));
             var content = TestContent.Fresh();
-            content.Tuning.arena.maxAlive = 220;
-            var save = ProfileFor("high", "default", 12);
-            var meta = new GameMeta(content, save);
-            var setup = meta.CreateCampaignSetup("m12", 5, false);
-            var b = new Battle(content, setup);
-            // Force a crowd: spawn waves of cheap enemies by running the endless-style budget.
-            var spec = b.Spec;
-            spec.budget = 150; spec.budgetGrowth = 1.0f; spec.healthScale = 40f;
-            var pilot = AutoPilot.Build("default", 1);
-            pilot.UseAbilities = false;
-            var sw = new Stopwatch();
-            long ticks = 0; double worst = 0; int maxAlive = 0, maxProj = 0;
-            var events = new List<SimEvent>();
-            while (!b.IsOver && ticks < 30 * 90)
+            content.Tuning.hero.maxHealth = 1e9f;
+            int cap = content.Tuning.arena.maxAlive;
+            var setup = new BattleSetup
             {
-                pilot.Step(b);
+                mode = BattleMode.Campaign, missionId = "m12", seed = 11, sandbox = true,
+                loadout = new Dictionary<string, string> { { "crown", "arc_coil" }, { "middle", "ember_maw" }, { "base", "frost_whisker" } },
+            };
+            foreach (var kv in setup.loadout) setup.unlockedSlots.Add(kv.Key);
+            var b = new Battle(content, setup);
+            b.DebugAddPerk("arc_forked_bolt");
+            b.DebugAddPerk("arc_forked_bolt");
+            var types = new[] { "rat_raider", "hound_runner", "shield_guard", "crow_archer", "bat", "bell_priest", "powder_rat", "iron_golem" };
+            var rng = new Random(5);
+            var sw = new Stopwatch();
+            var times = new List<double>();
+            var events = new List<SimEvent>();
+            long totalEvents = 0;
+            int maxAlive = 0, maxProj = 0, warm = 30 * 10, total = 30 * seconds;
+            for (int t = 0; t < total; t++)
+            {
+                // keep the arena full: new enemies enter from the edges as others fall
+                while (b.AliveCount < cap)
+                {
+                    float ang = (float)(rng.NextDouble() * Math.PI * 2);
+                    var pos = new Vec2((float)Math.Cos(ang) * 7.6f, (float)Math.Sin(ang) * 9.6f);
+                    b.DebugSpawn(types[rng.Next(types.Length)], pos, rng.NextDouble() < 0.1);
+                }
+                if (b.Phase == BattlePhase.AwaitingPerk) b.ChoosePerk(0);   // level-ups would otherwise pause the run
                 sw.Restart();
-                if (b.Phase == BattlePhase.Running) b.Tick();
+                b.Tick();
                 sw.Stop();
-                b.DrainEvents(events); events.Clear();
-                ticks++;
-                worst = Math.Max(worst, sw.Elapsed.TotalMilliseconds);
+                b.DrainEvents(events);
+                if (t >= warm)
+                {
+                    times.Add(sw.Elapsed.TotalMilliseconds);
+                    totalEvents += events.Count;
+                }
+                events.Clear();
                 maxAlive = Math.Max(maxAlive, b.AliveCount);
                 maxProj = Math.Max(maxProj, b.Projectiles.Count);
             }
-            Console.WriteLine($"stress: {ticks} ticks, peak alive {maxAlive}, peak projectiles {maxProj}, worst tick {worst:0.00} ms (desktop CPU, .NET 8; a phone is several times slower)");
+            times.Sort();
+            double P(double q) => times[Math.Min(times.Count - 1, (int)(q * times.Count))];
+            double mean = 0; foreach (var x in times) mean += x; mean /= times.Count;
+            Console.WriteLine($"stress: {times.Count} measured ticks ({seconds - 10} s of game time after 10 s warm-up)");
+            Console.WriteLine($"  enemies alive (cap) {maxAlive}/{cap}, peak projectiles {maxProj}, events per tick {(double)totalEvents / times.Count:0.0}");
+            Console.WriteLine($"  tick cost ms: mean {mean:0.000}  p95 {P(0.95):0.000}  p99 {P(0.99):0.000}  max {times[times.Count - 1]:0.000}");
+            Console.WriteLine($"  budget: 30 ticks/s at 1x, 60 ticks/s at 2x -> at 2x the simulation uses {mean * 60 / 10:0.0}% of one desktop core");
+            Console.WriteLine("  (desktop CPU, .NET 8 JIT. Phones and IL2CPP differ; measure on a device with the Unity Profiler.)");
         }
 
         /// <summary>
@@ -514,7 +548,10 @@ namespace EvilCats.SimTool
             var r2 = RunFrames("m03", 2);
             Console.WriteLine($"1x: waves {r1.wavesCleared} kills {r1.stats.kills} hp {r1.healthFraction:0.0000} score {r1.score}");
             Console.WriteLine($"2x: waves {r2.wavesCleared} kills {r2.stats.kills} hp {r2.healthFraction:0.0000} score {r2.score}");
-            Console.WriteLine(r1.score == r2.score && r1.stats.kills == r2.stats.kills ? "IDENTICAL" : "DIFFERENT");
+            bool same = r1.score == r2.score && r1.stats.kills == r2.stats.kills && r1.wavesCleared == r2.wavesCleared
+                        && Math.Abs(r1.healthFraction - r2.healthFraction) < 1e-6f;
+            Console.WriteLine(same ? "IDENTICAL" : "DIFFERENT");
+            if (!same) s_ExitCode = 1;   // lets CI fail when 1x and 2x ever diverge
         }
 
         static RunResult RunFrames(string mid, int ticksPerFrame)

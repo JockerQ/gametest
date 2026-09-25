@@ -26,6 +26,9 @@ namespace EvilCats.Sim
         public bool BuyUpgrades = true;
         public bool SmartPriority = true;   // switch to Ranged Threat when archers/priests pile up
         public float SkillReaction = 1.0f;  // 1 = reacts to telegraphs, 0 = ignores them
+        /// <summary>Casts Nine-Lives Ward whenever it is ready and enemies are attacking (a more active
+        /// player). Off by default: the balance baseline assumes a player who saves it for emergencies.</summary>
+        public bool WardOnCooldown;
         private readonly Rng _rng;
 
         public AutoPilot(ulong seed = 1) { _rng = new Rng(seed, 1234u); }
@@ -145,7 +148,8 @@ namespace EvilCats.Sim
                 bool bigHitSoon = SkillReaction > 0f && HeavyAttackImminent(b);
                 bool lowAndPressured = b.Hp < b.MaxHp * 0.45f && b.AliveCount > 3;
                 bool noBoss = b.ActiveBoss == null;
-                if (bigHitSoon || (lowAndPressured && (noBoss || b.Hp < b.MaxHp * 0.25f))) b.CastWard();
+                bool active = WardOnCooldown && b.AliveCount >= 6 && b.Hp < b.MaxHp * 0.95f;
+                if (bigHitSoon || active || (lowAndPressured && (noBoss || b.Hp < b.MaxHp * 0.25f))) b.CastWard();
             }
             // Arc Storm: hit the best cluster, preferring powder rats that have lit their fuse.
             if (b.StormCooldown <= 0f)

@@ -1,0 +1,35 @@
+# Continuous integration that needs no Unity licence:
+#  - the 87 game-rule tests (the same C# files Unity compiles)
+#  - the determinism check (1x and 2x speed must give identical results)
+#  - the compile check of every Unity script (game, editor tools, Unity-only tests)
+# Running the Unity Test Runner and building an APK in CI needs a Unity licence secret;
+# see .github/workflows/unity.yml (manual) and NEXT_STEPS.md.
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  core-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Game rule tests
+        run: dotnet test Tools/EvilCats.Core.Tests -c Release
+      - name: Determinism (1x vs 2x speed)
+        run: dotnet run --project Tools/EvilCats.Sim -c Release -- speed
+  unity-compile-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: actions/cache@v4
+        with:
+          path: Tools/UnityCompileCheck/.cache
+          key: unity-compile-check-refs-v1
+      - name: Compile all Unity scripts outside Unity
+        run: Tools/UnityCompileCheck/check.sh

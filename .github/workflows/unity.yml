@@ -1,0 +1,61 @@
+# OPTIONAL and MANUAL: runs the Unity EditMode/PlayMode tests and builds a development APK with
+# GameCI (https://game.ci). It needs a Unity licence stored as repository secrets - never paste a
+# licence or password into a file or a chat:
+#   UNITY_LICENSE  (contents of the .ulf licence file), UNITY_EMAIL, UNITY_PASSWORD
+# This workflow has NOT been run yet (no licence was available while it was written).
+# Start it from GitHub: Actions > Unity > Run workflow. Build minutes on GitHub-hosted runners may
+# cost money on private repositories beyond the free allowance; check your plan first.
+name: Unity
+on:
+  workflow_dispatch:
+jobs:
+  unity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - uses: actions/cache@v4
+        with:
+          path: EvilCats/Library
+          key: Library-EvilCats-Android
+      # 1) Prepare the project in its own Unity session: some setup changes (the input backend)
+      #    only take effect after a restart. If you commit the ProjectSettings/scenes that
+      #    "Evil Cats > 1. Set Up Project" creates, this step becomes a quick no-op.
+      - name: Set up the project (idempotent)
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: EvilCats
+          targetPlatform: Android
+          buildMethod: EvilCats.EditorTools.ProjectSetup.RunBatch
+      # 2) Build the development APK (validates content, art and audio first)
+      - name: Build development APK
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: EvilCats
+          targetPlatform: Android
+          buildMethod: EvilCats.EditorTools.BuildScript.BuildDevelopmentApk
+      - name: EditMode and PlayMode tests
+        uses: game-ci/unity-test-runner@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: EvilCats
+          testMode: all
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evilcats-dev-apk-and-reports
+          path: |
+            EvilCats/Builds/Android
+            artifacts

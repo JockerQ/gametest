@@ -1,0 +1,5 @@
+stress: 3300 measured ticks (110 s of game time after 10 s warm-up)
+  enemies alive (cap) 140/140, peak projectiles 25, events per tick 8.2
+  tick cost ms: mean 0.032  p95 0.075  p99 0.181  max 0.454
+  budget: 30 ticks/s at 1x, 60 ticks/s at 2x -> at 2x the simulation uses 0.2% of one desktop core
+  (desktop CPU, .NET 8 JIT. Phones and IL2CPP differ; measure on a device with the Unity Profiler.)

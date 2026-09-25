@@ -1,0 +1,3 @@
+1x: waves 20 kills 370 hp 0.8253 score 27675
+2x: waves 20 kills 370 hp 0.8253 score 27675
+IDENTICAL
