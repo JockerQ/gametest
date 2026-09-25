@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>UnityEngine.Supplement</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Supplement.cs" />
+  </ItemGroup>
+</Project>

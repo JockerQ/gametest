@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Compiles Assets/_EvilCats/Scripts/Game exactly as the EvilCats.Game asmdef does, with the
+       scripting defines of the chosen build variant:
+         Editor  - Unity Editor with the Android target, Input System package active
+         Player  - Android release player (no editor code, no development mocks)
+         Legacy  - old Input Manager backend only (the setup script switches it; this must compile too) -->
+  <PropertyGroup>
+    <AssemblyName>EvilCats.Game</AssemblyName>
+    <DefineConstants Condition="'$(Variant)' == 'Editor'">UNITY_EDITOR;UNITY_ANDROID;DEVELOPMENT_BUILD;UNITY_6000_0_OR_NEWER;ENABLE_INPUT_SYSTEM;EC_INPUT_SYSTEM_PACKAGE;EC_URP_PACKAGE</DefineConstants>
+    <DefineConstants Condition="'$(Variant)' == 'Player'">UNITY_ANDROID;UNITY_6000_0_OR_NEWER;ENABLE_INPUT_SYSTEM;EC_INPUT_SYSTEM_PACKAGE;EC_URP_PACKAGE</DefineConstants>
+    <DefineConstants Condition="'$(Variant)' == 'Legacy'">UNITY_ANDROID;UNITY_6000_0_OR_NEWER;ENABLE_LEGACY_INPUT_MANAGER;EC_URP_PACKAGE</DefineConstants>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(ProjectRoot)/Scripts/Game/**/*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../EvilCats.Core/EvilCats.Core.csproj" />
+    <ProjectReference Include="../UnityEngine.UI/UnityEngine.UI.csproj" />
+    <ProjectReference Include="../Unity.TextMeshPro/Unity.TextMeshPro.csproj" />
+    <ProjectReference Include="../Stubs/Unity.InputSystem/Unity.InputSystem.csproj" />
+    <ProjectReference Include="../Stubs/UnityEngine.Supplement/UnityEngine.Supplement.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+</Project>

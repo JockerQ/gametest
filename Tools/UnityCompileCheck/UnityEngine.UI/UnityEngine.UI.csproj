@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- uGUI runtime from the public package mirror (com.unity.ugui). -->
+  <PropertyGroup>
+    <AssemblyName>UnityEngine.UI</AssemblyName>
+    <DefineConstants>PACKAGE_PHYSICS;PACKAGE_PHYSICS2D;PACKAGE_ANIMATION;PACKAGE_TILEMAP;PACKAGE_UITOOLKIT</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(CacheDir)/ugui/Runtime/**/*.cs" />
+  </ItemGroup>
+</Project>

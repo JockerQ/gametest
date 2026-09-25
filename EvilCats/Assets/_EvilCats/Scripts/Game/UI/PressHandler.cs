@@ -24,7 +24,8 @@ namespace EvilCats.Game
 
         public void OnPointerUp(PointerEventData e)
         {
-            if (_down && !_held) OnTap?.Invoke();
+            // a press that turned into scrolling a list is not a tap
+            if (_down && !_held && !e.dragging) OnTap?.Invoke();
             if (_held) OnHoldEnd?.Invoke();
             _down = _held = false;
         }

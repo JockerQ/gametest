@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Unity.InputSystem</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="InputSystemStub.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../UnityEngine.UI/UnityEngine.UI.csproj" />
+  </ItemGroup>
+</Project>

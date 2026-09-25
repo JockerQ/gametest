@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- TextMeshPro runtime from the public package mirror (com.unity.textmeshpro). -->
+  <PropertyGroup>
+    <AssemblyName>Unity.TextMeshPro</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(CacheDir)/tmp/Scripts/Runtime/**/*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../UnityEngine.UI/UnityEngine.UI.csproj" />
+  </ItemGroup>
+</Project>

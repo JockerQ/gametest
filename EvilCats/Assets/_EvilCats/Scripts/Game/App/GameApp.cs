@@ -163,6 +163,9 @@ namespace EvilCats.Game
             Audio.Init();
         }
 
+        /// <summary>Re-creates the service adapters (after the developer mock toggle changes).</summary>
+        public void ReloadServices() => Services = ServiceHub.CreateDefault();
+
         public void ApplySettings()
         {
             if (Meta == null) return;
@@ -193,6 +196,26 @@ namespace EvilCats.Game
         public void SaveNow()
         {
             if (Meta != null) Meta.Save(UtcNow);
+        }
+
+        /// <summary>
+        /// Settings > Reset progress (after a confirmation). Deletes the save and its backup and
+        /// starts a new guest profile. Audio/accessibility settings are kept because they are
+        /// preferences, not progress. Returns to the first-launch flow.
+        /// </summary>
+        public void ResetProgress()
+        {
+            if (Meta == null || Saves == null) return;
+            var keep = Meta.Data.settings;
+            Saves.DeleteAll();
+            var fresh = SaveManager.NewProfile(UtcNow);
+            fresh.settings = keep;
+            Meta.ReplaceData(fresh);
+            Meta.EnsureDaily(LocalNow);
+            Meta.Save(UtcNow);
+            LastOutcome = null;
+            HubStartScreen = null;
+            GoTo(BootScene);
         }
 
         private void OnApplicationPause(bool paused)

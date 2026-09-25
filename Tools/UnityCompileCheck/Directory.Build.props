@@ -1,0 +1,21 @@
+<Project>
+  <!-- Shared settings: Unity 6 compiles scripts as C# 9 against .NET Standard 2.1. -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <NoWarn>$(NoWarn);CS0618;CS0649;CS0414;CS0169;CS0067;CS1591;CS0108;CS0114;CS0672;CS0612</NoWarn>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <UnityRefDir>$(MSBuildThisFileDirectory).cache/unityengine.modules/lib/netstandard2.0</UnityRefDir>
+    <ProjectRoot>$(MSBuildThisFileDirectory)../../EvilCats/Assets/_EvilCats</ProjectRoot>
+    <CacheDir>$(MSBuildThisFileDirectory).cache</CacheDir>
+    <!-- Which Unity build to imitate: Editor (default), Player (Android release) or Legacy (old input backend) -->
+    <Variant Condition="'$(Variant)' == ''">Editor</Variant>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="$(UnityRefDir)/*.dll" Private="false" />
+  </ItemGroup>
+</Project>
