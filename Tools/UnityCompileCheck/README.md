@@ -29,3 +29,7 @@ Tools/UnityCompileCheck/check.sh
 ```
 
 The first run downloads about 100 MB of reference material into `.cache/` (ignored by git).
+
+It needs a **.NET 8 SDK**. `global.json` in this folder selects it even when a newer SDK is
+installed, so the check always runs with the version it was verified with. The script prints
+the SDK version it used.

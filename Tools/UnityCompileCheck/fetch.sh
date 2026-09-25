@@ -13,7 +13,10 @@ if [ ! -f "$refs/UnityEngine.CoreModule.dll" ]; then
   curl -fsSL -o unityengine.modules.nupkg https://api.nuget.org/v3-flatcontainer/unityengine.modules/2021.3.33/unityengine.modules.2021.3.33.nupkg
   unzip -q -o unityengine.modules.nupkg -d unityengine.modules
 fi
-if [ ! -f "$refs/UnityEngine.CoreModule.dll" ]; then
+# The package's zip entries carry Unix mode 000, so unzip creates files nobody but root can
+# read (the compiler then silently skips them: MSB3246 "access denied"). Make them readable.
+chmod -R u+rwX,go+rX unityengine.modules
+if [ ! -r "$refs/UnityEngine.CoreModule.dll" ]; then
   echo "ERROR: UnityEngine reference assemblies missing in $(pwd)/$refs" >&2
   exit 1
 fi

@@ -3,8 +3,8 @@
 # Usage: Tools/UnityCompileCheck/check.sh        -> exit code 0 when every variant compiles
 set -euo pipefail
 cd "$(dirname "$0")"
-# global.json here selects a .NET 8 SDK: the check was verified with it, and newer SDKs
-# (the default on GitHub runners) are an untested variable.
+# global.json here selects a .NET 8 SDK, the version this check was verified with (GitHub
+# runners would otherwise use their newest SDK).
 echo "dotnet SDK $(dotnet --version)"
 ./fetch.sh
 status=0
